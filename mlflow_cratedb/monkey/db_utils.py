@@ -3,6 +3,8 @@ import typing as t
 
 import sqlalchemy as sa
 
+from mlflow_cratedb.adapter.db import enable_refresh_after_dml
+
 
 def patch_db_utils():
     import mlflow.store.db.utils as db_utils
@@ -21,6 +23,7 @@ def _initialize_tables(engine: sa.Engine):
 
     from mlflow_cratedb.adapter.db import _setup_db_create_tables
 
+    enable_refresh_after_dml()
     patch_sqlalchemy_inspector(engine)
     _logger.info("Creating initial MLflow database tables...")
     _setup_db_create_tables(engine)

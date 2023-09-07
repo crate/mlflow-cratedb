@@ -5,7 +5,6 @@ from mlflow_cratedb.monkey.db_utils import patch_db_utils
 from mlflow_cratedb.monkey.environment_variables import patch_environment_variables
 from mlflow_cratedb.monkey.models import patch_models
 from mlflow_cratedb.monkey.server import patch_run_server
-from mlflow_cratedb.monkey.tracking import patch_sqlalchemy_store
 
 logger = logging.getLogger("mlflow")
 
@@ -19,7 +18,6 @@ def patch_all():
 
     patch_environment_variables()
     patch_models()
-    patch_sqlalchemy_store()
     patch_dbtypes()
     patch_db_utils()
     patch_run_server()
