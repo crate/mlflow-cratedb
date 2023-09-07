@@ -29,6 +29,14 @@ jobs:
       OS: ${{ matrix.os }}
       PYTHON: ${{ matrix.python-version }}
 
+    # https://docs.github.com/en/free-pro-team@latest/actions/guides/about-service-containers
+    services:
+      cratedb:
+        image: crate/crate:nightly
+        ports:
+          - 4200:4200
+          - 5432:5432
+
     name: Python ${{ matrix.python-version }} on OS ${{ matrix.os }}
     steps:
 
