@@ -29,11 +29,15 @@ docker run --rm -it --publish=4200:4200 --publish=5432:5432 \
 Start the MLflow server, pointing it to your [CrateDB] instance,
 running on `localhost`.
 ```shell
-mlflow-cratedb server --backend-store-uri='crate://crate@localhost' --dev
+mlflow-cratedb server --backend-store-uri='crate://crate@localhost/?schema=mlflow' --dev
 ```
 
 Please note that you need to invoke the `mlflow-cratedb` command, which
 runs MLflow amalgamated with the necessary changes to support CrateDB.
+
+Also note that we recommend to use a dedicated schema for storing MLflows
+tables. In that spirit, the default schema `"doc"` is not populated by
+tables of 3rd-party systems.
 
 
 ## Development
