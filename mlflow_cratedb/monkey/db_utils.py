@@ -1,3 +1,4 @@
+import functools
 import typing as t
 
 import sqlalchemy as sa
@@ -10,6 +11,7 @@ def patch_db_utils():
     db_utils._verify_schema = _verify_schema
 
 
+@functools.cache
 def _initialize_tables(engine: sa.Engine):
     """
     Skip SQLAlchemy schema provisioning and Alembic migrations.
