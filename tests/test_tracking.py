@@ -73,7 +73,7 @@ from mlflow_cratedb.adapter.db import CRATEDB
 from .abstract import AbstractStoreTest
 from .util import invoke_cli_runner, assert_dataset_inputs_equal
 
-DB_URI = "sqlite:///"
+DB_URI = "crate://crate@localhost/?schema=testdrive"
 ARTIFACT_URI = "artifact_folder"
 
 pytestmark = pytest.mark.notrackingurimock
@@ -151,6 +151,8 @@ class TestSqlAlchemyStore(unittest.TestCase, AbstractStoreTest):
         return self._run_factory()
 
     def _setup_db_uri(self):
+        # Original code
+        """
         if uri := MLFLOW_TRACKING_URI.get():
             self.temp_dbfile = None
             self.db_url = uri
@@ -159,6 +161,9 @@ class TestSqlAlchemyStore(unittest.TestCase, AbstractStoreTest):
             # Close handle immediately so that we can remove the file later on in Windows
             os.close(fd)
             self.db_url = f"{DB_URI}{self.temp_dbfile}"
+        """
+        self.temp_dbfile = None
+        self.db_url = DB_URI
 
     def setUp(self):
         self._setup_db_uri()
@@ -177,6 +182,8 @@ class TestSqlAlchemyStore(unittest.TestCase, AbstractStoreTest):
             return "DBCC CHECKIDENT (experiments, RESEED, 0)"
         elif dialect == SQLITE:
             # In SQLite, deleting all experiments resets experiment_id
+            return None
+        elif dialect == CRATEDB:
             return None
         raise ValueError(f"Invalid dialect: {dialect}")
 
@@ -664,6 +671,7 @@ class TestSqlAlchemyStore(unittest.TestCase, AbstractStoreTest):
             POSTGRES: r"null value in column .+ of relation .+ violates not-null constrain",
             MYSQL: r"(Field .+ doesn't have a default value|Instance .+ has a NULL identity key)",
             MSSQL: r"Cannot insert the value NULL into column .+, table .+",
+            CRATEDB: r"Column `.+` is required but is missing from the insert statement",
         }[self.store._get_dialect()]
         # Depending on the implementation, a NULL identity key may result in different
         # exceptions, including IntegrityError (sqlite) and FlushError (MysQL).
@@ -1091,6 +1099,7 @@ class TestSqlAlchemyStore(unittest.TestCase, AbstractStoreTest):
             POSTGRES: r"null value in column .+ of relation .+ violates not-null constrain",
             MYSQL: r"Column .+ cannot be null",
             MSSQL: r"Cannot insert the value NULL into column .+, table .+",
+            CRATEDB: r'".+" must not be null',
         }[dialect]
         with pytest.raises(MlflowException, match=regex) as exception_context:
             self.store.log_param(run.info.run_id, param)
@@ -1496,6 +1505,8 @@ class TestSqlAlchemyStore(unittest.TestCase, AbstractStoreTest):
             "None/1",
         ]
 
+        # NOTE: The only occurrence where CrateDB and patches behave slightly
+        #       different wrt. sort order of None/NaN values. C'est la vie.
         # desc / desc
         assert self.get_ordered_runs(["metrics.x desc", "param.metric desc"], experiment_id) == [
             "inf/3",
@@ -1504,8 +1515,8 @@ class TestSqlAlchemyStore(unittest.TestCase, AbstractStoreTest):
             "0/6",
             "-1000/5",
             "-inf/4",
-            "nan/2",
             "None/1",
+            "nan/2",
         ]
 
     def test_order_by_attributes(self):
