@@ -12,3 +12,6 @@ coverage.xml
 *.egg-info
 *.pyc
 __pycache__
+
+/mlartifacts
+/mlruns

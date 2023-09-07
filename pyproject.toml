@@ -12,11 +12,11 @@ readme = "README.md"
 requires-python = ">=3.8"
 license = {text = "Apache License 2.0"}
 keywords = [
-  "mlflow",
   "cratedb",
-  "mlops",
-  "mlflow-tracking",
   "machine learning",
+  "mlflow",
+  "mlflow-tracking",
+  "mlops",
 ]
 authors = [
   {name = "Andreas Motl", email = "andreas.motl@crate.io"},
@@ -48,9 +48,9 @@ classifiers = [
 dependencies = [
   "crash",
   "crate[sqlalchemy]",
-  "mlflow==2.6.0",
+  "mlflow==2.6",
   "sqlparse<0.5",
-  "vasuki>=0.4,<1",
+  "vasuki<1,>=0.4",
 ]
 
 [project.optional-dependencies]
@@ -71,6 +71,10 @@ test = [
   "coverage<8",
   "pytest<8",
 ]
+[project.scripts]
+mlflow-cratedb = "mlflow_cratedb.cli:cli"
+[project.entry-points."mlflow.app"]
+mlflow-cratedb = "mlflow_cratedb.server:app"
 [tool.setuptools]
 # https://setuptools.pypa.io/en/latest/userguide/package_discovery.html
 packages = ["mlflow_cratedb"]
@@ -80,7 +84,6 @@ changelog = "https://github.com/crate-workbench/mlflow-cratedb/blob/main/CHANGES
 documentation = "https://github.com/crate-workbench/mlflow-cratedb"
 homepage = "https://github.com/crate-workbench/mlflow-cratedb"
 repository = "https://github.com/crate-workbench/mlflow-cratedb"
-
 [tool.black]
 line-length = 120
 

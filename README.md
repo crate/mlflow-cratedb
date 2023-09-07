@@ -3,7 +3,8 @@
 
 ## About
 
-A wrapper around [MLflow] to use [CrateDB] as storage database for [MLflow Tracking].
+An adapter wrapper for [MLflow] to use [CrateDB] as a storage database
+for [MLflow Tracking].
 
 
 ## Setup
@@ -16,7 +17,23 @@ pip install --upgrade 'git+https://github.com/crate-workbench/mlflow-cratedb'
 
 ## Usage
 
-TODO.
+In order to spin up a CrateDB instance without further ado, you can use
+Docker or Podman.
+```shell
+docker run --rm -it --publish=4200:4200 --publish=5432:5432 \
+  --env=CRATE_HEAP_SIZE=4g crate \
+  -Cdiscovery.type=single-node \
+  -Ccluster.routing.allocation.disk.threshold_enabled=false
+```
+
+Start the MLflow server, pointing it to your [CrateDB] instance,
+running on `localhost`.
+```shell
+mlflow-cratedb server --backend-store-uri='crate://crate@localhost' --dev
+```
+
+Please note that you need to invoke the `mlflow-cratedb` command, which
+runs MLflow amalgamated with the necessary changes to support CrateDB.
 
 
 ## Development

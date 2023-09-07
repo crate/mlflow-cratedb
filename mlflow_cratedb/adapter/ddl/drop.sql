@@ -1,0 +1,15 @@
+DROP TABLE IF EXISTS "{schema_name}"."datasets";
+DROP TABLE IF EXISTS "{schema_name}"."experiment_tags";
+DROP TABLE IF EXISTS "{schema_name}"."experiments";
+DROP TABLE IF EXISTS "{schema_name}"."inputs";
+DROP TABLE IF EXISTS "{schema_name}"."input_tags";
+DROP TABLE IF EXISTS "{schema_name}"."latest_metrics";
+DROP TABLE IF EXISTS "{schema_name}"."metrics";
+DROP TABLE IF EXISTS "{schema_name}"."model_versions";
+DROP TABLE IF EXISTS "{schema_name}"."model_version_tags";
+DROP TABLE IF EXISTS "{schema_name}"."params";
+DROP TABLE IF EXISTS "{schema_name}"."registered_models";
+DROP TABLE IF EXISTS "{schema_name}"."registered_model_aliases";
+DROP TABLE IF EXISTS "{schema_name}"."registered_model_tags";
+DROP TABLE IF EXISTS "{schema_name}"."runs";
+DROP TABLE IF EXISTS "{schema_name}"."tags";
