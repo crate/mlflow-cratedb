@@ -1,3 +1,4 @@
+# Source: mlflow:tests/tracking/test_tracking.py
 import json
 import math
 import os
@@ -68,9 +69,9 @@ from mlflow.utils.os import is_windows
 from mlflow.utils.time_utils import get_current_time_millis
 from mlflow.utils.uri import extract_db_type_from_uri
 
-from tests.integration.utils import invoke_cli_runner
-from tests.store.tracking import AbstractStoreTest
-from tests.store.tracking.test_file_store import assert_dataset_inputs_equal
+from mlflow_cratedb.adapter.db import CRATEDB
+from .abstract import AbstractStoreTest
+from .util import invoke_cli_runner, assert_dataset_inputs_equal
 
 DB_URI = "sqlite:///"
 ARTIFACT_URI = "artifact_folder"
