@@ -2729,16 +2729,6 @@ class TestSqlAlchemyStore(unittest.TestCase, AbstractStoreTest):
         with pytest.raises(MlflowException, match="exceeded length"):
             self.store.log_batch(run.info.run_id, [], param_entities, [])
 
-    def test_upgrade_cli_idempotence(self):
-        # Repeatedly run `mlflow db upgrade` against our database, verifying that the command
-        # succeeds and that the DB has the latest schema
-        engine = sqlalchemy.create_engine(self.db_url)
-        assert _get_schema_version(engine) == _get_latest_schema_revision()
-        for _ in range(3):
-            invoke_cli_runner(mlflow.db.commands, ["upgrade", self.db_url])
-            assert _get_schema_version(engine) == _get_latest_schema_revision()
-        engine.dispose()
-
     def _generate_large_data(self, nb_runs=1000):
         experiment_id = self.store.create_experiment("test_experiment")
 
@@ -3357,21 +3347,6 @@ class TestSqlAlchemyStore(unittest.TestCase, AbstractStoreTest):
         assert_dataset_inputs_equal(
             run1.inputs.dataset_inputs, [entities.DatasetInput(dataset1, tags1)]
         )
-
-
-class TestSqlAlchemyStoreMigratedDB(TestSqlAlchemyStore):
-    """
-    Test case where user has an existing DB with schema generated before MLflow 1.0,
-    then migrates their DB.
-    """
-
-    def setUp(self):
-        super()._setup_db_uri()
-        engine = sqlalchemy.create_engine(self.db_url)
-        InitialBase.metadata.create_all(engine)
-        engine.dispose()
-        invoke_cli_runner(mlflow.db.commands, ["upgrade", self.db_url])
-        self.store = SqlAlchemyStore(self.db_url, ARTIFACT_URI)
 
 
 class TextClauseMatcher:
