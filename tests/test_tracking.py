@@ -168,6 +168,9 @@ class TestSqlAlchemyStore(unittest.TestCase, AbstractStoreTest):
     def setUp(self):
         self._setup_db_uri()
         self.store = self._get_store(self.db_url)
+        # Prune tables on test setup instead of teardown, in order to
+        # make it possible to inspect the database on failed test runs.
+        self.pruneTables()
 
     def get_store(self):
         return self.store
@@ -191,9 +194,18 @@ class TestSqlAlchemyStore(unittest.TestCase, AbstractStoreTest):
         if self.temp_dbfile:
             os.remove(self.temp_dbfile)
         else:
-            with self.store.ManagedSessionMaker() as session:
-                # Delete all rows in all tables
-                for model in (
+            # Do not prune tables on test teardown, but on test setup instead.
+            pass
+        shutil.rmtree(ARTIFACT_URI)
+
+    def pruneTables(self):
+        """
+        Helper method to prune all database tables.
+        Used on test setup to have a clean database canvas for each test case.
+        """
+        with self.store.ManagedSessionMaker() as session:
+            # Delete all rows in all tables
+            for model in (
                     SqlParam,
                     SqlMetric,
                     SqlLatestMetric,
@@ -204,14 +216,17 @@ class TestSqlAlchemyStore(unittest.TestCase, AbstractStoreTest):
                     SqlRun,
                     SqlExperimentTag,
                     SqlExperiment,
-                ):
-                    session.query(model).delete()
+            ):
+                session.query(model).delete()
 
-                # Reset experiment_id to start at 1
-                reset_experiment_id = self._get_query_to_reset_experiment_id()
-                if reset_experiment_id:
-                    session.execute(sqlalchemy.sql.text(reset_experiment_id))
-        shutil.rmtree(ARTIFACT_URI)
+            # Reset experiment_id to start at 1
+            reset_experiment_id = self._get_query_to_reset_experiment_id()
+            if reset_experiment_id:
+                session.execute(sqlalchemy.sql.text(reset_experiment_id))
+
+            # After pruning, need to re-create the default experiment.
+            # That is an acceptable obstacle.
+            self.store._create_default_experiment(session)
 
     def _experiment_factory(self, names):
         if isinstance(names, (list, tuple)):
