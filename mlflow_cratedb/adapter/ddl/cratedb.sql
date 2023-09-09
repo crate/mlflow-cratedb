@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS {schema_prefix}"input_tags" (
 
 CREATE TABLE IF NOT EXISTS {schema_prefix}"latest_metrics" (
    "key" TEXT NOT NULL,
-   "value" REAL NOT NULL,
+   "value" DOUBLE NOT NULL,
    "timestamp" BIGINT NOT NULL,
    "step" BIGINT NOT NULL,
    "is_nan" BOOLEAN NOT NULL,
@@ -55,12 +55,12 @@ CREATE TABLE IF NOT EXISTS {schema_prefix}"latest_metrics" (
 
 CREATE TABLE IF NOT EXISTS {schema_prefix}"metrics" (
    "key" TEXT NOT NULL,
-   "value" REAL NOT NULL,
+   "value" DOUBLE NOT NULL,
    "timestamp" BIGINT NOT NULL,
    "step" BIGINT NOT NULL,
    "is_nan" BOOLEAN NOT NULL,
    "run_uuid" TEXT NOT NULL,
-   PRIMARY KEY ("key", "timestamp", "step", "run_uuid", "is_nan")
+   PRIMARY KEY ("key", "timestamp", "step", "run_uuid", "value", "is_nan")
 );
 
 CREATE TABLE IF NOT EXISTS {schema_prefix}"model_versions" (
