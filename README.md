@@ -69,7 +69,18 @@ pytest -m slow
 ```
 
 
+## Acknowledgements
+
+[Siddharth Murching], [Corey Zumar], [Harutaka Kawamura], [Ben Wilson], and
+all other contributors for conceiving and maintaining [MLflow].
+
+
+
+[Ben Wilson]: https://github.com/BenWilson2
+[Corey Zumar]: https://github.com/dbczumar
 [CrateDB]: https://github.com/crate/crate
 [CrateDB Cloud]: https://console.cratedb.cloud/
+[Harutaka Kawamura]: https://github.com/harupy
 [MLflow]: https://mlflow.org/
 [MLflow Tracking]: https://mlflow.org/docs/latest/tracking.html
+[Siddharth Murching]: https://github.com/smurching
