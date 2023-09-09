@@ -1,6 +1,3 @@
-from mlflow_cratedb.adapter.util import generate_unique_integer
-
-
 def patch_crate_python():
     patch_compiler()
     patch_models()
@@ -15,7 +12,7 @@ def patch_models():
     non-sequential identifier based on Hashids.
 
     TODO: Submit patch to `crate-python`, to be enabled by a
-          dialect parameter `crate_translate_autoincrement` or such.
+          dialect parameter `crate_polyfill_autoincrement` or such.
     """
     import sqlalchemy.sql.schema as schema
 
@@ -85,7 +82,7 @@ def check_uniqueness_factory(sa_entity, attribute_name):
     CrateDB does not support the UNIQUE constraint on columns. This attempts to emulate it.
 
     TODO: Submit patch to `crate-python`, to be enabled by a
-          dialect parameter `crate_translate_unique` or such.
+          dialect parameter `crate_polyfill_unique` or such.
     """
 
     def check_uniqueness(mapper, connection, target):
@@ -107,3 +104,12 @@ def check_uniqueness_factory(sa_entity, attribute_name):
                 )
 
     return check_uniqueness
+
+
+def generate_unique_integer() -> int:
+    """
+    Produce a short, unique, non-sequential identifier based on Hashids.
+    """
+    from vasuki import generate_nagamani19_int
+
+    return generate_nagamani19_int(size=10)
