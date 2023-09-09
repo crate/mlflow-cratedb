@@ -23,3 +23,20 @@ def patch_models():
         init_dist(self, *args, **kwargs)
 
     schema.Column.__init__ = __init__  # type: ignore[method-assign]
+
+
+def patch_compiler():
+    """
+    Patch CrateDB SQLAlchemy dialect to not omit the `FOR UPDATE` clause on
+    `SELECT ... FOR UPDATE` statements.
+
+    https://github.com/crate-workbench/mlflow-cratedb/issues/7
+
+    TODO: Submit to `crate-python` as a bugfix patch.
+    """
+    from crate.client.sqlalchemy.compiler import CrateCompiler
+
+    def for_update_clause(self, select, **kw):
+        return ""
+
+    CrateCompiler.for_update_clause = for_update_clause
