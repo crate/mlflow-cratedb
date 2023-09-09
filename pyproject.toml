@@ -102,6 +102,8 @@ log_cli_level = "DEBUG"
 testpaths = ["tests"]
 xfail_strict = true
 markers = [
+  "notrackingurimock",
+  "slow",
 ]
 
 [tool.coverage.run]
@@ -186,8 +188,12 @@ lint = [
 test = [
   { cmd = "pytest" },
 ]
+test-fast = [
+  { cmd = "pytest -m 'not slow'" },
+]
 build = { cmd = "python -m build" }
 check = ["lint", "test"]
+check-fast = ["lint", "test-fast"]
 
 release = [
   { cmd = "minibump bump --relax patch" },
