@@ -165,7 +165,6 @@ select = [
 ]
 
 extend-exclude = [
-  "tests/test_tracking.py",
 ]
 
 
