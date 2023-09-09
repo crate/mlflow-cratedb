@@ -2,7 +2,7 @@ import math
 from functools import partial
 
 
-def patch_mlflow_tracking():
+def patch_tracking():
     """
     Patch the experiment tracking subsystem of MLflow.
     """
