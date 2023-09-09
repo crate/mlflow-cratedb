@@ -250,7 +250,7 @@ class TestSqlAlchemyStore(unittest.TestCase, AbstractStoreTest):
         assert first.name == "Default"
 
     def test_default_experiment_lifecycle(self):
-        default_experiment = self.store.get_experiment(experiment_id=0)
+        default_experiment = self.store.get_experiment_by_name("Default")
         assert default_experiment.name == Experiment.DEFAULT_EXPERIMENT_NAME
         assert default_experiment.lifecycle_stage == entities.LifecycleStage.ACTIVE
 
@@ -261,10 +261,10 @@ class TestSqlAlchemyStore(unittest.TestCase, AbstractStoreTest):
         self.store.delete_experiment(0)
 
         assert [e.name for e in self.store.search_experiments()] == ["aNothEr"]
-        another = self.store.get_experiment(1)
+        another = self.store.get_experiment_by_name("aNothEr")
         assert another.name == "aNothEr"
 
-        default_experiment = self.store.get_experiment(experiment_id=0)
+        default_experiment = self.store.get_experiment_by_name("Default")
         assert default_experiment.name == Experiment.DEFAULT_EXPERIMENT_NAME
         assert default_experiment.lifecycle_stage == entities.LifecycleStage.DELETED
 
@@ -282,7 +282,7 @@ class TestSqlAlchemyStore(unittest.TestCase, AbstractStoreTest):
         assert set(all_experiments) == {"aNothEr", "Default"}
 
         # ensure that experiment ID dor active experiment is unchanged
-        another = self.store.get_experiment(1)
+        another = self.store.get_experiment_by_name("aNothEr")
         assert another.name == "aNothEr"
 
     def test_raise_duplicate_experiments(self):
