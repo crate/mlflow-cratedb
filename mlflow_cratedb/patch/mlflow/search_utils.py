@@ -1,4 +1,4 @@
-def patch_mlflow_search_utils():
+def patch_search_utils():
     """
     Patch MLflow's `SearchUtils` to return a comparison function for CrateDB.
     """
