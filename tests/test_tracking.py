@@ -69,7 +69,7 @@ from mlflow.utils.os import is_windows
 from mlflow.utils.time_utils import get_current_time_millis
 from mlflow.utils.uri import extract_db_type_from_uri
 
-from mlflow_cratedb.adapter.db import CRATEDB
+from mlflow_cratedb.patch.mlflow.db_types import CRATEDB
 from .abstract import AbstractStoreTest
 from .util import invoke_cli_runner, assert_dataset_inputs_equal
 
