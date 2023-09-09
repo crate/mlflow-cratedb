@@ -5,4 +5,3 @@
 - Run an MLflow project from the given URI, using `mlflow run`
 - Explore `mlflow experiments search` for testing purposes
 - CLI shortcut for `ddl/drop.sql`
-- Use `search_path` instead of populating the schema name into SQL DDL files

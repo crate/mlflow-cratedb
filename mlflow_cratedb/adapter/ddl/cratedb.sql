@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS {schema_prefix}"datasets" (
+CREATE TABLE IF NOT EXISTS "datasets" (
    "dataset_uuid" TEXT NOT NULL,
    "experiment_id" BIGINT NOT NULL,
    "name" TEXT NOT NULL,
@@ -10,14 +10,14 @@ CREATE TABLE IF NOT EXISTS {schema_prefix}"datasets" (
    PRIMARY KEY ("experiment_id", "name", "digest")
 );
 
-CREATE TABLE IF NOT EXISTS {schema_prefix}"experiment_tags" (
+CREATE TABLE IF NOT EXISTS "experiment_tags" (
    "key" TEXT NOT NULL,
    "value" TEXT,
    "experiment_id" BIGINT NOT NULL,
    PRIMARY KEY ("key", "experiment_id")
 );
 
-CREATE TABLE IF NOT EXISTS {schema_prefix}"experiments" (
+CREATE TABLE IF NOT EXISTS "experiments" (
    "experiment_id" BIGINT NOT NULL,  -- default=autoincrement
    "name" TEXT NOT NULL,
    "artifact_location" TEXT,
@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS {schema_prefix}"experiments" (
    PRIMARY KEY ("experiment_id")
 );
 
-CREATE TABLE IF NOT EXISTS {schema_prefix}"inputs" (
+CREATE TABLE IF NOT EXISTS "inputs" (
    "input_uuid" TEXT NOT NULL,
    "source_type" TEXT NOT NULL,
    "source_id" TEXT NOT NULL,
@@ -36,14 +36,14 @@ CREATE TABLE IF NOT EXISTS {schema_prefix}"inputs" (
    PRIMARY KEY ("source_type", "source_id", "destination_type", "destination_id")
 );
 
-CREATE TABLE IF NOT EXISTS {schema_prefix}"input_tags" (
+CREATE TABLE IF NOT EXISTS "input_tags" (
    "input_uuid" TEXT NOT NULL,
    "name" TEXT NOT NULL,
    "value" TEXT NOT NULL,
    PRIMARY KEY ("input_uuid", "name")
 );
 
-CREATE TABLE IF NOT EXISTS {schema_prefix}"latest_metrics" (
+CREATE TABLE IF NOT EXISTS "latest_metrics" (
    "key" TEXT NOT NULL,
    "value" DOUBLE NOT NULL,
    "timestamp" BIGINT NOT NULL,
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS {schema_prefix}"latest_metrics" (
    PRIMARY KEY ("key", "run_uuid")
 );
 
-CREATE TABLE IF NOT EXISTS {schema_prefix}"metrics" (
+CREATE TABLE IF NOT EXISTS "metrics" (
    "key" TEXT NOT NULL,
    "value" DOUBLE NOT NULL,
    "timestamp" BIGINT NOT NULL,
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS {schema_prefix}"metrics" (
    PRIMARY KEY ("key", "timestamp", "step", "run_uuid", "value", "is_nan")
 );
 
-CREATE TABLE IF NOT EXISTS {schema_prefix}"model_versions" (
+CREATE TABLE IF NOT EXISTS "model_versions" (
    "name" TEXT NOT NULL,
    "version" INTEGER NOT NULL,
    "creation_time" BIGINT,  -- default=get_current_time_millis
@@ -78,40 +78,40 @@ CREATE TABLE IF NOT EXISTS {schema_prefix}"model_versions" (
    "status_message" TEXT
 );
 
-CREATE TABLE IF NOT EXISTS {schema_prefix}"model_version_tags" (
+CREATE TABLE IF NOT EXISTS "model_version_tags" (
    "name" TEXT NOT NULL,
    "version" INTEGER NOT NULL,
    "key" TEXT NOT NULL,
    "value" TEXT
 );
 
-CREATE TABLE IF NOT EXISTS {schema_prefix}"params" (
+CREATE TABLE IF NOT EXISTS "params" (
    "key" TEXT NOT NULL,
    "value" TEXT NOT NULL,
    "run_uuid" TEXT NOT NULL,
    PRIMARY KEY ("key", "run_uuid")
 );
 
-CREATE TABLE IF NOT EXISTS {schema_prefix}"registered_models" (
+CREATE TABLE IF NOT EXISTS "registered_models" (
    "name" TEXT NOT NULL,
    "key" TEXT NOT NULL,
    "value" TEXT
 );
 
-CREATE TABLE IF NOT EXISTS {schema_prefix}"registered_model_aliases" (
+CREATE TABLE IF NOT EXISTS "registered_model_aliases" (
    "name" TEXT NOT NULL,
    "alias" TEXT NOT NULL,
    "version" TEXT NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS {schema_prefix}"registered_model_tags" (
+CREATE TABLE IF NOT EXISTS "registered_model_tags" (
    "name" TEXT NOT NULL,
    "creation_time" BIGINT,  -- default=get_current_time_millis
    "last_update_time" BIGINT,  -- default=get_current_time_millis
    "description" TEXT
 );
 
-CREATE TABLE IF NOT EXISTS {schema_prefix}"runs" (
+CREATE TABLE IF NOT EXISTS "runs" (
    "run_uuid" TEXT NOT NULL,
    "name" TEXT,
    "source_type" TEXT,
@@ -129,7 +129,7 @@ CREATE TABLE IF NOT EXISTS {schema_prefix}"runs" (
    PRIMARY KEY ("run_uuid")
 );
 
-CREATE TABLE IF NOT EXISTS {schema_prefix}"tags" (
+CREATE TABLE IF NOT EXISTS "tags" (
    "key" TEXT NOT NULL,
    "value" TEXT,
    "run_uuid" TEXT NOT NULL,
