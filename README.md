@@ -51,10 +51,15 @@ source .venv/bin/activate
 pip install --editable='.[develop,docs,test]'
 ```
 
-Run linters and software tests:
+Run linters and software tests, skipping slow tests:
 ```shell
 source .venv/bin/activate
-poe check
+poe check-fast
+```
+
+Exclusively run "slow" tests.
+```shell
+pytest -m slow
 ```
 
 
