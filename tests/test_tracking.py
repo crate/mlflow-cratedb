@@ -2902,7 +2902,9 @@ class TestSqlAlchemyStore(unittest.TestCase, AbstractStoreTest):
             assert tag.value == "v2"
 
     def test_get_metric_history_on_non_existent_metric_key(self):
-        experiment_id = self._experiment_factory("test_exp")[0]
+        # That's actually a bugfix.
+        # TODO: Submit to upstream.
+        experiment_id = self._experiment_factory("test_exp")
         run = self.store.create_run(
             experiment_id=experiment_id, user_id="user", start_time=0, tags=[], run_name="name"
         )
