@@ -9,3 +9,4 @@
 - Add software tests
 - CLI: Add `mlflow-cratedb cratedb --version` command
 - Project: Add `versioningit`, for effortless versioning
+- Add patch for SQLAlchemy Inspector's `get_table_names`
