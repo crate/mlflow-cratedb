@@ -22,8 +22,7 @@ Docker or Podman.
 ```shell
 docker run --rm -it --publish=4200:4200 --publish=5432:5432 \
   --env=CRATE_HEAP_SIZE=4g crate \
-  -Cdiscovery.type=single-node \
-  -Ccluster.routing.allocation.disk.threshold_enabled=false
+  -Cdiscovery.type=single-node
 ```
 
 Start the MLflow server, pointing it to your [CrateDB] instance,
