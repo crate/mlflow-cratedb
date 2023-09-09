@@ -9,6 +9,7 @@ from mlflow_cratedb.adapter.db import enable_refresh_after_dml
 def patch_db_utils():
     import mlflow.store.db.utils as db_utils
 
+    enable_refresh_after_dml()
     db_utils._initialize_tables = _initialize_tables
     db_utils._verify_schema = _verify_schema
 
@@ -23,7 +24,6 @@ def _initialize_tables(engine: sa.Engine):
 
     from mlflow_cratedb.adapter.db import _setup_db_create_tables
 
-    enable_refresh_after_dml()
     patch_sqlalchemy_inspector(engine)
     _logger.info("Creating initial MLflow database tables...")
     _setup_db_create_tables(engine)
@@ -40,6 +40,7 @@ def patch_sqlalchemy_inspector(engine: sa.Engine):
     """
     When using `get_table_names()`, make sure the correct schema name gets used.
 
+    TODO: Verify if this is really needed. SQLAlchemy should use the `search_path` properly already.
     TODO: Submit this to SQLAlchemy?
     """
     get_table_names_dist = engine.dialect.get_table_names

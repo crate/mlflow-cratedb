@@ -44,6 +44,9 @@ def enable_refresh_after_dml():
 
     This SQLAlchemy extension makes sure that data is synchronized after each
     operation manipulating data.
+
+    TODO: Submit patch to `crate-python`, to be enabled by a
+          dialect parameter `crate_dml_refresh` or such.
     """
     from mlflow.store.db.base_sql_model import Base
 
