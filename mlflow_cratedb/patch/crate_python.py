@@ -112,4 +112,4 @@ def generate_unique_integer() -> int:
     """
     from vasuki import generate_nagamani19_int
 
-    return generate_nagamani19_int(size=10)
+    return generate_nagamani19_int()
