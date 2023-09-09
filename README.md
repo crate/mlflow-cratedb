@@ -14,6 +14,13 @@ Install the most recent version of the `mlflow-cratedb` package.
 pip install --upgrade 'git+https://github.com/crate-workbench/mlflow-cratedb'
 ```
 
+To verify if the installation worked, you can inspect the version numbers
+of the software components you just installed.
+```shell
+mlflow-cratedb --version
+mlflow-cratedb cratedb --version
+```
+
 
 ## Usage
 
