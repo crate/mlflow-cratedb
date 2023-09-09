@@ -15,23 +15,24 @@ def _setup_db_create_tables(engine: sa.Engine):
 
     TODO: Currently, the path is hardcoded to `cratedb.sql`.
     """
-    schema_name = engine.url.query.get("schema")
-    schema_prefix = ""
-    if schema_name is not None:
-        schema_prefix = f'"{schema_name}".'
     with importlib.resources.path("mlflow_cratedb.adapter", "ddl") as ddl:
         sql_file = ddl.joinpath("cratedb.sql")
-        sql_statements = sql_file.read_text().format(schema_prefix=schema_prefix)
+        sql_statements = sql_file.read_text()
         with engine.connect() as connection:
             for statement in sqlparse.split(sql_statements):
                 connection.execute(sa.text(statement))
 
 
-def _setup_db_drop_tables():
+def _setup_db_drop_tables(engine: sa.Engine):
     """
-    TODO: Not implemented yet.
+    Drop all relevant database tables. Handle with care.
     """
-    pass
+    with importlib.resources.path("mlflow_cratedb.adapter", "ddl") as ddl:
+        sql_file = ddl.joinpath("drop.sql")
+        sql_statements = sql_file.read_text()
+        with engine.connect() as connection:
+            for statement in sqlparse.split(sql_statements):
+                connection.execute(sa.text(statement))
 
 
 def enable_refresh_after_dml():
