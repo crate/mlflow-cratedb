@@ -5,7 +5,7 @@ from mlflow.store.tracking.dbmodels.initial_models import Base
 from mlflow.store.tracking.dbmodels.models import SqlExperiment
 from mlflow.store.tracking.sqlalchemy_store import SqlAlchemyStore
 
-from mlflow_cratedb.adapter.db import _setup_db_create_tables, _setup_db_drop_tables
+from mlflow_cratedb.adapter.setup_db import _setup_db_create_tables, _setup_db_drop_tables
 
 DB_URI = "crate://crate@localhost/?schema=testdrive"
 ARTIFACT_URI = "artifact_folder"
