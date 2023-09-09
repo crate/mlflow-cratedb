@@ -1,24 +1,20 @@
 # Source: mlflow:tests/tracking/test_tracking.py
-import json
 import math
 import os
 import pathlib
 import re
 import shutil
-import tempfile
 import time
 import unittest
 import uuid
 from concurrent.futures import ThreadPoolExecutor
-from pathlib import Path
 from unittest import mock
-
-import pytest
-import sqlalchemy
 
 import mlflow
 import mlflow.db
 import mlflow.store.db.base_sql_model
+import pytest
+import sqlalchemy
 from mlflow import entities
 from mlflow.entities import (
     Experiment,
@@ -31,7 +27,6 @@ from mlflow.entities import (
     ViewType,
     _DatasetSummary,
 )
-from mlflow.environment_variables import MLFLOW_TRACKING_URI
 from mlflow.exceptions import MlflowException
 from mlflow.protos.databricks_pb2 import (
     BAD_REQUEST,
@@ -41,13 +36,8 @@ from mlflow.protos.databricks_pb2 import (
     ErrorCode,
 )
 from mlflow.store.db.db_types import MSSQL, MYSQL, POSTGRES, SQLITE
-from mlflow.store.db.utils import (
-    _get_latest_schema_revision,
-    _get_schema_version,
-)
 from mlflow.store.tracking import SEARCH_MAX_RESULTS_DEFAULT
 from mlflow.store.tracking.dbmodels import models
-from mlflow.store.tracking.dbmodels.initial_models import Base as InitialBase
 from mlflow.store.tracking.dbmodels.models import (
     SqlDataset,
     SqlExperiment,
@@ -62,7 +52,6 @@ from mlflow.store.tracking.dbmodels.models import (
 )
 from mlflow.store.tracking.sqlalchemy_store import SqlAlchemyStore, _get_orderby_clauses
 from mlflow.utils import mlflow_tags
-from mlflow.utils.file_utils import TempDir
 from mlflow.utils.mlflow_tags import MLFLOW_DATASET_CONTEXT, MLFLOW_RUN_NAME
 from mlflow.utils.name_utils import _GENERATOR_PREDICATES
 from mlflow.utils.os import is_windows
@@ -70,8 +59,9 @@ from mlflow.utils.time_utils import get_current_time_millis
 from mlflow.utils.uri import extract_db_type_from_uri
 
 from mlflow_cratedb.patch.mlflow.db_types import CRATEDB
+
 from .abstract import AbstractStoreTest
-from .util import invoke_cli_runner, assert_dataset_inputs_equal
+from .util import assert_dataset_inputs_equal
 
 DB_URI = "crate://crate@localhost/?schema=testdrive"
 ARTIFACT_URI = "artifact_folder"
@@ -182,7 +172,7 @@ class TestSqlAlchemyStore(unittest.TestCase, AbstractStoreTest):
         dialect = self.store._get_dialect()
         if dialect == POSTGRES:
             return "ALTER SEQUENCE experiments_experiment_id_seq RESTART WITH 1"
-        elif dialect == MYSQL:
+        elif dialect == MYSQL:  # noqa: RET505
             return "ALTER TABLE experiments AUTO_INCREMENT = 1"
         elif dialect == MSSQL:
             return "DBCC CHECKIDENT (experiments, RESEED, 0)"
@@ -1046,7 +1036,7 @@ class TestSqlAlchemyStore(unittest.TestCase, AbstractStoreTest):
             "`get_metric_history` API.",
         ):
             self.store.get_metric_history(
-                "fake_run", "fake_metric", max_results=50, page_token="42"
+                "fake_run", "fake_metric", max_results=50, page_token="42"  # noqa: S106
             )
 
     def test_log_null_metric(self):
@@ -1146,7 +1136,8 @@ class TestSqlAlchemyStore(unittest.TestCase, AbstractStoreTest):
         with pytest.raises(MlflowException, match="exceeded length"):
             self.store.log_param(run.info.run_id, entities.Param(tkey, "x" * 1000))
 
-    @pytest.mark.skip("[FIXME] ColumnValidationException[Validation failed for experiment_id: Updating a primary key is not supported]")
+    @pytest.mark.skip("[FIXME] ColumnValidationException"
+                      "[Validation failed for experiment_id: Updating a primary key is not supported]")
     def test_set_experiment_tag(self):
         exp_id = self._experiment_factory("setExperimentTagExp")
         tag = entities.ExperimentTag("tag0", "value0")
@@ -2918,29 +2909,28 @@ class TestSqlAlchemyStore(unittest.TestCase, AbstractStoreTest):
     @pytest.mark.skip(reason="[FIXME] MaxBytesLengthExceededException[bytes can be at most 32766 in length; got 65535]")
     def test_insert_large_text_in_dataset_table(self):
         with self.store.engine.begin() as conn:
-            # cursor = conn.cursor()
             dataset_source = "a" * 65535  # 65535 is the max size for a TEXT column
             dataset_profile = "a" * 16777215  # 16777215 is the max size for a MEDIUMTEXT column
             conn.execute(
                 sqlalchemy.sql.text(
                     f"""
-                INSERT INTO datasets 
-                    (dataset_uuid, 
-                    experiment_id, 
-                    name, 
-                    digest, 
-                    dataset_source_type, 
-                    dataset_source, 
-                    dataset_schema, 
+                INSERT INTO datasets
+                    (dataset_uuid,
+                    experiment_id,
+                    name,
+                    digest,
+                    dataset_source_type,
+                    dataset_source,
+                    dataset_schema,
                     dataset_profile)
-                VALUES 
-                    ('test_uuid', 
-                    0, 
-                    'test_name', 
-                    'test_digest', 
-                    'test_source_type', 
+                VALUES
+                    ('test_uuid',
+                    0,
+                    'test_name',
+                    'test_digest',
+                    'test_source_type',
                     '{dataset_source}', '
-                    test_schema', 
+                    test_schema',
                     '{dataset_profile}')
                 """
                 )
