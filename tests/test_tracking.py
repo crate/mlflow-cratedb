@@ -602,7 +602,7 @@ class TestSqlAlchemyStore(unittest.TestCase, AbstractStoreTest):
             assert len(result) == 1
         time_before_create = get_current_time_millis()
         experiment_id = self.store.create_experiment(name="test exp")
-        assert experiment_id == "1"
+        assert int(experiment_id) > 10 ** 5
         with self.store.ManagedSessionMaker() as session:
             result = session.query(models.SqlExperiment).all()
             assert len(result) == 2
