@@ -1,4 +1,3 @@
-import mlflow
 import pytest
 import sqlalchemy as sa
 from mlflow.store.tracking.dbmodels.initial_models import Base
@@ -7,21 +6,15 @@ from mlflow.store.tracking.sqlalchemy_store import SqlAlchemyStore
 
 from mlflow_cratedb.adapter.setup_db import _setup_db_create_tables, _setup_db_drop_tables
 
-DB_URI = "crate://crate@localhost/?schema=testdrive"
 ARTIFACT_URI = "artifact_folder"
 
 
 @pytest.fixture
-def engine():
-    yield mlflow.store.db.utils.create_sqlalchemy_engine_with_retry(DB_URI)
-
-
-@pytest.fixture
-def store():
+def store(testdrive_engine: sa.Engine):
     """
     A fixture for providing an instance of `SqlAlchemyStore`.
     """
-    yield SqlAlchemyStore(DB_URI, ARTIFACT_URI)
+    yield SqlAlchemyStore(str(testdrive_engine.url), ARTIFACT_URI)
 
 
 @pytest.fixture
@@ -39,13 +32,13 @@ def store_empty(store):
     yield store
 
 
-def test_setup_tables(engine: sa.Engine):
+def test_setup_tables(testdrive_engine: sa.Engine):
     """
     Test if creating database tables works, and that they use the correct schema.
     """
-    _setup_db_drop_tables(engine=engine)
-    _setup_db_create_tables(engine=engine)
-    with engine.connect() as connection:
+    _setup_db_drop_tables(engine=testdrive_engine)
+    _setup_db_create_tables(engine=testdrive_engine)
+    with testdrive_engine.connect() as connection:
         result = connection.execute(sa.text("SELECT * FROM testdrive.experiments;"))
         assert result.rowcount == 0
 
