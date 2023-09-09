@@ -1,7 +1,17 @@
 # Backlog
 
-- Provide wheel packages for `hashids` and `vasuki`
+## Iteration +1
+- Add `versioningit`
+- CLI shortcut for `ddl/drop.sql`
+- Add example `tracking_merlion.py`
+- Integrate tutorial from `cratedb-examples`
+- Add GHA recipe to build and ship OCI image
+- Release 0.1.0
+
+## Iteration +2
 - Demonstrate use of `--backend=databricks`
 - Run an MLflow project from the given URI, using `mlflow run`
-- Explore `mlflow experiments search` for testing purposes
-- CLI shortcut for `ddl/drop.sql`
+- Explore `mlflow experiments search`
+
+## Done
+- Use or provide wheel packages for `hashids` and `vasuki`
