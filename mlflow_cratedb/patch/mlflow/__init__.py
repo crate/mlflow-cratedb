@@ -12,10 +12,10 @@ def patch_mlflow():
     Patch the MLflow package.
     """
     patch_dbtypes()
-    polyfill_refresh_after_dml()
-    polyfill_uniqueness_constraints()
     patch_db_utils()
     patch_run_server()
     patch_environment_variables()
     patch_search_utils()
     patch_tracking()
+    polyfill_uniqueness_constraints()
+    polyfill_refresh_after_dml()
