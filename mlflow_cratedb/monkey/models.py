@@ -1,5 +1,3 @@
-from abc import ABC
-
 from mlflow_cratedb.adapter.util import generate_unique_integer
 
 
@@ -9,21 +7,19 @@ def patch_models():
 
     In this case, use a random identifier: Nagamani19, a short, unique,
     non-sequential identifier based on Hashids.
+
+    TODO: Submit patch to `crate-python`, to be enabled by a
+          dialect parameter `crate_translate_autoincrement` or such.
     """
-    import sqlalchemy as sa
     import sqlalchemy.sql.schema as schema
 
-    ColumnDist: type = schema.Column
+    init_dist = schema.Column.__init__
 
-    class Column(ColumnDist, ABC):
-        inherit_cache = False
+    def __init__(self, *args, **kwargs):
+        if "autoincrement" in kwargs:
+            del kwargs["autoincrement"]
+            if "default" not in kwargs:
+                kwargs["default"] = generate_unique_integer
+        init_dist(self, *args, **kwargs)
 
-        def __init__(self, *args, **kwargs):
-            if "autoincrement" in kwargs:
-                del kwargs["autoincrement"]
-                if "default" not in kwargs:
-                    kwargs["default"] = generate_unique_integer
-            ColumnDist.__init__(self, *args, **kwargs)  # type: ignore
-
-    schema.Column = Column  # type: ignore
-    sa.Column = Column  # type: ignore
+    schema.Column.__init__ = __init__  # type: ignore[method-assign]
