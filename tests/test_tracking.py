@@ -110,6 +110,9 @@ def db_types_and_drivers():
             "zxjdbc",
             "adodbapi",
         ],
+        "crate": [
+            "crate",
+        ],
     }
     for db_type, drivers in d.items():
         for driver in drivers:
