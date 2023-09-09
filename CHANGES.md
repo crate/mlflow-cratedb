@@ -8,3 +8,4 @@
 - Initial thing, proof-of-concept
 - Add software tests
 - CLI: Add `mlflow-cratedb cratedb --version` command
+- Project: Add `versioningit`, for effortless versioning

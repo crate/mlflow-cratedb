@@ -1,7 +1,6 @@
 # Backlog
 
 ## Iteration +1
-- Add `versioningit`
 - CLI shortcut for `ddl/drop.sql`
 - Add example `tracking_merlion.py`
 - Integrate tutorial from `cratedb-examples`
@@ -15,3 +14,4 @@
 
 ## Done
 - Use or provide wheel packages for `hashids` and `vasuki`
+- Add `versioningit`
