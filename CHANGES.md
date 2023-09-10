@@ -12,3 +12,4 @@
 - Add patch for SQLAlchemy Inspector's `get_table_names`
 - Reorder CrateDB SQLAlchemy Dialect polyfills
 - Add example experiment program `tracking_merlion.py`, and corresponding tests
+- Add example program `tracking_dummy.py`, and improve test infrastructure
