@@ -11,3 +11,7 @@ def patch_dbtypes():
 
     if db_types.CRATEDB not in db_types.DATABASE_ENGINES:
         db_types.DATABASE_ENGINES.append(db_types.CRATEDB)
+
+    import mlflow.tracking._tracking_service.utils as tracking_utils
+
+    tracking_utils._tracking_store_registry.register(CRATEDB, tracking_utils._get_sqlalchemy_store)
