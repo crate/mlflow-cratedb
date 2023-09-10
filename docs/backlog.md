@@ -2,8 +2,6 @@
 
 ## Iteration +1
 - CLI shortcut for `ddl/drop.sql`
-- Add example `tracking_merlion.py`
-- Integrate tutorial from `cratedb-examples`
 - Add GHA recipe to build and ship OCI image
 - Release 0.1.0
 
@@ -15,3 +13,5 @@
 ## Done
 - Use or provide wheel packages for `hashids` and `vasuki`
 - Add `versioningit`
+- Add example `tracking_merlion.py`
+- Integrate tutorial from `cratedb-examples`
