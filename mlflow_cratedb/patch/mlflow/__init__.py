@@ -13,9 +13,9 @@ def patch_mlflow():
     """
     patch_dbtypes()
     patch_db_utils()
+    polyfill_refresh_after_dml()
+    polyfill_uniqueness_constraints()
     patch_run_server()
     patch_environment_variables()
     patch_search_utils()
     patch_tracking()
-    polyfill_uniqueness_constraints()
-    polyfill_refresh_after_dml()
