@@ -24,3 +24,19 @@ Exclusively run "slow" tests.
 ```shell
 pytest -m slow
 ```
+
+
+## Build OCI Images
+
+If you are aiming to make changes to the software or to the `Dockerfile`, you can
+build a local OCI image from the working tree on your workstation.
+
+Run the following commands from the root directory of the project:
+```
+export DOCKER_BUILDKIT=1
+export COMPOSE_DOCKER_CLI_BUILD=1
+export BUILDKIT_PROGRESS=plain
+
+docker build --tag=local/mlflow-cratedb --file=release/oci-server/Dockerfile .
+docker build --tag=local/ml-runtime --file=release/oci-runtime/Dockerfile .
+```

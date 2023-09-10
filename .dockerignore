@@ -1,0 +1,13 @@
+*
+!.git
+!examples
+!docs
+!mlflow_cratedb
+!release
+!tests
+!LICENSE
+!MANIFEST.in
+!pyproject.toml
+!*.ini
+!*.md
+!*.rst

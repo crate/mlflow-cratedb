@@ -31,7 +31,8 @@ by using a database cluster on [CrateDB Cloud].
 In order to spin up a CrateDB instance without further ado, you can use Docker
 or Podman.
 ```shell
-docker run --rm -it --publish=4200:4200 --publish=5432:5432 \
+docker run --rm -it \
+  --name=cratedb --publish=4200:4200 --publish=5432:5432 \
   --env=CRATE_HEAP_SIZE=4g crate \
   -Cdiscovery.type=single-node
 ```
@@ -70,6 +71,9 @@ python examples/tracking_dummy.py
 ### Tracking Server
 
 Start the MLflow server, pointing it to your CrateDB instance.
+By default, it will listen on port 5000, serving the HTTP API
+and the web UI, see http://localhost:5000/.
+
 ```shell
 mlflow-cratedb server --backend-store-uri="${CRATEDB_SQLALCHEMY_URL}" --dev
 ```
@@ -82,16 +86,6 @@ HTTP endpoint.
 export MLFLOW_TRACKING_URI="http://127.0.0.1:5000"
 python examples/tracking_dummy.py
 ```
-
-
-## Remarks
-
-Please note that you need to invoke the `mlflow-cratedb` command, which
-runs MLflow amalgamated with the necessary changes to support CrateDB.
-
-Also note that we recommend to use a dedicated schema for storing MLflow's
-tables. In that spirit, CrateDB's default schema `"doc"` is not populated
-by any tables of 3rd-party systems.
 
 
 ## Operations
@@ -107,3 +101,16 @@ You can also use `crash` to manually run the provided SQL DDL statements.
 crash --hosts="${CRATEDB_HTTP_URL}" --schema=mlflow < mlflow_cratedb/adapter/ddl/cratedb.sql
 crash --hosts="${CRATEDB_HTTP_URL}" --schema=mlflow < mlflow_cratedb/adapter/ddl/drop.sql
 ```
+
+
+## Remarks
+
+Please note that you need to invoke the `mlflow-cratedb` command, which
+runs MLflow amalgamated with the necessary changes to support CrateDB.
+
+Also note that we recommend to use a dedicated schema for storing MLflow's
+tables, for example `"mlflow"`. In that spirit, CrateDB's default schema
+`"doc"` is not populated by any tables of 3rd-party systems.
+
+If you want to run the MLflow adapter for CrateDB on a container infrastructure,
+please refer to the [container usage](./container.md) documentation.

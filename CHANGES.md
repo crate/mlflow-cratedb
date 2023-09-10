@@ -14,3 +14,4 @@
 - Add example experiment program `tracking_merlion.py`, and corresponding tests
 - Add example program `tracking_dummy.py`, and improve test infrastructure
 - Documentation: Add information about how to connect to CrateDB Cloud
+- CI: Add GHA workflows to build and publish OCI container images to GHCR
