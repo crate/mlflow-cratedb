@@ -1,1 +1,1 @@
-recursive-include mlflow_cratedb *.sql
+recursive-include mlflow_cratedb *.py *.sql
