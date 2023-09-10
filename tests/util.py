@@ -1,6 +1,9 @@
 # Source: mlflow:tests/integration/utils.py and mlflow:tests/store/tracking/test_file_store.py
+import subprocess
+from contextlib import contextmanager
 from typing import List
 
+import psutil
 from click.testing import CliRunner
 from mlflow.entities import DatasetInput
 
@@ -28,3 +31,23 @@ def assert_dataset_inputs_equal(inputs1: List[DatasetInput], inputs2: List[Datas
             tag2 = tags2[idx]
             assert tag1.key == tag1.key
             assert tag1.value == tag2.value
+
+
+@contextmanager
+def process(*args, **kwargs) -> subprocess.Popen:
+    """
+    Wrapper around `subprocess.Popen` to also terminate child processes after exiting.
+
+    https://gist.github.com/jizhilong/6687481#gistcomment-3057122
+    """
+    proc = subprocess.Popen(*args, **kwargs)  # noqa: S603
+    try:
+        yield proc
+    finally:
+        try:
+            children = psutil.Process(proc.pid).children(recursive=True)
+        except psutil.NoSuchProcess:
+            return
+        for child in children:
+            child.kill()
+        proc.kill()
