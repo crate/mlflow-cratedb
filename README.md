@@ -27,7 +27,8 @@ mlflow-cratedb cratedb --version
 ## Usage
 
 The MLflow adapter for CrateDB can be used in different ways. Please refer
-to the [handbook](./docs/handbook.md) for more information about that topic.
+to the [handbook](./docs/handbook.md) and the documentation about
+[container usage](./docs/container.md).
 
 
 ## Development
