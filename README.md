@@ -1,5 +1,14 @@
 # MLflow adapter for CrateDB
 
+[![Tests](https://github.com/crate-workbench/mlflow-cratedb/actions/workflows/main.yml/badge.svg)](https://github.com/crate-workbench/mlflow-cratedb/actions/workflows/main.yml)
+[![Test coverage](https://img.shields.io/codecov/c/gh/crate-workbench/mlflow-cratedb.svg)](https://codecov.io/gh/crate-workbench/mlflow-cratedb/)
+[![Python versions](https://img.shields.io/pypi/pyversions/mlflow-cratedb.svg)](https://pypi.org/project/mlflow-cratedb/)
+
+[![License](https://img.shields.io/github/license/crate-workbench/mlflow-cratedb.svg)](https://github.com/crate-workbench/mlflow-cratedb/blob/main/LICENSE)
+[![Status](https://img.shields.io/pypi/status/mlflow-cratedb.svg)](https://pypi.org/project/mlflow-cratedb/)
+[![PyPI](https://img.shields.io/pypi/v/mlflow-cratedb.svg)](https://pypi.org/project/mlflow-cratedb/)
+[![Downloads](https://pepy.tech/badge/mlflow-cratedb/month)](https://pypi.org/project/mlflow-cratedb/)
+
 
 ## About
 
