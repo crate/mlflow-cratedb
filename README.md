@@ -36,14 +36,14 @@ mlflow-cratedb cratedb --version
 ## Usage
 
 The MLflow adapter for CrateDB can be used in different ways. Please refer
-to the [handbook](./docs/handbook.md) and the documentation about
-[container usage](./docs/container.md).
+to the [handbook] and the documentation about
+[container usage].
 
 
 ## Development
 
 For joining the development, or for making changes to the software, read about
-how to [install a development sandbox](./docs/development.md).
+how to [install a development sandbox].
 
 
 ## Project Information
@@ -74,21 +74,25 @@ and [CrateDB], see [LICENSE].
 [Siddharth Murching], [Corey Zumar], [Harutaka Kawamura], [Ben Wilson], and
 all other contributors for conceiving and maintaining [MLflow].
 
-[Andreas Nigg] for contributing the [tracking_merlion.py](./examples/tracking_merlion.py)
-ML experiment program, which is using [Merlion].
+[Andreas Nigg] for contributing the [tracking_merlion.py] ML experiment program,
+which is using [Merlion].
 
 
 [Andreas Nigg]: https://github.com/andnig
 [Ben Wilson]: https://github.com/BenWilson2
+[container usage]: https://github.com/crate-workbench/mlflow-cratedb/blob/main/docs/container.md
 [Corey Zumar]: https://github.com/dbczumar
 [CrateDB]: https://github.com/crate/crate
 [CrateDB Cloud]: https://console.cratedb.cloud/
 [Create an issue]: https://github.com/crate-workbench/mlflow-cratedb/issues
 [development sandbox]: https://github.com/crate-workbench/mlflow-cratedb/blob/main/docs/development.md
+[handbook]: https://github.com/crate-workbench/mlflow-cratedb/blob/main/docs/handbook.md
 [Harutaka Kawamura]: https://github.com/harupy
+[install a development sandbox]: https://github.com/crate-workbench/mlflow-cratedb/blob/main/docs/development.md
 [LICENSE]: https://github.com/crate-workbench/mlflow-cratedb/blob/main/LICENSE
 [managed on GitHub]: https://github.com/crate-workbench/mlflow-cratedb
 [Merlion]: https://github.com/salesforce/Merlion
 [MLflow]: https://mlflow.org/
 [MLflow Tracking]: https://mlflow.org/docs/latest/tracking.html
 [Siddharth Murching]: https://github.com/smurching
+[tracking_merlion.py]: https://github.com/crate-workbench/mlflow-cratedb/blob/main/examples/tracking_merlion.py
