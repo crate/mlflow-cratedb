@@ -21,6 +21,24 @@ each PR, as well as `nightly` ones.
 
 ## Docker and Podman
 
+This section demonstrates how to use the OCI images using Docker. Podman
+can also be used by replacing the `docker` command with `podman`.
+
+
+### Prerequisites
+
+The following command line examples for both "Standalone" and "Tracking Server"
+variants have been written to use a CrateDB instance running on `localhost`.
+This command starts it, also using Docker.
+
+```shell
+docker run --rm -it \
+  --name=cratedb --publish=4200:4200 --publish=5432:5432 \
+  --env=CRATE_HEAP_SIZE=4g crate \
+  -Cdiscovery.type=single-node
+```
+
+
 ### Standalone
 
 In order to instruct MLflow to submit the experiment metadata directly to CrateDB,
@@ -35,10 +53,20 @@ docker run --rm -it --link=cratedb \
   ghcr.io/crate-workbench/ml-runtime python /opt/ml/bin/tracking_dummy.py
 ```
 
+You can use `crash` to inquire the relevant MLflow database tables.
+```shell
+docker run --rm -it --link=cratedb ghcr.io/crate-workbench/ml-runtime \
+  crash --hosts="http://crate@cratedb:4200/" --schema=mlflow --command='SELECT * FROM "experiments";'
+docker run --rm -it --link=cratedb ghcr.io/crate-workbench/ml-runtime \
+  crash --hosts="http://crate@cratedb:4200/" --schema=mlflow --command='SELECT * FROM "runs";'
+```
+
+
 ### Tracking Server
 
 When running the MLflow Server within a container, you will need to address the
 CrateDB container by name instead of using `localhost`.
+
 ```shell
 export CRATEDB_SQLALCHEMY_URL="crate://crate@cratedb:4200/?schema=mlflow"
 ```
@@ -46,6 +74,7 @@ export CRATEDB_SQLALCHEMY_URL="crate://crate@cratedb:4200/?schema=mlflow"
 Start the MLflow Server, linking it to the other container running CrateDB,
 and exposing its HTTP port 5000 to your machine, serving the HTTP API
 and the web UI, see http://localhost:5000/.
+
 ```shell
 docker run --rm -it --name=mlflow --link=cratedb --publish=5000:5000 \
   ghcr.io/crate-workbench/mlflow-cratedb mlflow-cratedb server \
@@ -56,6 +85,7 @@ docker run --rm -it --name=mlflow --link=cratedb --publish=5000:5000 \
 Start an experiment program which needs to access both CrateDB and MLflow,
 for storing data and recording experiment metadata, linking it to both
 other containers.
+
 ```shell
 docker run --rm -it --link=cratedb --link=mlflow \
   --env="MLFLOW_TRACKING_URI=http://mlflow:5000" \
