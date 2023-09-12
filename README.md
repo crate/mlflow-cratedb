@@ -13,7 +13,7 @@ experimentation, reproducibility, deployment, and a central model registry.
 
 Install the most recent version of the `mlflow-cratedb` package.
 ```shell
-pip install --upgrade 'git+https://github.com/crate-workbench/mlflow-cratedb#egg=mlflow-cratedb[examples]'
+pip install --upgrade 'mlflow-cratedb[examples]'
 ```
 
 To verify if the installation worked, you can inspect the version numbers
