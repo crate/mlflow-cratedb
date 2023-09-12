@@ -2,7 +2,10 @@
 
 
 ## in progress
-- Documentation: Improve "Container Usage" page 
+
+
+## 2023-09-12 0.1.1
+- Documentation: Improve "Container Usage" page
 - Documentation: Update README with real `pip install` command
 
 ## 2023-09-12 0.1.0
