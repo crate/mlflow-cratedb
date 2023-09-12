@@ -23,9 +23,6 @@
 
 ## Iteration +4
 - UX: CLI shortcut for `ddl/drop.sql`
-- CI: Do not build OCI images on _each_ PR in the long run, it costs too many
-  resources. Instead, document how to run OCI builds on demand on specific
-  branches, when it is needed to ship images for testing purposes.
 
 
 ## Done
@@ -34,3 +31,6 @@
 - Add example `tracking_merlion.py`
 - Integrate tutorial from `cratedb-examples`
 - Add GHA recipe to build and ship OCI image
+- CI: Do not build OCI images on _each_ PR in the long run, it costs too many
+  resources. Instead, document how to run OCI builds on demand on specific
+  branches, when it is needed to ship images for testing purposes.
