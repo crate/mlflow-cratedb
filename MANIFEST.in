@@ -1,1 +1,9 @@
+# Global settings.
+global-exclude */__pycache__/*
+global-exclude *.pyc
+
+# Include project, assets, and documentation.
+include *.txt *.rst *.md
 recursive-include mlflow_cratedb *.py *.sql
+recursive-include docs *
+prune docs/_build
