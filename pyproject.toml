@@ -82,7 +82,6 @@ examples = [
 ]
 release = [
   "build<2",
-  'minibump<1; python_version >= "3.10"',
   "twine<5",
 ]
 test = [
@@ -223,7 +222,6 @@ check = ["lint", "test"]
 check-fast = ["lint", "test-fast"]
 
 release = [
-  { cmd = "minibump bump --relax patch" },
   { cmd = "python -m build" },
   { cmd = "twine upload --skip-existing dist/*.tar.gz dist/*.whl" },
 ]
