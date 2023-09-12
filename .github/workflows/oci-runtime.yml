@@ -4,10 +4,19 @@
 name: OCI for runtime
 
 on:
-  pull_request: ~
+
+  # Build images when merging to `main` and when running a release.
   push:
+    branches:
+      - 'main'
     tags:
       - '*.*.*'
+
+  # Build images on each pull request.
+  # Remark: Activate only when needed, it will eat a lot of resources. The alternative
+  #         is to build manually / on-demand, by using the `workflow_dispatch` feature,
+  #         available through the GHA web UI.
+  # pull_request: ~
 
   # Produce a nightly image every day at 6 a.m. CEST.
   schedule:
@@ -45,10 +54,11 @@ jobs:
             ghcr.io/${{ env.IMAGE_NAME }}
           # Generate OCI image tags based on the following events/attributes
           tags: |
-            type=schedule,pattern=nightly
+            type=ref,event=branch
             type=ref,event=pr
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
+            type=schedule,pattern=nightly
 
       - name: Inspect metadata
         run: |
