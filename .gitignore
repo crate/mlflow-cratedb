@@ -4,6 +4,7 @@
 /.ruff_cache
 /.vagrant
 /.venv*
+/build
 
 /dist
 
@@ -15,3 +16,4 @@ __pycache__
 
 /mlartifacts
 /mlruns
+/model
