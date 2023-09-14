@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS "model_versions" (
    "name" TEXT NOT NULL,
    "version" INTEGER NOT NULL,
    "creation_time" BIGINT,  -- default=get_current_time_millis
-   "last_update_time" BIGINT,  -- default=get_current_time_millis
+   "last_updated_time" BIGINT,  -- default=get_current_time_millis
    "description" TEXT,
    "user_id" TEXT,
    "current_stage" TEXT,
@@ -94,8 +94,11 @@ CREATE TABLE IF NOT EXISTS "params" (
 
 CREATE TABLE IF NOT EXISTS "registered_models" (
    "name" TEXT NOT NULL,
-   "key" TEXT NOT NULL,
-   "value" TEXT
+   "key" TEXT DEFAULT GEN_RANDOM_TEXT_UUID() NOT NULL,
+   "value" TEXT,
+   "creation_time" BIGINT,
+   "last_updated_time" BIGINT,
+   "description" TEXT
 );
 
 CREATE TABLE IF NOT EXISTS "registered_model_aliases" (
@@ -106,6 +109,8 @@ CREATE TABLE IF NOT EXISTS "registered_model_aliases" (
 
 CREATE TABLE IF NOT EXISTS "registered_model_tags" (
    "name" TEXT NOT NULL,
+   "key" TEXT NOT NULL,
+   "value" TEXT NOT NULL,
    "creation_time" BIGINT,  -- default=get_current_time_millis
    "last_update_time" BIGINT,  -- default=get_current_time_millis
    "description" TEXT
