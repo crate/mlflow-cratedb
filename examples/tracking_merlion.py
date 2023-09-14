@@ -119,8 +119,10 @@ def run_experiment(time_series: pd.DataFrame):
     """
     mlflow.set_experiment("numenta-merlion-experiment")
 
-    with mlflow.start_run():
-        train_data = TimeSeries.from_pd(time_series[time_series.index < pd.to_datetime("2013-12-15")])
+    with mlflow.start_run() as current_run:
+        input_test_data = time_series[time_series.index < pd.to_datetime("2013-12-15")]
+
+        train_data = TimeSeries.from_pd(input_test_data)
         test_data = TimeSeries.from_pd(time_series[time_series.index >= pd.to_datetime("2013-12-15")])
 
         model = DefaultDetector(DefaultDetectorConfig())
@@ -148,6 +150,7 @@ def run_experiment(time_series: pd.DataFrame):
         mttd = TSADMetric.MeanTimeToDetect.value(ground_truth=test_labels, predict=test_pred)
         print(f"Precision: {p:.4f}, Recall: {r:.4f}, F1: {f1:.4f}\n" f"Mean Time To Detect: {mttd}")  # noqa: T201
 
+        mlflow.log_input(mlflow.data.from_pandas(input_test_data), context="training")
         mlflow.log_metric("precision", p)
         mlflow.log_metric("recall", r)
         mlflow.log_metric("f1", f1)
