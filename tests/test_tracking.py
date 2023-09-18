@@ -55,7 +55,7 @@ from mlflow.utils import mlflow_tags
 from mlflow.utils.mlflow_tags import MLFLOW_DATASET_CONTEXT, MLFLOW_RUN_NAME
 from mlflow.utils.name_utils import _GENERATOR_PREDICATES
 from mlflow.utils.os import is_windows
-from mlflow.utils.time_utils import get_current_time_millis
+from mlflow.utils.time import get_current_time_millis
 from mlflow.utils.uri import extract_db_type_from_uri
 
 from mlflow_cratedb.patch.mlflow.db_types import CRATEDB
