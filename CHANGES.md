@@ -3,6 +3,7 @@
 
 ## in progress
 - Update to MLflow 2.7.1
+- Improve `table_exists()` in `example_merlion.py`
 
 ## 2023-09-12 0.1.1
 - Documentation: Improve "Container Usage" page
