@@ -65,7 +65,6 @@ dependencies = [
   "crate[sqlalchemy]",
   "mlflow==2.7.1",
   "sqlparse<0.5",
-  "vasuki<1,>=0.4",
 ]
 
 [project.optional-dependencies]
