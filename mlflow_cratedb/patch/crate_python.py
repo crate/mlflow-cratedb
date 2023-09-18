@@ -15,6 +15,7 @@ def patch_models():
           dialect parameter `crate_polyfill_autoincrement` or such.
     """
     import sqlalchemy.sql.schema as schema
+    from sqlalchemy import func
 
     init_dist = schema.Column.__init__
 
@@ -22,7 +23,7 @@ def patch_models():
         if "autoincrement" in kwargs:
             del kwargs["autoincrement"]
             if "default" not in kwargs:
-                kwargs["default"] = generate_unique_integer
+                kwargs["default"] = func.now()
         init_dist(self, *args, **kwargs)
 
     schema.Column.__init__ = __init__  # type: ignore[method-assign]
@@ -104,12 +105,3 @@ def check_uniqueness_factory(sa_entity, attribute_name):
                 )
 
     return check_uniqueness
-
-
-def generate_unique_integer() -> int:
-    """
-    Produce a short, unique, non-sequential identifier based on Hashids.
-    """
-    from vasuki import generate_nagamani19_int
-
-    return generate_nagamani19_int()
