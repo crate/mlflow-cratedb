@@ -47,7 +47,7 @@ def connect_database():
     return client.connect(dburi)
 
 
-def table_exists(table_name: str, schema_name: str = "doc") -> bool:
+def table_exists(table_name: str) -> bool:
     """
     Check if database table exists.
     """
@@ -55,7 +55,7 @@ def table_exists(table_name: str, schema_name: str = "doc") -> bool:
     cursor = conn.cursor()
     sql = (
         f"SELECT table_name FROM information_schema.tables "  # noqa: S608
-        f"WHERE table_name = '{table_name}' AND table_schema = '{schema_name}'"
+        f"WHERE table_name = '{table_name}' AND table_schema = CURRENT_SCHEMA"
     )
     cursor.execute(sql)
     rowcount = cursor.rowcount
