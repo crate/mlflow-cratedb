@@ -12,11 +12,11 @@
 
 ## About
 
-An adapter wrapper for [MLflow] to use [CrateDB] as a storage database
-for [MLflow Tracking].
+An adapter for [MLflow] to use [CrateDB] as a storage database for [MLflow
+Tracking]. MLflow is an open source platform to manage the whole ML lifecycle,
+including experimentation, reproducibility, deployment, and a central model
+registry.
 
-[MLflow] is an open source platform to manage the ML lifecycle, including
-experimentation, reproducibility, deployment, and a central model registry.
 
 ## Setup
 
@@ -33,11 +33,14 @@ mlflow-cratedb cratedb --version
 ```
 
 
-## Usage
+## Documentation
+
+The [MLflow Tracking] subsystem is about recording and querying experiments, across
+code, data, config, and results.
 
 The MLflow adapter for CrateDB can be used in different ways. Please refer
-to the [handbook] and the documentation about
-[container usage].
+to the [handbook], the documentation about [container usage], and the
+[hands-on guidelines].
 
 
 ## Development
@@ -54,7 +57,6 @@ how to [install a development sandbox].
 - [Python Package Index (PyPI)](https://pypi.org/project/mlflow-cratedb/)
 
 ### Contributions
-
 This library is an open source project, and is [managed on GitHub].
 Every kind of contribution, feedback, or patch, is much welcome. [Create an
 issue] or submit a patch if you think we should include a new feature, or to
@@ -87,6 +89,7 @@ which is using [Merlion].
 [Create an issue]: https://github.com/crate-workbench/mlflow-cratedb/issues
 [development sandbox]: https://github.com/crate-workbench/mlflow-cratedb/blob/main/docs/development.md
 [handbook]: https://github.com/crate-workbench/mlflow-cratedb/blob/main/docs/handbook.md
+[hands-on guidelines]: https://github.com/crate/cratedb-examples/blob/main/framework/mlflow/readme.md
 [Harutaka Kawamura]: https://github.com/harupy
 [install a development sandbox]: https://github.com/crate-workbench/mlflow-cratedb/blob/main/docs/development.md
 [LICENSE]: https://github.com/crate-workbench/mlflow-cratedb/blob/main/LICENSE

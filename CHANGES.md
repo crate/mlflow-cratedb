@@ -2,10 +2,11 @@
 
 
 ## in progress
-- Update to MLflow 2.7.1
+- Update to [MLflow 2.7](https://github.com/mlflow/mlflow/releases/tag/v2.7.0)
 - Improve `table_exists()` in `example_merlion.py`
 - SQLAlchemy: Use server-side `now()` function for "autoincrement" columns
 - Use SQLAlchemy patches and polyfills from `cratedb-toolkit`
+- Update and improve documentation
 
 ## 2023-09-12 0.1.1
 - Documentation: Improve "Container Usage" page
@@ -22,3 +23,6 @@
 - Add example program `tracking_dummy.py`, and improve test infrastructure
 - Documentation: Add information about how to connect to CrateDB Cloud
 - CI: Add GHA workflows to build and publish OCI container images to GHCR
+- Tests: Enable code coverage tracking
+- Fix SQL DDL files, and add missing columns to make the Models tab load in the UI,
+  see GH-17. Thanks, @hammerhead.

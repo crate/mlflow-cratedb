@@ -105,8 +105,17 @@ crash --hosts="${CRATEDB_HTTP_URL}" --schema=mlflow < mlflow_cratedb/adapter/ddl
 
 ## Remarks
 
-Please note that you need to invoke the `mlflow-cratedb` command, which
+For running the MLflow server, you need to invoke the `mlflow-cratedb` command, which
 runs MLflow amalgamated with the necessary changes to support CrateDB.
+
+In the same spirit, when running standalone programs, make sure to import the `mlflow_cratedb`
+module, in order to bring in the needed amalgamations to make MLflow work with CrateDB.
+It can be inspected within the `examples/tracking_dummy.py` program.
+```python
+def start_adapter():
+    logger.info("Initializing CrateDB adapter")
+    import mlflow_cratedb  # noqa: F401
+```
 
 Also note that we recommend to use a dedicated schema for storing MLflow's
 tables, for example `"mlflow"`. In that spirit, CrateDB's default schema
