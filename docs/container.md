@@ -18,6 +18,11 @@ For building your own images, see the [development documentation](./development.
 On GHCR, other than `latest` images for releases, there are also images for
 each PR, as well as `nightly` ones.
 
+On GHCR, you will find the following image tags:
+- `latest`: Points to the most recent release.
+- `main`: Builds of `main`, when pushing to this branch.
+- `nightly`: Builds of `main`, each morning a 4 o'clock CEST.
+
 
 ## Docker and Podman
 

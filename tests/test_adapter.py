@@ -27,6 +27,7 @@ def store_empty(store):
         session.query(SqlExperiment).delete()
         for mapper in Base.registry.mappers:
             session.query(mapper.class_).delete()
+            # FIXME: `testdrive` is hardcoded here.
             sql = f"REFRESH TABLE testdrive.{mapper.class_.__tablename__};"
             session.execute(sa.text(sql))
     yield store
