@@ -1,7 +1,7 @@
 import logging
 
-from mlflow_cratedb.patch.crate_python import patch_crate_python
 from mlflow_cratedb.patch.mlflow import patch_mlflow
+from mlflow_cratedb.patch.sqlalchemy import patch_sqlalchemy
 
 logger = logging.getLogger("mlflow")
 
@@ -13,5 +13,5 @@ def patch_all():
     logger.info(f"{ANSI_YELLOW}Amalgamating MLflow for CrateDB{ANSI_RESET}")
     logger.debug("To undo that, run `pip uninstall mlflow-cratedb`")
 
-    patch_crate_python()
+    patch_sqlalchemy()
     patch_mlflow()

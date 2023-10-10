@@ -62,7 +62,8 @@ dynamic = [
 
 dependencies = [
   "crash",
-  "crate[sqlalchemy]",
+  "crate[sqlalchemy]>=0.34",
+  "cratedb-toolkit==0.0.1",
   "mlflow==2.7.1",
   "sqlparse<0.5",
 ]
