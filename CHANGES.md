@@ -2,6 +2,8 @@
 
 
 ## in progress
+
+## 2023-10-11 0.2.0
 - Update to [MLflow 2.7](https://github.com/mlflow/mlflow/releases/tag/v2.7.0)
 - Improve `table_exists()` in `example_merlion.py`
 - SQLAlchemy: Use server-side `now()` function for "autoincrement" columns
