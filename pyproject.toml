@@ -22,8 +22,11 @@ readme = "README.md"
 requires-python = ">=3.8"
 license = {text = "Apache License 2.0"}
 keywords = [
+  "ai",
   "cratedb",
+  "databricks",
   "machine learning",
+  "ml",
   "ml-ops",
   "mlflow",
   "mlflow-tracking",
@@ -35,7 +38,6 @@ authors = [
 classifiers = [
   "Development Status :: 4 - Beta",
   "Environment :: Console",
-  "Intended Audience :: Customer Service",
   "Intended Audience :: Developers",
   "Intended Audience :: Education",
   "Intended Audience :: Information Technology",
@@ -51,8 +53,21 @@ classifiers = [
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Topic :: Communications",
+  "Topic :: Database",
+  "Topic :: Database :: Database Engines/Servers",
+  "Topic :: Database :: Front-Ends",
   "Topic :: Education",
+  "Topic :: Scientific/Engineering",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+  "Topic :: Scientific/Engineering :: Information Analysis",
+  "Topic :: Scientific/Engineering :: Interface Engine/Protocol Translator",
   "Topic :: Software Development :: Libraries",
+  "Topic :: Software Development :: Quality Assurance",
+  "Topic :: Software Development :: Version Control",
+  "Topic :: System :: Archiving",
+  "Topic :: System :: Clustering",
+  "Topic :: System :: Distributed Computing",
+  "Topic :: Text Processing",
   "Topic :: Utilities",
 ]
 
