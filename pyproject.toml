@@ -94,7 +94,7 @@ develop = [
 ]
 examples = [
   "salesforce-merlion<2.1",
-  "pycaret[analysis,models,tuner,parallel,test]==3.1.0"
+  "pycaret[analysis,models,tuner,parallel,test]==3.1.0",
   "werkzeug==2.2.3"
 ]
 release = [
