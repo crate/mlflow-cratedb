@@ -10,7 +10,7 @@ dataset from 4TU.ResearchData.
 
 Usage
 
-Before running the program, optionally define the `MLFLOW_TRACKING_URI` environment
+Before running the program, define the `MLFLOW_TRACKING_URI` environment
 variable, in order to record events and metrics either directly into the database,
 or by submitting them to an MLflow Tracking Server.
 
