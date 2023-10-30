@@ -66,6 +66,18 @@ def table_exists(table_name: str) -> bool:
     conn.close()
     return rowcount > 0
 
+def data_available(table_name: str) -> bool:
+    """
+    Check if data is available in database table.
+    """
+    conn = connect_database()
+    cursor = conn.cursor()
+    sql = f"SELECT count(*) FROM {table_name}"  # noqa: S608
+    cursor.execute(sql)
+    rowcount = cursor.fetchone()[0]
+    cursor.close()
+    conn.close()
+    return rowcount > 0
 
 def import_data(data_table_name: str):
     """
@@ -108,6 +120,7 @@ def import_data(data_table_name: str):
                 VALUES (?, ?, ?, ?, ?, ?)""",  # noqa: S608
                 list(chunk.itertuples(index=False, name=None)),
             )
+        cursor.close()
 
 
 def read_data(table_name: str) -> pd.DataFrame:
@@ -144,6 +157,7 @@ def run_experiment(data: pd.DataFrame):
                           index="month",
                           log_experiment=True,
                           verbose=False)
+
     best3 = compare_models(sort="MASE", n_select=3)
     tuned_models = [tune_model(i) for i in best3]
     blended = blend_models(estimator_list=tuned_models, optimize="MASE")
@@ -169,8 +183,10 @@ def run_experiment(data: pd.DataFrame):
             registered_model_name=f"crate-salesforecast-model-{timestamp}",
         )
     else:
-        print("MLFLOW_TRACKING_URI is not set to a tracking server, "  # noqa: T201
-              "so the model will not be registered with mlflow")
+        print(# noqa: T201
+            "MLFLOW_TRACKING_URI is not set to a tracking server, "
+            "so the model will not be registered with mlflow")
+
 
 def main():
     """
@@ -184,9 +200,16 @@ def main():
     if not table_exists(data_table):
         import_data(data_table)
 
+        # Wait until table is ready.
+        i = 0
+        while not data_available(data_table) and i < 5:
+            i += 1
+            time.sleep(0.2)
+        if i == 5 and not data_available(data_table):
+            raise Exception("Data is not available in database table.")
+
     # Read data into pandas DataFrame.
     data = read_data(data_table)
-
     # Run experiment on data.
     run_experiment(data)
 
