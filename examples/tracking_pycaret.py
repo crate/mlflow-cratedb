@@ -74,6 +74,18 @@ def table_exists(table_name: str) -> bool:
     conn.close()
     return rowcount > 0
 
+def data_available(table_name: str) -> bool:
+    """
+    Check if data is available in database table.
+    """
+    conn = connect_database()
+    cursor = conn.cursor()
+    sql = f"SELECT count(*) FROM {table_name}"  # noqa: S608
+    cursor.execute(sql)
+    rowcount = cursor.fetchone()[0]
+    cursor.close()
+    conn.close()
+    return rowcount > 0
 
 def import_data(data_table_name: str):
     """
