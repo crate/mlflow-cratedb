@@ -191,7 +191,6 @@ def run_experiment(data: pd.DataFrame):
             "MLFLOW_TRACKING_URI is not set to a tracking server, "
             "so the model will not be registered with mlflow")
 
-
 def main():
     """
     Provision dataset, and run experiment.
