@@ -6,18 +6,18 @@
 - Downgrade to Python 3.10. A few packages like PyCaret are not ready for
   Python 3.11 yet. Thanks, @andnig.
 
-## 2023-10-11 0.2.0
+## 2023-10-11 v0.2.0
 - Update to [MLflow 2.7](https://github.com/mlflow/mlflow/releases/tag/v2.7.0)
 - Improve `table_exists()` in `example_merlion.py`
 - SQLAlchemy: Use server-side `now()` function for "autoincrement" columns
 - Use SQLAlchemy patches and polyfills from `cratedb-toolkit`
 - Update and improve documentation
 
-## 2023-09-12 0.1.1
+## 2023-09-12 v0.1.1
 - Documentation: Improve "Container Usage" page
 - Documentation: Update README with real `pip install` command
 
-## 2023-09-12 0.1.0
+## 2023-09-12 v0.1.0
 - Initial thing, proof-of-concept
 - Add software tests
 - CLI: Add `mlflow-cratedb cratedb --version` command
