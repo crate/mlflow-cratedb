@@ -20,6 +20,14 @@ or by submitting them to an MLflow Tracking Server.
     # Use MLflow Tracking Server
     export MLFLOW_TRACKING_URI=http://127.0.0.1:5000
 
+Optionally, you might set the `CRATEDB_HTTP_URL` environment variable, in order
+to define the CrateDB HTTP URL. The default value is `http://crate@localhost:4200`.
+
+    # Use custom CrateDB HTTP URL to connect to a CrateDB Cloud instance
+    # Replace <username>, <password>, and <instance> with the values
+    # from your CrateDB Cloud instance
+    export CRATEDB_HTTP_URL="https://<username>:<password>@<instance>.aks1.westeurope.azure.cratedb.net:4200"
+
 Resources
 
 - https://mlflow.org/
@@ -123,6 +131,15 @@ def import_data(data_table_name: str):
         cursor.close()
 
 
+def refresh_table(table_name: str):
+    """Refresh the table, to make sure the data is up to date.
+    Required due to crate being eventually consistent."""
+
+    with connect_database() as conn:
+        cursor = conn.cursor()
+        cursor.execute(f"REFRESH TABLE {table_name}")
+        cursor.close()
+
 def read_data(table_name: str) -> pd.DataFrame:
     """
     Read data from database into pandas DataFrame.
@@ -200,13 +217,8 @@ def main():
     if not table_exists(data_table):
         import_data(data_table)
 
-        # Wait until table is ready.
-        i = 0
-        while not data_available(data_table) and i < 5:
-            i += 1
-            time.sleep(0.2)
-        if i == 5 and not data_available(data_table):
-            raise Exception("Data is not available in database table.")
+        # Refresh the table - due to crate's eventual consistency.
+        refresh_table(data_table)
 
     # Read data into pandas DataFrame.
     data = read_data(data_table)
