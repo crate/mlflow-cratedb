@@ -10,9 +10,11 @@ def polyfill_uniqueness_constraints():
     TODO: Submit patch to `crate-python`, to be enabled by a
           dialect parameter `crate_polyfill_unique` or such.
     """
+    from mlflow.store.model_registry.dbmodels.models import SqlRegisteredModel
     from mlflow.store.tracking.dbmodels.models import SqlExperiment
 
     listen(SqlExperiment, "before_insert", check_uniqueness_factory(SqlExperiment, "name"))
+    listen(SqlRegisteredModel, "before_insert", check_uniqueness_factory(SqlRegisteredModel, "name"))
 
 
 def polyfill_refresh_after_dml():
