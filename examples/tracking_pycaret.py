@@ -142,7 +142,6 @@ def refresh_table(table_name: str):
         cursor.execute(f"REFRESH TABLE {table_name}")
         cursor.close()
 
-
 def read_data(table_name: str) -> pd.DataFrame:
     """
     Read data from database into pandas DataFrame.
