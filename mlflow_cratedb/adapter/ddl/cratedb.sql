@@ -72,6 +72,7 @@ CREATE TABLE IF NOT EXISTS "model_versions" (
    "user_id" TEXT,
    "current_stage" TEXT,
    "source" TEXT,
+   "storage_location" TEXT,
    "run_id" TEXT,
    "run_link" TEXT,
    "status" TEXT,
