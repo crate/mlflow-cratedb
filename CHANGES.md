@@ -2,6 +2,7 @@
 
 
 ## in progress
+- Fix uniqueness constraint with `SqlRegisteredModel.name`. Thanks, @andnig.
 
 ## 2023-10-11 0.2.0
 - Update to [MLflow 2.7](https://github.com/mlflow/mlflow/releases/tag/v2.7.0)
