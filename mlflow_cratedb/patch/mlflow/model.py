@@ -9,12 +9,18 @@ def polyfill_uniqueness_constraints():
 
     TODO: Submit patch to `crate-python`, to be enabled by a
           dialect parameter `crate_polyfill_unique` or such.
+
+    TODO: There are two more unique constraints defined on the MLflow data model.
+          - SqlExperimentPermission: "experiment_id", "user_id"
+          - SqlRegisteredModelPermission: "name", "user_id"
     """
+    from mlflow.server.auth.db.models import SqlUser
     from mlflow.store.model_registry.dbmodels.models import SqlRegisteredModel
     from mlflow.store.tracking.dbmodels.models import SqlExperiment
 
     listen(SqlExperiment, "before_insert", check_uniqueness_factory(SqlExperiment, "name"))
     listen(SqlRegisteredModel, "before_insert", check_uniqueness_factory(SqlRegisteredModel, "name"))
+    listen(SqlUser, "before_insert", check_uniqueness_factory(SqlUser, "username"))
 
 
 def polyfill_refresh_after_dml():

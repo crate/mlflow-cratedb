@@ -3,6 +3,7 @@
 
 ## in progress
 - Update to MLflow 2.8.0
+- Fix uniqueness constraint with `mlflow.server.auth.db.models.SqlUser.username`.
 
 ## 2023-11-01 v2.7.1
 - Fix uniqueness constraint with `SqlRegisteredModel.name`. Thanks, @andnig.
