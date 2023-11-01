@@ -2,6 +2,8 @@
 
 
 ## in progress
+
+## 2023-11-01 v2.7.1
 - Fix uniqueness constraint with `SqlRegisteredModel.name`. Thanks, @andnig.
 - Downgrade to Python 3.10. A few packages like PyCaret are not ready for
   Python 3.11 yet. Thanks, @andnig.
