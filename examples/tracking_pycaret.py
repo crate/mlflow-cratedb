@@ -74,6 +74,7 @@ def table_exists(table_name: str) -> bool:
     conn.close()
     return rowcount > 0
 
+
 def import_data(data_table_name: str):
     """
     Download Real-world sales forecasting benchmark data, and load into database.
@@ -99,13 +100,15 @@ def import_data(data_table_name: str):
     with connect_database() as conn:
         cursor = conn.cursor()
         # Create the table if it doesn't exist
-        cursor.execute(f"""CREATE TABLE IF NOT EXISTS {data_table_name}
+        cursor.execute(
+            f"""CREATE TABLE IF NOT EXISTS {data_table_name}
             ("item" TEXT,
             "org" TEXT,
             "date" TIMESTAMP,
             "quantity" BIGINT,
             "unit_price" DOUBLE PRECISION,
-            "total_sales" DOUBLE PRECISION)""")
+            "total_sales" DOUBLE PRECISION)"""
+        )
 
         # Insert the data in chunks
         for chunk in chunks:
@@ -127,6 +130,7 @@ def refresh_table(table_name: str):
         cursor.execute(f"REFRESH TABLE {table_name}")
         cursor.close()
 
+
 def read_data(table_name: str) -> pd.DataFrame:
     """
     Read data from database into pandas DataFrame.
@@ -144,7 +148,8 @@ def read_data(table_name: str) -> pd.DataFrame:
         data = pd.read_sql(query, conn)
 
     data["month"] = pd.to_datetime(data["month"], unit="ms")
-    data.sort_values(by=["month"], inplace=True)
+    # Inplace for sort is much gentler to memory
+    data.sort_values(by=["month"], inplace=True)  # noqa: PD002
     return data
 
 
@@ -155,12 +160,12 @@ def run_experiment(data: pd.DataFrame):
     """
 
     # creating a blend of 3 models, which perform best on MASE metric
-    pycaret_setup = setup(data,
-                          fh=15,
-                          target="total_sales",
-                          index="month",
-                          log_experiment=True,
-                          verbose=False)
+    setup(data,
+          fh=15,
+          target="total_sales",
+          index="month",
+          log_experiment=True,
+          verbose=False)
 
     best3 = compare_models(sort="MASE", n_select=3)
     tuned_models = [tune_model(i) for i in best3]
@@ -170,7 +175,7 @@ def run_experiment(data: pd.DataFrame):
     # saving the model to disk
     if not os.path.exists("model"):
         os.makedirs("model")
-    save_model(best_model, 'model/crate-salesforecast')
+    save_model(best_model, "model/crate-salesforecast")
 
     # Create a name for the model
     timestamp = int(time.time())
@@ -187,7 +192,7 @@ def run_experiment(data: pd.DataFrame):
             registered_model_name=f"crate-salesforecast-model-{timestamp}",
         )
     else:
-        print(# noqa: T201
+        print(  # noqa: T201
             "MLFLOW_TRACKING_URI is not set to a tracking server, "
             "so the model will not be registered with mlflow")
 
