@@ -160,12 +160,7 @@ def run_experiment(data: pd.DataFrame):
     """
 
     # creating a blend of 3 models, which perform best on MASE metric
-    setup(data,
-          fh=15,
-          target="total_sales",
-          index="month",
-          log_experiment=True,
-          verbose=False)
+    setup(data, fh=15, target="total_sales", index="month", log_experiment=True, verbose=False)
 
     best3 = compare_models(sort="MASE", n_select=3)
     tuned_models = [tune_model(i) for i in best3]
@@ -193,8 +188,8 @@ def run_experiment(data: pd.DataFrame):
         )
     else:
         print(  # noqa: T201
-            "MLFLOW_TRACKING_URI is not set to a tracking server, "
-            "so the model will not be registered with mlflow")
+            "MLFLOW_TRACKING_URI is not set to a tracking server, so the model will not be registered with mlflow"
+        )
 
 def main():
     """
