@@ -74,6 +74,7 @@ def table_exists(table_name: str) -> bool:
     conn.close()
     return rowcount > 0
 
+
 def import_data(data_table_name: str):
     """
     Download Real-world sales forecasting benchmark data, and load into database.
@@ -128,6 +129,7 @@ def refresh_table(table_name: str):
         cursor = conn.cursor()
         cursor.execute(f"REFRESH TABLE {table_name}")
         cursor.close()
+
 
 def read_data(table_name: str) -> pd.DataFrame:
     """
