@@ -5,7 +5,8 @@ from pathlib import Path
 
 import pytest
 import sqlalchemy as sa
-from mlflow.store.tracking.dbmodels.models import SqlExperiment, SqlMetric, SqlParam
+from mlflow.store.model_registry.dbmodels.models import SqlRegisteredModel
+from mlflow.store.tracking.dbmodels.models import SqlExperiment, SqlMetric, SqlParam, SqlRun
 from mlflow.store.tracking.sqlalchemy_store import SqlAlchemyStore
 
 from tests.util import process
@@ -128,3 +129,68 @@ def test_tracking_merlion(reset_database, engine: sa.Engine, tracking_store: Sql
             ),
         )
         assert anomalies_generated.rowcount >= 1
+
+
+@pytest.mark.examples
+@pytest.mark.slow
+def test_tracking_pycaret(reset_database, engine: sa.Engine, tracking_store: SqlAlchemyStore, db_uri):
+    """
+    Run a real experiment program, reporting to an MLflow Tracking Server.
+    Verify that the database has been populated appropriately.
+
+    Here, `MLFLOW_TRACKING_URI` will be the HTTP URL of the Tracking Server,
+    i.e. the program will submit events and metrics to it, wrapping the
+    connection to CrateDB.
+    """
+    tracking_pycaret = get_example_program_path("tracking_pycaret.py")
+    cmd_server = [
+        "mlflow-cratedb",
+        "server",
+        "--workers=1",
+        f"--backend-store-uri={db_uri}",
+        "--gunicorn-opts='--log-level=debug'",
+    ]
+
+    cmd_client = [
+        sys.executable,
+        tracking_pycaret,
+    ]
+
+    logger.info("Starting server")
+    with process(cmd_server, stdout=sys.stdout.buffer, stderr=sys.stderr.buffer, close_fds=True) as server_process:
+        logger.info(f"Started server with process id: {server_process.pid}")
+        # TODO: Wait for HTTP response.
+        time.sleep(4)
+
+        # Invoke example program.
+        logger.info("Starting client")
+        with process(
+            cmd_client,
+            env={"MLFLOW_TRACKING_URI": MLFLOW_TRACKING_URI_SERVER},
+            stdout=sys.stdout.buffer,
+            stderr=sys.stderr.buffer,
+        ) as client_process:
+            client_process.wait(timeout=480)
+            assert client_process.returncode == 0
+
+    with tracking_store.ManagedSessionMaker() as session:
+        # We have 2 experiments - one for "Default" experiment and one for the example
+        assert session.query(SqlExperiment).count() == 2, "experiments should have 2 rows"
+        # We have 32 distinct runs in the experiment which produced metrics
+        assert (
+            session.query(sa.func.count(sa.distinct(SqlMetric.run_uuid))).scalar() == 32
+        ), "metrics should have 32 distinct run_uuid"
+        # We have 33 runs in total (1 parent + 32 child runs)
+        assert session.query(SqlRun).count() == 33, "runs should have 33 rows"
+        # We have 33 distinct runs which have parameters (1 parent + 32 child runs)
+        assert (
+            session.query(sa.func.count(sa.distinct(SqlParam.run_uuid))).scalar() == 33
+        ), "params should have 33 distinct run_uuid"
+        # We have one model registered
+        assert session.query(SqlRegisteredModel).count() == 1, "registered_models should have 1 row"
+
+    with engine.begin() as conn:
+        # Test the demo data to make sure it was loaded correctly. No refresh required, as the example refreshes
+        demo_data = conn.execute(sa.text("SELECT count(*) as ct FROM doc.sales_data_for_forecast")).fetchone()
+
+        assert demo_data[0] == 9491, "demo data should have 9491 rows"
