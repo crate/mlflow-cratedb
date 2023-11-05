@@ -17,3 +17,5 @@ __pycache__
 /mlartifacts
 /mlruns
 /model
+logs.log
+catboost_info/
