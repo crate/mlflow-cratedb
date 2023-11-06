@@ -3,6 +3,17 @@
 
 ## in progress
 - Update to [MLflow 2.8](https://github.com/mlflow/mlflow/releases/tag/v2.8.0)
+
+  Attention: Please note when updating from a previous version:
+  The database model changed slightly, adding the `storage_location`
+  column to the `model_versions` table. In order to accommodate the
+  update, run this SQL DDL command, for example using `crash`.
+  ```sql
+  ALTER TABLE mlflow.model_versions ADD COLUMN storage_location TEXT NULL;
+  ```
+  Note that it is always advised to create backups of your database content.
+  This is an excellent opportunity to do that.
+
 - Fix uniqueness constraint with `mlflow.server.auth.db.models.SqlUser.username`.
 
 ## 2023-11-01 v2.7.1
