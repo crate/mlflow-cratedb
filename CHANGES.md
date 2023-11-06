@@ -21,6 +21,9 @@
 
 - Fix OCI build re. `psutil` package on aarch64
 
+- Add example experiment program `tracking_pycaret.py`, and a corresponding
+  test case. Thanks, @andnig.
+
 ## 2023-11-01 v2.7.1
 - Fix uniqueness constraint with `SqlRegisteredModel.name`. Thanks, @andnig.
 - Downgrade to Python 3.10. A few packages like PyCaret are not ready for

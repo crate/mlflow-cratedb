@@ -76,9 +76,8 @@ and [CrateDB], see [LICENSE].
 [Siddharth Murching], [Corey Zumar], [Harutaka Kawamura], [Ben Wilson], and
 all other contributors for conceiving and maintaining [MLflow].
 
-[Andreas Nigg] for contributing the [tracking_merlion.py] ML experiment program,
-which is using [Merlion].
-
+[Andreas Nigg] for contributing the [tracking_merlion.py] and [tracking_pycaret.py]
+ML experiment programs, using [Merlion] and [PyCaret].
 
 [Andreas Nigg]: https://github.com/andnig
 [Ben Wilson]: https://github.com/BenWilson2
@@ -97,5 +96,7 @@ which is using [Merlion].
 [Merlion]: https://github.com/salesforce/Merlion
 [MLflow]: https://mlflow.org/
 [MLflow Tracking]: https://mlflow.org/docs/latest/tracking.html
+[PyCaret]: https://pycaret.org/
 [Siddharth Murching]: https://github.com/smurching
 [tracking_merlion.py]: https://github.com/crate-workbench/mlflow-cratedb/blob/main/examples/tracking_merlion.py
+[tracking_pycaret.py]: https://github.com/crate-workbench/mlflow-cratedb/blob/main/examples/tracking_pycaret.py
