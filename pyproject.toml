@@ -78,7 +78,7 @@ dynamic = [
 dependencies = [
   "crash",
   "crate[sqlalchemy]>=0.34",
-  "cratedb-toolkit==0.0.1",
+  "cratedb-toolkit==0.0.2",
   "mlflow==2.8",
   "sqlparse<0.5",
 ]
@@ -93,8 +93,8 @@ develop = [
   "validate-pyproject<0.16",
 ]
 examples = [
+  "pycaret[analysis,models,parallel,test,tuner]==3.1",
   "salesforce-merlion<2.1",
-  "pycaret[analysis,models,tuner,parallel,test]==3.1.0",
   "werkzeug==2.2.3",
 ]
 release = [

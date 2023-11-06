@@ -14,12 +14,24 @@ def polyfill_uniqueness_constraints():
           - SqlExperimentPermission: "experiment_id", "user_id"
           - SqlRegisteredModelPermission: "name", "user_id"
     """
-    from mlflow.server.auth.db.models import SqlUser
+    from mlflow.server.auth.db.models import SqlExperimentPermission, SqlRegisteredModelPermission, SqlUser
     from mlflow.store.model_registry.dbmodels.models import SqlRegisteredModel
     from mlflow.store.tracking.dbmodels.models import SqlExperiment
 
     listen(SqlExperiment, "before_insert", check_uniqueness_factory(SqlExperiment, "name"))
+    listen(
+        SqlExperimentPermission,
+        "before_insert",
+        check_uniqueness_factory(SqlExperimentPermission, "experiment_id", "user_id"),
+    )
+
     listen(SqlRegisteredModel, "before_insert", check_uniqueness_factory(SqlRegisteredModel, "name"))
+    listen(
+        SqlRegisteredModelPermission,
+        "before_insert",
+        check_uniqueness_factory(SqlRegisteredModelPermission, "name", "user_id"),
+    )
+
     listen(SqlUser, "before_insert", check_uniqueness_factory(SqlUser, "username"))
 
 

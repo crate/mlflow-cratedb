@@ -14,7 +14,10 @@
   Note that it is always advised to create backups of your database content.
   This is an excellent opportunity to do that.
 
-- Fix uniqueness constraint with `mlflow.server.auth.db.models.SqlUser.username`.
+- Fix uniqueness constraints
+  - `mlflow.server.auth.db.models.SqlUser.username`.
+  - `m.s.a.d.m.SqlExperimentPermission`: "experiment_id", "user_id"
+  - `m.s.a.d.m.SqlRegisteredModelPermission`: "name", "user_id"
 
 ## 2023-11-01 v2.7.1
 - Fix uniqueness constraint with `SqlRegisteredModel.name`. Thanks, @andnig.
