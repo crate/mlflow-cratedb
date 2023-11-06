@@ -18,7 +18,7 @@ RUN \
     --mount=type=cache,id=apt,sharing=locked,target=/var/lib/apt \
     true \
     && apt-get update \
-    && apt-get install --no-install-recommends --no-install-suggests --yes git openjdk-11-jre
+    && apt-get install --no-install-recommends --no-install-suggests --yes gcc git openjdk-11-jre python3-dev
 
 # Copy sources
 COPY . /src
@@ -29,8 +29,9 @@ RUN \
     true \
     && pip install --use-pep517 --prefer-binary '/src[examples]'
 
-# Uninstall Git again.
-# RUN apt-get --yes remove --purge git && apt-get --yes autoremove
+# Uninstall distribution packages again.
+# TODO: Optimize - previous layers have already been written.
+RUN apt-get --yes remove --purge gcc git python3-dev && apt-get --yes autoremove
 
 # Purge /src and /tmp directories.
 RUN rm -rf /src /tmp/*

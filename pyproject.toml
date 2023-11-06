@@ -93,7 +93,7 @@ develop = [
   "validate-pyproject<0.16",
 ]
 examples = [
-  "pycaret[analysis,models,parallel,test,tuner]==3.1",
+  "pycaret[analysis,models,parallel,test,tuner]==3.1; platform_machine != 'aarch64'",
   "salesforce-merlion<2.1",
   "werkzeug==2.2.3",
 ]
@@ -102,7 +102,7 @@ release = [
   "twine<5",
 ]
 test = [
-  "psutil<6",
+  "psutil==5.9.2",  # This version has binary wheels for Python 3.10.
   "pytest<8",
   "pytest-cov<5",
 ]

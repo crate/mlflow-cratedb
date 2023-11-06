@@ -19,6 +19,8 @@
   - `m.s.a.d.m.SqlExperimentPermission`: "experiment_id", "user_id"
   - `m.s.a.d.m.SqlRegisteredModelPermission`: "name", "user_id"
 
+- Fix OCI build re. `psutil` package on aarch64
+
 ## 2023-11-01 v2.7.1
 - Fix uniqueness constraint with `SqlRegisteredModel.name`. Thanks, @andnig.
 - Downgrade to Python 3.10. A few packages like PyCaret are not ready for
