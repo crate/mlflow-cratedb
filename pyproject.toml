@@ -79,7 +79,7 @@ dependencies = [
   "crash",
   "crate[sqlalchemy]>=0.34",
   "cratedb-toolkit==0.0.2",
-  "mlflow==2.8",
+  "mlflow==2.8.1",
   "sqlparse<0.5",
 ]
 
