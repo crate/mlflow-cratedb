@@ -2,6 +2,8 @@
 
 
 ## in progress
+
+## 2023-11-24 v2.8.0
 - Update to [MLflow 2.8](https://github.com/mlflow/mlflow/releases/tag/v2.8.0)
 
   Attention: Please note when updating from a previous version:
@@ -18,11 +20,11 @@
   - `mlflow.server.auth.db.models.SqlUser.username`.
   - `m.s.a.d.m.SqlExperimentPermission`: "experiment_id", "user_id"
   - `m.s.a.d.m.SqlRegisteredModelPermission`: "name", "user_id"
-
-- Fix OCI build re. `psutil` package on aarch64
-
+- Fix OCI build re. `psutil` package on aarch64.
+- Optimize OCI image sizes.
 - Add example experiment program `tracking_pycaret.py`, and a corresponding
   test case. Thanks, @andnig.
+- Examples: Use `refresh_table` to synchronize CrateDB write operations.
 
 ## 2023-11-01 v2.7.1
 - Fix uniqueness constraint with `SqlRegisteredModel.name`. Thanks, @andnig.
