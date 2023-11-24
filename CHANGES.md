@@ -3,8 +3,11 @@
 
 ## in progress
 
+## 2023-11-24 v2.8.1
+- Update to [MLflow 2.8.1](https://github.com/mlflow/mlflow/releases/tag/v2.8.1)
+
 ## 2023-11-24 v2.8.0
-- Update to [MLflow 2.8](https://github.com/mlflow/mlflow/releases/tag/v2.8.0)
+- Update to [MLflow 2.8.0](https://github.com/mlflow/mlflow/releases/tag/v2.8.0)
 
   Attention: Please note when updating from a previous version:
   The database model changed slightly, adding the `storage_location`
