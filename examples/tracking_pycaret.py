@@ -122,8 +122,12 @@ def import_data(data_table_name: str):
 
 
 def refresh_table(table_name: str):
-    """Refresh the table, to make sure the data is up to date.
-    Required due to crate being eventually consistent."""
+    """
+    Flush/Synchronize CrateDB write operations.
+    Refresh the table, to make sure the data is up-to-date.
+
+    https://cratedb.com/docs/crate/reference/en/latest/sql/statements/refresh.html
+    """
 
     with connect_database() as conn:
         cursor = conn.cursor()
@@ -204,7 +208,7 @@ def main():
     if not table_exists(data_table):
         import_data(data_table)
 
-        # Refresh the table - due to crate's eventual consistency.
+        # Flush/Synchronize CrateDB write operations.
         refresh_table(data_table)
 
     # Read data into pandas DataFrame.

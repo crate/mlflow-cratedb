@@ -112,6 +112,20 @@ def import_data(data_table_name: str, anomalies_table_name: str):
         )
 
 
+def refresh_table(table_name: str):
+    """
+    Flush/Synchronize CrateDB write operations.
+    Refresh the table, to make sure the data is up-to-date.
+
+    https://cratedb.com/docs/crate/reference/en/latest/sql/statements/refresh.html
+    """
+
+    with connect_database() as conn:
+        cursor = conn.cursor()
+        cursor.execute(f"REFRESH TABLE {table_name}")
+        cursor.close()
+
+
 def read_data(table_name: str) -> pd.DataFrame:
     """
     Read data from database into pandas DataFrame.
@@ -248,6 +262,9 @@ def main():
     # Provision data to operate on, only once.
     if not table_exists(data_table):
         import_data(data_table, anomalies_table)
+
+        # Flush/Synchronize CrateDB write operations.
+        refresh_table(data_table)
 
     # Read data into pandas DataFrame.
     data = read_data(data_table)
