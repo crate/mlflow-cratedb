@@ -2,6 +2,8 @@
 
 
 ## in progress
+
+## 2024-01-25 v2.9.2
 - Update to [MLflow 2.9.2](https://github.com/mlflow/mlflow/releases/tag/v2.9.2)
 - Update to Python 3.11 across the board
 
