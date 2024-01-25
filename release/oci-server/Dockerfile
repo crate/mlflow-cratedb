@@ -4,7 +4,7 @@
 # - https://vsupalov.com/buildkit-cache-mount-dockerfile/
 # - https://github.com/FernandoMiguel/Buildkit#mounttypecache
 
-FROM python:3.10-slim-bullseye
+FROM python:3.11-slim-bullseye
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV TERM linux
@@ -18,9 +18,10 @@ COPY . /src
 # 1. Install distribution packages, with caching.
 # NB: installing gcc is required in order to build a wheel file
 # for psutil, which is a dependency of mlflow.
-# The binaries for psutil do not support Python 3.10, requiring
-# a build from source. psutil has a large amount of cython within
-# its code base, necessitating gcc being present in the image.
+# There are no binary wheel packages for psutil supporting recent
+# versions of Python, thus requiring a build from source.
+# psutil has a large amount of cython within its code base,
+# necessitating gcc being present in the image.
 
 # 2. Install package, with caching of dependency packages.
 
