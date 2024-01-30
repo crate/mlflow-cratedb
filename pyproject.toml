@@ -88,9 +88,9 @@ develop = [
   "black<25",
   "mypy==1.8.0",
   "poethepoet<1",
-  "pyproject-fmt<1.7",
+  "pyproject-fmt<1.8",
   "ruff==0.1.14",
-  "validate-pyproject<0.16",
+  "validate-pyproject<0.17",
 ]
 examples = [
   'pycaret[analysis,models,parallel,test,tuner]==3.2; platform_machine != "aarch64"',
@@ -103,7 +103,7 @@ release = [
 ]
 test = [
   "psutil==5.9.8",
-  "pytest<8",
+  "pytest<9",
   "pytest-cov<5",
 ]
 [project.scripts]
