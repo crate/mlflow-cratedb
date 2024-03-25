@@ -104,7 +104,7 @@ release = [
 test = [
   "psutil==5.9.8",
   "pytest<9",
-  "pytest-cov<5",
+  "pytest-cov<6",
 ]
 [project.scripts]
 mlflow-cratedb = "mlflow_cratedb.cli:cli"
