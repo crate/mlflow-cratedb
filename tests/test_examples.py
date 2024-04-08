@@ -173,6 +173,12 @@ def test_tracking_pycaret(reset_database, engine: sa.Engine, tracking_store: Sql
             client_process.wait(timeout=480)
             assert client_process.returncode == 0
 
+    with engine.begin() as conn:
+        conn.execute(sa.text("REFRESH TABLE testdrive.experiments"))
+        conn.execute(sa.text("REFRESH TABLE testdrive.metrics"))
+        conn.execute(sa.text("REFRESH TABLE testdrive.params"))
+        conn.execute(sa.text("REFRESH TABLE doc.sales_data_for_forecast"))
+
     with tracking_store.ManagedSessionMaker() as session:
         # We have 2 experiments - one for "Default" experiment and one for the example
         assert session.query(SqlExperiment).count() == 2, "experiments should have 2 rows"
