@@ -15,6 +15,7 @@ import mlflow.db
 import mlflow.store.db.base_sql_model
 import pytest
 import sqlalchemy
+from _pytest.monkeypatch import MonkeyPatch
 from mlflow import entities
 from mlflow.entities import (
     Experiment,
@@ -1133,8 +1134,10 @@ class TestSqlAlchemyStore(unittest.TestCase, AbstractStoreTest):
         self.store.log_param(run.info.run_id, param)
         run = self.store.get_run(run.info.run_id)
         assert run.data.params[tkey] == str(tval)
-        with pytest.raises(MlflowException, match="exceeded length"):
-            self.store.log_param(run.info.run_id, entities.Param(tkey, "x" * 6001))
+        with MonkeyPatch.context() as monkeypatch:
+            monkeypatch.setenv("MLFLOW_TRUNCATE_LONG_VALUES", "false")
+            with pytest.raises(MlflowException, match="exceeded length"):
+                self.store.log_param(run.info.run_id, entities.Param(tkey, "x" * 6001))
 
     @pytest.mark.skip("[FIXME] ColumnValidationException"
                       "[Validation failed for experiment_id: Updating a primary key is not supported]")
@@ -1189,8 +1192,10 @@ class TestSqlAlchemyStore(unittest.TestCase, AbstractStoreTest):
         # Overwriting tags is allowed
         self.store.set_tag(run.info.run_id, new_tag)
         # test setting tags that are too long fails.
-        with pytest.raises(MlflowException, match="exceeded length limit of 5000"):
-            self.store.set_tag(run.info.run_id, entities.RunTag("longTagKey", "a" * 5001))
+        with MonkeyPatch.context() as monkeypatch:
+            monkeypatch.setenv("MLFLOW_TRUNCATE_LONG_VALUES", "false")
+            with pytest.raises(MlflowException, match="exceeded length limit of 5000"):
+                self.store.set_tag(run.info.run_id, entities.RunTag("longTagKey", "a" * 5001))
         # test can set tags that are somewhat long
         self.store.set_tag(run.info.run_id, entities.RunTag("longTagKey", "a" * 4999))
         run = self.store.get_run(run.info.run_id)
@@ -2749,8 +2754,10 @@ class TestSqlAlchemyStore(unittest.TestCase, AbstractStoreTest):
         self.store.log_batch(run.info.run_id, [], param_entities, [])
         self._verify_logged(self.store, run.info.run_id, [], expected_param_entities, [])
         param_entities = [Param("long param", "x" * 6001)]
-        with pytest.raises(MlflowException, match="exceeded length"):
-            self.store.log_batch(run.info.run_id, [], param_entities, [])
+        with MonkeyPatch.context() as monkeypatch:
+            monkeypatch.setenv("MLFLOW_TRUNCATE_LONG_VALUES", "false")
+            with pytest.raises(MlflowException, match="exceeded length"):
+                self.store.log_batch(run.info.run_id, [], param_entities, [])
 
     def _generate_large_data(self, nb_runs=1000):
         experiment_id = self.store.create_experiment("test_experiment")
