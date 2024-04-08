@@ -59,8 +59,7 @@ CREATE TABLE IF NOT EXISTS "metrics" (
    "timestamp" BIGINT NOT NULL,
    "step" BIGINT NOT NULL,
    "is_nan" BOOLEAN NOT NULL,
-   "run_uuid" TEXT NOT NULL,
-   PRIMARY KEY ("key", "timestamp", "step", "run_uuid", "value", "is_nan")
+   "run_uuid" TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS "model_versions" (
