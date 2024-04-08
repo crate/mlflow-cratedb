@@ -95,7 +95,7 @@ develop = [
 examples = [
   'pycaret[analysis,models,parallel,test,tuner]==3.3.0; platform_machine != "aarch64"',
   "salesforce-merlion<2.1",
-  "werkzeug==2.2.3",
+  "werkzeug==3.0.2",
 ]
 release = [
   "build<2",
