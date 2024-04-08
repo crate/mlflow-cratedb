@@ -39,8 +39,10 @@ The [MLflow Tracking] subsystem is about recording and querying experiments, acr
 code, data, config, and results.
 
 The MLflow adapter for CrateDB can be used in different ways. Please refer
-to the [handbook], the documentation about [container usage], and the
-[hands-on guidelines].
+to the [handbook], and the documentation about [container usage].
+
+For more general information, see [Machine Learning with CrateDB]
+and [examples about MLflow and CrateDB].
 
 
 ## Development
@@ -87,11 +89,12 @@ ML experiment programs, using [Merlion] and [PyCaret].
 [CrateDB Cloud]: https://console.cratedb.cloud/
 [Create an issue]: https://github.com/crate-workbench/mlflow-cratedb/issues
 [development sandbox]: https://github.com/crate-workbench/mlflow-cratedb/blob/main/docs/development.md
+[examples about MLflow and CrateDB]: https://github.com/crate/cratedb-examples/tree/main/topic/machine-learning/mlops-mlflow
 [handbook]: https://github.com/crate-workbench/mlflow-cratedb/blob/main/docs/handbook.md
-[hands-on guidelines]: https://github.com/crate/cratedb-examples/blob/main/framework/mlflow/readme.md
 [Harutaka Kawamura]: https://github.com/harupy
 [install a development sandbox]: https://github.com/crate-workbench/mlflow-cratedb/blob/main/docs/development.md
 [LICENSE]: https://github.com/crate-workbench/mlflow-cratedb/blob/main/LICENSE
+[Machine Learning with CrateDB]: https://cratedb.com/docs/guide/domain/ml/
 [managed on GitHub]: https://github.com/crate-workbench/mlflow-cratedb
 [Merlion]: https://github.com/salesforce/Merlion
 [MLflow]: https://mlflow.org/
