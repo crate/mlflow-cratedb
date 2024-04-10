@@ -2,6 +2,13 @@
 
 
 ## in progress
+
+## 2024-04-10 v2.11.3
+- Update to MLflow 2.11.3. See release notes for
+  [MLflow 2.11.0](https://github.com/mlflow/mlflow/releases/tag/v2.11.0),
+  [MLflow 2.11.1](https://github.com/mlflow/mlflow/releases/tag/v2.11.1),
+  [MLflow 2.11.2](https://github.com/mlflow/mlflow/releases/tag/v2.11.2),
+  [MLflow 2.11.3](https://github.com/mlflow/mlflow/releases/tag/v2.11.3).
 - Fix incompatibility with Python 3.11.9
 
 ## 2024-02-13 v2.10.2
