@@ -2,6 +2,7 @@
 
 
 ## in progress
+- Fix incompatibility with Python 3.11.9
 
 ## 2024-02-13 v2.10.2
 - Update to [MLflow 2.10.2](https://github.com/mlflow/mlflow/releases/tag/v2.10.2)
