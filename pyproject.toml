@@ -80,7 +80,7 @@ dependencies = [
   "crate[sqlalchemy]>=0.34",
   "cratedb-toolkit==0.0.12",
   "dask>=2024.4.1",
-  "joblib<1.4",
+  "joblib!=1.4.0,<1.5",
   "mlflow==2.13.1",
   "sqlparse<0.6",
 ]
