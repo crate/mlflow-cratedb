@@ -3,6 +3,15 @@
 
 ## in progress
 
+## 2024-05-07 v2.12.1
+- Update to MLflow 2.12.1. See release notes for
+  [MLflow 2.12.1](https://github.com/mlflow/mlflow/releases/tag/v2.12.1).
+- Update to PyCaret 3.3.2. See release notes for
+  [PyCaret 3.3.1](https://github.com/pycaret/pycaret/releases/tag/3.3.1),
+  [PyCaret 3.3.2](https://github.com/pycaret/pycaret/releases/tag/3.3.2).
+- Chore: Update to most recent mypy, pyproject-fmt, ruff, and sqlparse
+- CI: Run tests on Python 3.10 and 3.11
+
 ## 2024-04-10 v2.11.3
 - Update to MLflow 2.11.3. See release notes for
   [MLflow 2.11.0](https://github.com/mlflow/mlflow/releases/tag/v2.11.0),
