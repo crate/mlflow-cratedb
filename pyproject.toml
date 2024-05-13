@@ -81,7 +81,7 @@ dependencies = [
   "cratedb-toolkit==0.0.10",
   "dask>=2024.4.1",
   "joblib<1.4",
-  "mlflow==2.12.1",
+  "mlflow==2.12.2",
   "sqlparse<0.6",
 ]
 
