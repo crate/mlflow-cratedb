@@ -2000,11 +2000,7 @@ class TestSqlAlchemyStore(unittest.TestCase, AbstractStoreTest):
         runs.reverse()
 
         assert runs[:1000] == self._search(exp)
-        for n in [0, 1, 2, 4, 8, 10, 20, 50, 100, 500, 1000, 1200, 2000]:
-            if n == 0 and self.store._get_dialect() == MSSQL:
-                # In SQL server, `max_results = 0` results in the following error:
-                # The number of rows provided for a FETCH clause must be greater then zero.
-                continue
+        for n in [1, 2, 4, 8, 10, 20, 50, 100, 500, 1000, 1200, 2000]:
             assert runs[: min(1200, n)] == self._search(exp, max_results=n)
 
         with pytest.raises(
@@ -2022,11 +2018,7 @@ class TestSqlAlchemyStore(unittest.TestCase, AbstractStoreTest):
                 for r in range(10)
             ]
         )
-        for n in [0, 1, 2, 4, 8, 10, 20]:
-            if n == 0 and self.store._get_dialect() == MSSQL:
-                # In SQL server, `max_results = 0` results in the following error:
-                # The number of rows provided for a FETCH clause must be greater then zero.
-                continue
+        for n in [1, 2, 4, 8, 10, 20]:
             assert runs[: min(10, n)] == self._search(exp, max_results=n)
 
     def test_search_runs_pagination(self):
