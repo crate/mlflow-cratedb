@@ -140,3 +140,28 @@ CREATE TABLE IF NOT EXISTS "tags" (
    "run_uuid" TEXT NOT NULL,
    PRIMARY KEY ("key", "run_uuid")
 );
+
+CREATE TABLE IF NOT EXISTS "trace_info" (
+   "request_id" TEXT NOT NULL,
+   "experiment_id" BIGINT,
+   "timestamp_ms" BIGINT NOT NULL,
+   "execution_time_ms" BIGINT NOT NULL,
+   "status" TEXT,
+   PRIMARY KEY ("request_id")
+);
+
+CREATE TABLE IF NOT EXISTS "trace_tags" (
+   "key" TEXT,
+   "value" TEXT NOT NULL,
+   "request_id" TEXT NOT NULL,
+   "trace_info" BIGINT,
+   PRIMARY KEY ("request_id", "key")
+);
+
+CREATE TABLE IF NOT EXISTS "trace_request_metadata" (
+   "key" TEXT,
+   "value" TEXT NOT NULL,
+   "request_id" TEXT NOT NULL,
+   "trace_info" BIGINT,
+   PRIMARY KEY ("request_id", "key")
+);

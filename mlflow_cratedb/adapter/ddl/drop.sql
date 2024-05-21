@@ -13,3 +13,6 @@ DROP TABLE IF EXISTS "registered_model_aliases";
 DROP TABLE IF EXISTS "registered_model_tags";
 DROP TABLE IF EXISTS "runs";
 DROP TABLE IF EXISTS "tags";
+DROP TABLE IF EXISTS "trace_info";
+DROP TABLE IF EXISTS "trace_tags";
+DROP TABLE IF EXISTS "trace_request_metadata";
