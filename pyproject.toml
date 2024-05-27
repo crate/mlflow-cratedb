@@ -92,7 +92,7 @@ develop = [
   "poethepoet<1",
   "pyproject-fmt<2.2",
   "ruff<0.5",
-  "validate-pyproject<0.18",
+  "validate-pyproject<0.19",
 ]
 examples = [
   'pycaret[analysis,models,parallel,test,tuner]==3.3.2; platform_machine != "aarch64"',
