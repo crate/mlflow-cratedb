@@ -3,6 +3,10 @@
 
 ## in progress
 
+## 2024-06-04 v2.13.1
+- Update to MLflow 2.13.1. See release notes for
+  [MLflow 2.13.1](https://github.com/mlflow/mlflow/releases/tag/v2.13.1).
+
 ## 2024-05-21 v2.13.0
 - Update to MLflow 2.13.0. See release notes for
   [MLflow 2.13.0](https://github.com/mlflow/mlflow/releases/tag/v2.13.0).
