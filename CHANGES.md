@@ -3,6 +3,11 @@
 
 ## in progress
 
+## 2024-06-11 v2.13.2
+- Dependencies: Migrate from `crate[sqlalchemy]` to `sqlalchemy-cratedb`
+- Update to MLflow 2.13.2. See release notes for
+  [MLflow 2.13.2](https://github.com/mlflow/mlflow/releases/tag/v2.13.2).
+
 ## 2024-06-04 v2.13.1
 - Update to MLflow 2.13.1. See release notes for
   [MLflow 2.13.1](https://github.com/mlflow/mlflow/releases/tag/v2.13.1).
