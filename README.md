@@ -1,10 +1,10 @@
 # MLflow adapter for CrateDB
 
-[![Tests](https://github.com/crate-workbench/mlflow-cratedb/actions/workflows/main.yml/badge.svg)](https://github.com/crate-workbench/mlflow-cratedb/actions/workflows/main.yml)
-[![Test coverage](https://img.shields.io/codecov/c/gh/crate-workbench/mlflow-cratedb.svg)](https://codecov.io/gh/crate-workbench/mlflow-cratedb/)
+[![Tests](https://github.com/crate/mlflow-cratedb/actions/workflows/main.yml/badge.svg)](https://github.com/crate/mlflow-cratedb/actions/workflows/main.yml)
+[![Test coverage](https://img.shields.io/codecov/c/gh/crate/mlflow-cratedb.svg)](https://codecov.io/gh/crate/mlflow-cratedb/)
 [![Python versions](https://img.shields.io/pypi/pyversions/mlflow-cratedb.svg)](https://pypi.org/project/mlflow-cratedb/)
 
-[![License](https://img.shields.io/github/license/crate-workbench/mlflow-cratedb.svg)](https://github.com/crate-workbench/mlflow-cratedb/blob/main/LICENSE)
+[![License](https://img.shields.io/github/license/crate/mlflow-cratedb.svg)](https://github.com/crate/mlflow-cratedb/blob/main/LICENSE)
 [![Status](https://img.shields.io/pypi/status/mlflow-cratedb.svg)](https://pypi.org/project/mlflow-cratedb/)
 [![PyPI](https://img.shields.io/pypi/v/mlflow-cratedb.svg)](https://pypi.org/project/mlflow-cratedb/)
 [![Downloads](https://pepy.tech/badge/mlflow-cratedb/month)](https://pypi.org/project/mlflow-cratedb/)
@@ -54,8 +54,8 @@ how to [install a development sandbox].
 ## Project Information
 
 ### Resources
-- [Source code](https://github.com/crate-workbench/mlflow-cratedb)
-- [Documentation](https://github.com/crate-workbench/mlflow-cratedb/tree/main/docs)
+- [Source code](https://github.com/crate/mlflow-cratedb)
+- [Documentation](https://github.com/crate/mlflow-cratedb/tree/main/docs)
 - [Python Package Index (PyPI)](https://pypi.org/project/mlflow-cratedb/)
 
 ### Contributions
@@ -83,23 +83,23 @@ ML experiment programs, using [Merlion] and [PyCaret].
 
 [Andreas Nigg]: https://github.com/andnig
 [Ben Wilson]: https://github.com/BenWilson2
-[container usage]: https://github.com/crate-workbench/mlflow-cratedb/blob/main/docs/container.md
+[container usage]: https://github.com/crate/mlflow-cratedb/blob/main/docs/container.md
 [Corey Zumar]: https://github.com/dbczumar
 [CrateDB]: https://github.com/crate/crate
 [CrateDB Cloud]: https://console.cratedb.cloud/
-[Create an issue]: https://github.com/crate-workbench/mlflow-cratedb/issues
-[development sandbox]: https://github.com/crate-workbench/mlflow-cratedb/blob/main/docs/development.md
+[Create an issue]: https://github.com/crate/mlflow-cratedb/issues
+[development sandbox]: https://github.com/crate/mlflow-cratedb/blob/main/docs/development.md
 [examples about MLflow and CrateDB]: https://github.com/crate/cratedb-examples/tree/main/topic/machine-learning/mlops-mlflow
-[handbook]: https://github.com/crate-workbench/mlflow-cratedb/blob/main/docs/handbook.md
+[handbook]: https://github.com/crate/mlflow-cratedb/blob/main/docs/handbook.md
 [Harutaka Kawamura]: https://github.com/harupy
-[install a development sandbox]: https://github.com/crate-workbench/mlflow-cratedb/blob/main/docs/development.md
-[LICENSE]: https://github.com/crate-workbench/mlflow-cratedb/blob/main/LICENSE
+[install a development sandbox]: https://github.com/crate/mlflow-cratedb/blob/main/docs/development.md
+[LICENSE]: https://github.com/crate/mlflow-cratedb/blob/main/LICENSE
 [Machine Learning with CrateDB]: https://cratedb.com/docs/guide/domain/ml/
-[managed on GitHub]: https://github.com/crate-workbench/mlflow-cratedb
+[managed on GitHub]: https://github.com/crate/mlflow-cratedb
 [Merlion]: https://github.com/salesforce/Merlion
 [MLflow]: https://mlflow.org/
 [MLflow Tracking]: https://mlflow.org/docs/latest/tracking.html
 [PyCaret]: https://pycaret.org/
 [Siddharth Murching]: https://github.com/smurching
-[tracking_merlion.py]: https://github.com/crate-workbench/mlflow-cratedb/blob/main/examples/tracking_merlion.py
-[tracking_pycaret.py]: https://github.com/crate-workbench/mlflow-cratedb/blob/main/examples/tracking_pycaret.py
+[tracking_merlion.py]: https://github.com/crate/mlflow-cratedb/blob/main/examples/tracking_merlion.py
+[tracking_pycaret.py]: https://github.com/crate/mlflow-cratedb/blob/main/examples/tracking_pycaret.py

@@ -3,12 +3,12 @@
 The project operates GHA workflows to build and publish two OCI images to
 GHCR, `mlflow-cratedb` and `ml-runtime`.
 
-- `ghcr.io/crate-workbench/mlflow-cratedb`
+- `ghcr.io/crate/mlflow-cratedb`
   Includes the amalgamated Mlflow for CrateDB adapter, ready to run.
   Effectively, it contains the same packages as if you installed them with
   `pip install 'mlflow-cratedb'`
 
-- `ghcr.io/crate-workbench/ml-runtime`
+- `ghcr.io/crate/ml-runtime`
   Includes a few popular machine learning libraries and other software
   to support your experiments. Effectively, it contains the same packages
   as if you installed them with `pip install 'mlflow-cratedb[examples]'`.
@@ -55,14 +55,14 @@ you will need to address the CrateDB container by name instead.
 docker run --rm -it --link=cratedb \
   --env="MLFLOW_TRACKING_URI=crate://crate@cratedb:4200/?schema=mlflow" \
   --env="CRATEDB_HTTP_URL=http://crate@cratedb:4200/?schema=doc" \
-  ghcr.io/crate-workbench/ml-runtime python /opt/ml/bin/tracking_dummy.py
+  ghcr.io/crate/ml-runtime python /opt/ml/bin/tracking_dummy.py
 ```
 
 You can use `crash` to inquire the relevant MLflow database tables.
 ```shell
-docker run --rm -it --link=cratedb ghcr.io/crate-workbench/ml-runtime \
+docker run --rm -it --link=cratedb ghcr.io/crate/ml-runtime \
   crash --hosts="http://crate@cratedb:4200/" --schema=mlflow --command='SELECT * FROM "experiments";'
-docker run --rm -it --link=cratedb ghcr.io/crate-workbench/ml-runtime \
+docker run --rm -it --link=cratedb ghcr.io/crate/ml-runtime \
   crash --hosts="http://crate@cratedb:4200/" --schema=mlflow --command='SELECT * FROM "runs";'
 ```
 
@@ -82,7 +82,7 @@ and the web UI, see http://localhost:5000/.
 
 ```shell
 docker run --rm -it --name=mlflow --link=cratedb --publish=5000:5000 \
-  ghcr.io/crate-workbench/mlflow-cratedb mlflow-cratedb server \
+  ghcr.io/crate/mlflow-cratedb mlflow-cratedb server \
   --backend-store-uri="${CRATEDB_SQLALCHEMY_URL}" --host=0.0.0.0 \
   --gunicorn-opts="--log-level=debug"
 ```
@@ -95,7 +95,7 @@ other containers.
 docker run --rm -it --link=cratedb --link=mlflow \
   --env="MLFLOW_TRACKING_URI=http://mlflow:5000" \
   --env="CRATEDB_HTTP_URL=http://crate@cratedb:4200/?schema=doc" \
-  ghcr.io/crate-workbench/ml-runtime python /opt/ml/bin/tracking_merlion.py
+  ghcr.io/crate/ml-runtime python /opt/ml/bin/tracking_merlion.py
 ```
 
 

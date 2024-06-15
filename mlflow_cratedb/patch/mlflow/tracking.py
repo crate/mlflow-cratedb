@@ -36,7 +36,7 @@ def patch_get_orderby_clauses():
     """
     MLflow's `_get_orderby_clauses` adds an `sql.case(...)` clause, which CrateDB does not understand.
 
-    https://github.com/crate-workbench/mlflow-cratedb/issues/8
+    https://github.com/crate/mlflow-cratedb/issues/8
     """
     import mlflow.store.tracking.sqlalchemy_store as sqlalchemy_store
 

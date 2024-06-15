@@ -20,7 +20,7 @@ def test_log_model_twice(tracking_store, reset_database):
 
     References
     ----------
-    - https://github.com/crate-workbench/mlflow-cratedb/issues/46
+    - https://github.com/crate/mlflow-cratedb/issues/46
     """
 
     # Activate backend for tracking.

@@ -4,7 +4,7 @@ About
 Use MLflow and CrateDB to track the metrics and parameters of a dummy ML
 experiment program.
 
-- https://github.com/crate-workbench/mlflow-cratedb
+- https://github.com/crate/mlflow-cratedb
 - https://mlflow.org/docs/latest/tracking.html
 
 Usage
