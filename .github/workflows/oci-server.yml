@@ -1,5 +1,5 @@
 # Stage OCI container images through GitHub Actions (GHA) to GitHub Container Registry (GHCR).
-# The `ghcr.io/crate-workbench/mlflow-cratedb` OCI image contains the amalgamated
+# The `ghcr.io/crate/mlflow-cratedb` OCI image contains the amalgamated
 # MLflow for CrateDB adapter.
 name: OCI for server
 

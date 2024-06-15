@@ -1,5 +1,5 @@
 # Stage OCI container images through GitHub Actions (GHA) to GitHub Container Registry (GHCR).
-# The `ghcr.io/crate-workbench/ml-runtime` OCI image contains a number of popular ML libraries,
+# The `ghcr.io/crate/ml-runtime` OCI image contains a number of popular ML libraries,
 # and is suitable to support a variety of ML workloads.
 name: OCI for runtime
 
@@ -32,7 +32,7 @@ concurrency:
 
 # The name for the produced image at ghcr.io.
 env:
-  IMAGE_NAME: "crate-workbench/ml-runtime"
+  IMAGE_NAME: "crate/ml-runtime"
   RECIPE_PATH: "release/oci-runtime"
 
 jobs:

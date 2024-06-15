@@ -117,10 +117,10 @@ mlflow-cratedb = "mlflow_cratedb.server:app"
 packages = ["mlflow_cratedb"]
 
 [project.urls]
-changelog = "https://github.com/crate-workbench/mlflow-cratedb/blob/main/CHANGES.md"
-documentation = "https://github.com/crate-workbench/mlflow-cratedb"
-homepage = "https://github.com/crate-workbench/mlflow-cratedb"
-repository = "https://github.com/crate-workbench/mlflow-cratedb"
+changelog = "https://github.com/crate/mlflow-cratedb/blob/main/CHANGES.md"
+documentation = "https://github.com/crate/mlflow-cratedb"
+homepage = "https://github.com/crate/mlflow-cratedb"
+repository = "https://github.com/crate/mlflow-cratedb"
 [tool.black]
 line-length = 120
 

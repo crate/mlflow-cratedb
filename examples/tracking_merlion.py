@@ -5,7 +5,7 @@ Use MLflow and CrateDB to track the metrics, parameters, and outcomes of an ML
 experiment program using Merlion. It uses the `machine_temperature_system_failure.csv`
 dataset from the Numenta Anomaly Benchmark data.
 
-- https://github.com/crate-workbench/mlflow-cratedb
+- https://github.com/crate/mlflow-cratedb
 - https://mlflow.org/docs/latest/tracking.html
 
 Usage
