@@ -1,4 +1,4 @@
 def patch_sqlalchemy():
-    from cratedb_toolkit.sqlalchemy import polyfill_autoincrement
+    from sqlalchemy_cratedb.support import patch_autoincrement_timestamp
 
-    polyfill_autoincrement()
+    patch_autoincrement_timestamp()
