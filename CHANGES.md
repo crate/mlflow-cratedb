@@ -2,6 +2,8 @@
 
 
 ## in progress
+- Remove patch for SQLAlchemy Inspector's `get_table_names`.
+  Use `sqlalchemy-cratedb>=0.37` instead, which includes the patch.
 
 ## 2024-06-11 v2.13.2
 - Dependencies: Migrate from `crate[sqlalchemy]` to `sqlalchemy-cratedb`
