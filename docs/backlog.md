@@ -53,3 +53,4 @@
   see, for example, tracking_dummy.py#L53-L55.
   Alternatively, find an "autoload" solution for Python?
 - Code: Refactor / break out the generic SQLALchemy polyfill patches into `cratedb-toolkit`
+- Code: Refactor SQLALchemy polyfills and patches into `sqlalchemy-cratedb`

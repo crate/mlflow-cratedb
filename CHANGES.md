@@ -2,6 +2,7 @@
 
 
 ## in progress
+- Started using more SQLAlchemy patches and polyfills from `sqlalchemy-cratedb`
 
 ## 2024-06-18 v2.14.0
 - Remove patch for SQLAlchemy Inspector's `get_table_names`.

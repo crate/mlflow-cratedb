@@ -1,6 +1,6 @@
 import sqlalchemy as sa
-from cratedb_toolkit.sqlalchemy import check_uniqueness_factory
 from sqlalchemy.event import listen
+from sqlalchemy_cratedb.support import check_uniqueness_factory
 
 
 def polyfill_uniqueness_constraints():
