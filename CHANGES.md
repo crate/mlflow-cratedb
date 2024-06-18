@@ -2,8 +2,12 @@
 
 
 ## in progress
+
+## 2024-06-18 v2.14.0
 - Remove patch for SQLAlchemy Inspector's `get_table_names`.
   Use `sqlalchemy-cratedb>=0.37` instead, which includes the patch.
+- Update to MLflow 2.14.0. See release notes for
+  [MLflow 2.14.0](https://github.com/mlflow/mlflow/releases/tag/v2.14.0).
 
 ## 2024-06-11 v2.13.2
 - Dependencies: Migrate from `crate[sqlalchemy]` to `sqlalchemy-cratedb`
