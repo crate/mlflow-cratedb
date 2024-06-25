@@ -2,7 +2,11 @@
 
 
 ## in progress
+
+## 2024-06-25 v2.14.1
 - Started using more SQLAlchemy patches and polyfills from `sqlalchemy-cratedb`
+- Updated to MLflow 2.14.1. See release notes for
+  [MLflow 2.14.1](https://github.com/mlflow/mlflow/releases/tag/v2.14.1).
 
 ## 2024-06-18 v2.14.0
 - Remove patch for SQLAlchemy Inspector's `get_table_names`.
