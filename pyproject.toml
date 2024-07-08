@@ -79,7 +79,7 @@ dependencies = [
   "crash",
   "dask>=2024.4.1",
   "joblib!=1.4.0,<1.5",
-  "mlflow==2.14.1",
+  "mlflow==2.14.2",
   "sqlalchemy-cratedb>=0.38.0,<1",
   "sqlparse<0.6",
 ]
