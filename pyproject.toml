@@ -90,7 +90,7 @@ develop = [
   "mypy<1.12",
   "poethepoet<1",
   "pyproject-fmt<2.3",
-  "ruff<0.6",
+  "ruff<0.8",
   "validate-pyproject<0.22",
 ]
 examples = [
