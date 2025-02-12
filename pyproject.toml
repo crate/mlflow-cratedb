@@ -11,16 +11,10 @@ requires = [
   "versioningit",
 ]
 
-[tool.versioningit.vcs]
-method = "git"
-default-tag = "0.0.0"
-
 [project]
 name = "mlflow-cratedb"
 description = "MLflow adapter for CrateDB"
 readme = "README.md"
-requires-python = ">=3.8,<3.12"
-license = {text = "Apache License 2.0"}
 keywords = [
   "ai",
   "cratedb",
@@ -32,9 +26,11 @@ keywords = [
   "mlflow-tracking",
   "mlops",
 ]
+license = { text = "Apache License 2.0" }
 authors = [
-  {name = "Andreas Motl", email = "andreas.motl@crate.io"},
+  { name = "Andreas Motl", email = "andreas.motl@crate.io" },
 ]
+requires-python = ">=3.8,<3.12"
 classifiers = [
   "Development Status :: 4 - Beta",
   "Environment :: Console",
@@ -84,51 +80,75 @@ dependencies = [
   "sqlparse<0.6",
 ]
 
-[project.optional-dependencies]
-develop = [
-  "black<25",
+optional-dependencies.develop = [
   "mypy<1.15",
   "poethepoet<1",
   "pyproject-fmt<2.6",
-  "ruff<0.9",
+  "ruff<0.10",
   "validate-pyproject<0.24",
 ]
-examples = [
-  'pycaret[analysis,models,parallel,test,tuner]==3.3.2; platform_machine != "aarch64"',
+optional-dependencies.examples = [
+  "pycaret[analysis,models,parallel,test,tuner]==3.3.2; platform_machine!='aarch64'",
   "salesforce-merlion<2.1",
   "werkzeug==2.2.3",
 ]
-release = [
+optional-dependencies.release = [
   "build<2",
   "twine<7",
 ]
-test = [
+optional-dependencies.test = [
   "psutil==5.9.8",
   "pytest<9",
   "pytest-cov<7",
 ]
-[project.scripts]
-mlflow-cratedb = "mlflow_cratedb.cli:cli"
-[project.entry-points."mlflow.app"]
-mlflow-cratedb = "mlflow_cratedb.server:app"
+urls.changelog = "https://github.com/crate/mlflow-cratedb/blob/main/CHANGES.md"
+urls.documentation = "https://github.com/crate/mlflow-cratedb"
+urls.homepage = "https://github.com/crate/mlflow-cratedb"
+urls.repository = "https://github.com/crate/mlflow-cratedb"
+scripts.mlflow-cratedb = "mlflow_cratedb.cli:cli"
+entry-points."mlflow.app".mlflow-cratedb = "mlflow_cratedb.server:app"
+
 [tool.setuptools]
 # https://setuptools.pypa.io/en/latest/userguide/package_discovery.html
-packages = ["mlflow_cratedb"]
+packages = [ "mlflow_cratedb" ]
 
-[project.urls]
-changelog = "https://github.com/crate/mlflow-cratedb/blob/main/CHANGES.md"
-documentation = "https://github.com/crate/mlflow-cratedb"
-homepage = "https://github.com/crate/mlflow-cratedb"
-repository = "https://github.com/crate/mlflow-cratedb"
-[tool.black]
+[tool.ruff]
 line-length = 120
 
-extend-exclude = "tests/test_tracking.py"
+extend-exclude = [
+  "tests/test_tracking.py",
+]
 
-[tool.isort]
-profile = "black"
-skip_glob = "**/site-packages/**"
-skip_gitignore = false
+lint.select = [
+  # Builtins
+  "A",
+  # Bugbear
+  "B",
+  # comprehensions
+  "C4",
+  # Pycodestyle
+  "E",
+  # eradicate
+  "ERA",
+  # Pyflakes
+  "F",
+  # isort
+  "I",
+  # pandas-vet
+  "PD",
+  # return
+  "RET",
+  # Bandit
+  "S",
+  # print
+  "T20",
+  "W",
+  # flake8-2020
+  "YTT",
+]
+
+lint.per-file-ignores."tests/*" = [ "S101" ]           # Use of `assert` detected
+lint.per-file-ignores."tests/conftest.py" = [ "E402" ] # Module level import not at top of file
 
 [tool.pytest.ini_options]
 minversion = "2.0"
@@ -139,7 +159,7 @@ addopts = """
   """
 log_level = "DEBUG"
 log_cli_level = "DEBUG"
-testpaths = ["tests"]
+testpaths = [ "tests" ]
 xfail_strict = true
 markers = [
   "examples",
@@ -149,9 +169,9 @@ markers = [
 
 [tool.coverage.run]
 branch = false
-source = ["mlflow_cratedb"]
+source = [ "mlflow_cratedb" ]
 omit = [
-    "tests/*",
+  "tests/*",
 ]
 
 [tool.coverage.report]
@@ -159,7 +179,7 @@ fail_under = 0
 show_missing = true
 
 [tool.mypy]
-packages = ["mlflow_cratedb"]
+packages = [ "mlflow_cratedb" ]
 exclude = [
 ]
 check_untyped_defs = true
@@ -173,45 +193,9 @@ strict_equality = true
 warn_unused_ignores = true
 warn_redundant_casts = true
 
-[tool.ruff]
-line-length = 120
-
-lint.select = [
-  # Bandit
-  "S",
-  # Bugbear
-  "B",
-  # Builtins
-  "A",
-  # comprehensions
-  "C4",
-  # eradicate
-  "ERA",
-  # flake8-2020
-  "YTT",
-  # isort
-  "I",
-  # pandas-vet
-  "PD",
-  # print
-  "T20",
-  # Pycodestyle
-  "E",
-  "W",
-  # Pyflakes
-  "F",
-  # return
-  "RET",
-]
-
-extend-exclude = [
-]
-
-
-[tool.ruff.lint.per-file-ignores]
-"tests/*" = ["S101"]  # Use of `assert` detected
-"tests/conftest.py" = ["E402"]  # Module level import not at top of file
-
+[tool.versioningit.vcs]
+method = "git"
+default-tag = "0.0.0"
 
 # ===================
 # Tasks configuration
@@ -219,16 +203,16 @@ extend-exclude = [
 
 [tool.poe.tasks]
 format = [
-  { cmd = "black ." },
+  { cmd = "ruff format ." },
   # Configure Ruff not to auto-fix (remove!):
   # Ignore unused imports (F401), unused variables (F841), `print` statements (T201), and commented-out code (ERA001).
-  { cmd = "ruff --fix --ignore=ERA --ignore=F401 --ignore=F841 --ignore=T20 --ignore=ERA001 ." },
+  { cmd = "ruff check --fix --ignore=ERA --ignore=F401 --ignore=F841 --ignore=T20 --ignore=ERA001 ." },
   { cmd = "pyproject-fmt --keep-full-version pyproject.toml" },
 ]
 
 lint = [
+  { cmd = "ruff format --check ." },
   { cmd = "ruff check ." },
-  { cmd = "black --check ." },
   { cmd = "validate-pyproject pyproject.toml" },
   { cmd = "mypy" },
 ]
@@ -239,8 +223,8 @@ test-fast = [
   { cmd = "pytest -m 'not slow'" },
 ]
 build = { cmd = "python -m build" }
-check = ["lint", "test"]
-check-fast = ["lint", "test-fast"]
+check = [ "lint", "test" ]
+check-fast = [ "lint", "test-fast" ]
 
 release = [
   { cmd = "python -m build" },
