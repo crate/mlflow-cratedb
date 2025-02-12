@@ -68,8 +68,8 @@ jobs:
           if [[ -f ${{ env.RECIPE_PATH }}/test.yml ]]; then
             export DOCKER_BUILDKIT=1
             export COMPOSE_DOCKER_CLI_BUILD=1
-            docker-compose --file ${{ env.RECIPE_PATH }}/test.yml build
-            docker-compose --file ${{ env.RECIPE_PATH }}/test.yml run sut
+            docker compose --file ${{ env.RECIPE_PATH }}/test.yml build
+            docker compose --file ${{ env.RECIPE_PATH }}/test.yml run sut
           fi
 
   oci:
