@@ -147,7 +147,7 @@ def read_data(table_name: str) -> pd.DataFrame:
             FROM {table_name}
             GROUP BY month
             ORDER BY month
-        """
+        """  # noqa: S608
     with connect_database() as conn:
         data = pd.read_sql(query, conn)
 
