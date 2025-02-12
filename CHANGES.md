@@ -3,6 +3,7 @@
 
 ## in progress
 - CI: Run tests on Python 3.12
+- OCI: Update to Python 3.12
 
 ## 2024-06-25 v2.14.1
 - Started using more SQLAlchemy patches and polyfills from `sqlalchemy-cratedb`
