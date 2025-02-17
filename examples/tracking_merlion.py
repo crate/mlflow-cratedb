@@ -108,7 +108,8 @@ def import_data(data_table_name: str, anomalies_table_name: str):
             ("2014-02-07 14:55:00.000000", "2014-02-09 14:05:00.000000"),
         ]
         cursor.executemany(
-            f"INSERT INTO {anomalies_table_name} (ts_start, ts_end) VALUES (?, ?)", known_anomalies  # noqa: S608
+            f"INSERT INTO {anomalies_table_name} (ts_start, ts_end) VALUES (?, ?)",  # noqa: S608
+            known_anomalies,  # noqa: S608
         )
 
 
@@ -222,7 +223,7 @@ def run_experiment(time_series: pd.DataFrame, anomalies_table_name: str):
         r = TSADMetric.Recall.value(ground_truth=test_labels, predict=test_pred)
         f1 = TSADMetric.F1.value(ground_truth=test_labels, predict=test_pred)
         mttd = TSADMetric.MeanTimeToDetect.value(ground_truth=test_labels, predict=test_pred)
-        print(f"Precision: {p:.4f}, Recall: {r:.4f}, F1: {f1:.4f}\n" f"Mean Time To Detect: {mttd}")  # noqa: T201
+        print(f"Precision: {p:.4f}, Recall: {r:.4f}, F1: {f1:.4f}\nMean Time To Detect: {mttd}")  # noqa: T201
 
         mlflow.log_input(mlflow.data.from_pandas(input_test_data), context="training")
         mlflow.log_metric("precision", p)
