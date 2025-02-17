@@ -103,7 +103,7 @@ release = [
   "twine<7",
 ]
 test = [
-  "psutil==5.9.8",
+  "psutil==7.0.0",
   "pytest<9",
   "pytest-cov<7",
 ]
