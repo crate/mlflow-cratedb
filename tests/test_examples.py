@@ -183,15 +183,15 @@ def test_tracking_pycaret(reset_database, engine: sa.Engine, tracking_store: Sql
         # We have 2 experiments - one for "Default" experiment and one for the example
         assert session.query(SqlExperiment).count() == 2, "experiments should have 2 rows"
         # We have 32 distinct runs in the experiment which produced metrics
-        assert (
-            session.query(sa.func.count(sa.distinct(SqlMetric.run_uuid))).scalar() == 32
-        ), "metrics should have 32 distinct run_uuid"
+        assert session.query(sa.func.count(sa.distinct(SqlMetric.run_uuid))).scalar() == 32, (
+            "metrics should have 32 distinct run_uuid"
+        )
         # We have 33 runs in total (1 parent + 32 child runs)
         assert session.query(SqlRun).count() == 33, "runs should have 33 rows"
         # We have 33 distinct runs which have parameters (1 parent + 32 child runs)
-        assert (
-            session.query(sa.func.count(sa.distinct(SqlParam.run_uuid))).scalar() == 33
-        ), "params should have 33 distinct run_uuid"
+        assert session.query(sa.func.count(sa.distinct(SqlParam.run_uuid))).scalar() == 33, (
+            "params should have 33 distinct run_uuid"
+        )
         # We have one model registered
         assert session.query(SqlRegisteredModel).count() == 1, "registered_models should have 1 row"
 
