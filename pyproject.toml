@@ -97,7 +97,7 @@ optional-dependencies.release = [
   "twine<7",
 ]
 optional-dependencies.test = [
-  "psutil==5.9.8",
+  "psutil==7.1.1",
   "pytest<9",
   "pytest-cov<7",
 ]
