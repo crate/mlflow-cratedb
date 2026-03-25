@@ -49,23 +49,17 @@ jobs:
     - name: Acquire sources
       uses: actions/checkout@v6
 
-    - name: Set up Python
-      uses: actions/setup-python@v6
+    - name: Install uv
+      uses: astral-sh/setup-uv@v7
       with:
+        activate-environment: true
+        enable-cache: true
+        cache-suffix: ${{ matrix.python-version }}
         python-version: ${{ matrix.python-version }}
-        architecture: x64
-        cache: 'pip'
-        cache-dependency-path: 'pyproject.toml'
 
-    - name: Setup project
+    - name: Install project
       run: |
-
-        # `setuptools 0.64.0` adds support for editable install hooks (PEP 660).
-        # https://github.com/pypa/setuptools/blob/main/CHANGES.rst#v6400
-        pip install "setuptools>=64" --upgrade
-
-        # Install package in editable mode.
-        pip install --use-pep517 --prefer-binary --editable=.[examples,develop,docs,test]
+        uv pip install --editable='.[develop,examples,test]'
 
     - name: Run linter and software tests
       run: |

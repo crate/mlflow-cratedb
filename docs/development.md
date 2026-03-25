@@ -10,9 +10,9 @@ to use a Python virtualenv.
 ```shell
 git clone https://github.com/crate/mlflow-cratedb
 cd mlflow-cratedb
-python3 -m venv .venv
+uv venv --python 3.11 --seed .venv
 source .venv/bin/activate
-pip install --editable='.[examples,develop,docs,test]'
+uv pip install --editable='.[examples,develop,docs,test]'
 ```
 
 
