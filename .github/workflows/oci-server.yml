@@ -16,7 +16,7 @@ on:
   # Remark: Activate only when needed, it will eat a lot of resources. The alternative
   #         is to build manually / on-demand, by using the `workflow_dispatch` feature,
   #         available through the GHA web UI.
-  # pull_request: ~
+  pull_request:
 
   # Produce a nightly image every day at 6 a.m. CEST.
   schedule:
@@ -75,7 +75,6 @@ jobs:
   oci:
     needs: build_and_test
     runs-on: ubuntu-latest
-    if: ${{ ! (startsWith(github.actor, 'dependabot') || github.event.pull_request.head.repo.fork ) }}
 
     steps:
       - name: Acquire sources
@@ -112,14 +111,6 @@ jobs:
         id: buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Cache OCI layers
-        uses: actions/cache@v4
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-buildx-
-
       - name: Inspect builder
         run: |
           echo "Name:      ${{ steps.buildx.outputs.name }}"
@@ -143,14 +134,11 @@ jobs:
           platforms: linux/amd64,linux/arm64
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          push: true
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache-new
-
-      - name: Move cache
-        run: |
-          rm -rf /tmp/.buildx-cache
-          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+          push: ${{ ! (startsWith(github.actor, 'dependabot') || github.event.pull_request.head.repo.fork ) }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          sbom: true
+          provenance: mode=max
 
       - name: Display git status
         run: |
