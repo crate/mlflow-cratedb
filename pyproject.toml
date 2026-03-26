@@ -70,8 +70,8 @@ dynamic = [
 ]
 dependencies = [
   "crash",
-  "dask[dataframe]>=2024.4.1,<2025",
-  "joblib!=1.4.0,<1.6",
+  "dask[dataframe]>=2024.4.1",
+  "joblib!=1.4.0",
   "mlflow[auth]==2.22.4",
   "setuptools<82",
   "sqlalchemy-cratedb>=0.38.0,<1",
