@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS "inputs" (
    "source_id" TEXT NOT NULL,
    "destination_type" TEXT NOT NULL,
    "destination_id" TEXT NOT NULL,
+   "step" BIGINT DEFAULT '0' NOT NULL,
    PRIMARY KEY ("source_type", "source_id", "destination_type", "destination_id")
 );
 
