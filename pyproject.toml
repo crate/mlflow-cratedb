@@ -85,9 +85,9 @@ dependencies = [
 optional-dependencies.develop = [
   "mypy<1.20",
   "poethepoet<1",
-  "pyproject-fmt<2.6",
+  "pyproject-fmt<3",
   "ruff<0.16",
-  "validate-pyproject<0.24",
+  "validate-pyproject<1",
 ]
 optional-dependencies.release = [
   "build<2",
@@ -147,6 +147,9 @@ lint.select = [
 lint.per-file-ignores."tests/*" = [ "S101" ]           # Use of `assert` detected
 lint.per-file-ignores."tests/conftest.py" = [ "E402" ] # Module level import not at top of file
 
+[tool.pyproject-fmt]
+keep_full_version = true
+
 [tool.pytest.ini_options]
 minversion = "2.0"
 addopts = """
@@ -205,7 +208,7 @@ format = [
   # Configure Ruff not to auto-fix (remove!):
   # Ignore unused imports (F401), unused variables (F841), `print` statements (T201), and commented-out code (ERA001).
   { cmd = "ruff check --fix --ignore=ERA --ignore=F401 --ignore=F841 --ignore=T20 --ignore=ERA001 ." },
-  { cmd = "pyproject-fmt --keep-full-version pyproject.toml" },
+  { cmd = "pyproject-fmt pyproject.toml" },
 ]
 
 lint = [
