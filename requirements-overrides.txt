@@ -1,0 +1,2 @@
+# Allow any version of `catboost` to permit installation on macOS and others.
+catboost
