@@ -59,6 +59,7 @@ jobs:
 
     - name: Install project
       run: |
+        uv pip install 'pip' 'setuptools<82'
         uv pip install --editable='.[develop,test]' --overrides=requirements-overrides.txt
 
     - name: Run linter and software tests
