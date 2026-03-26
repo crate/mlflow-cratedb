@@ -12,7 +12,8 @@ git clone https://github.com/crate/mlflow-cratedb
 cd mlflow-cratedb
 uv venv --python 3.11 --seed .venv
 source .venv/bin/activate
-uv pip install --editable='.[develop,examples,test]' --overrides=requirements-overrides.txt
+uv pip install --editable='.[develop,test]' --overrides=requirements-overrides.txt
+uv pip install --requirements=examples/requirements.txt
 ```
 
 

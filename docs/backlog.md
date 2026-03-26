@@ -1,5 +1,9 @@
 # Backlog
 
+## Iteration +1
+- Tests: `DROP SCHEMA ... CASCADE`
+- Package: `license` identifier
+
 ## Iteration +2
 
 ### General

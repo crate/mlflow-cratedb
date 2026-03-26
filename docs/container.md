@@ -11,7 +11,7 @@ GHCR, `mlflow-cratedb` and `ml-runtime`.
 - `ghcr.io/crate/ml-runtime`
   Includes a few popular machine learning libraries and other software
   to support your experiments. Effectively, it contains the same packages
-  as if you installed them with `pip install 'mlflow-cratedb[examples]'`.
+  as if you installed them with `pip install mlflow-cratedb`.
 
 For general usage information, please refer to the [handbook](./handbook.md).
 For building your own images, see the [development documentation](./development.md).
