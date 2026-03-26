@@ -37,7 +37,7 @@ jobs:
     # https://docs.github.com/en/actions/using-containerized-services/about-service-containers
     services:
       cratedb:
-        image: crate/crate:nightly
+        image: docker.io/crate/crate:nightly
         ports:
           - 4200:4200
           - 5432:5432
