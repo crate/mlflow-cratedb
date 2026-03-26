@@ -57,9 +57,8 @@ RUN \
     --mount=type=cache,id=uv-${TARGETARCH}${TARGETVARIANT},target=/root/.cache/uv \
     true \
     && apt-get update \
-    && apt-get install --no-install-recommends --no-install-suggests --yes build-essential git python3-dev openjdk-11-jre \
-    && uv pip install '/src' --requirements=/opt/ml/bin/requirements.txt \
-    && apt-get --yes remove --purge gcc git python3-dev && apt-get --yes autoremove
+    && apt-get install --no-install-recommends --no-install-suggests --yes build-essential git python3-dev openjdk-17-jre \
+    && uv pip install '/src' --requirements=/opt/ml/bin/requirements.txt
 
 # Purge /src and /tmp directories.
 RUN rm -rf /src /tmp/*
