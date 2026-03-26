@@ -32,21 +32,6 @@ ENV UV_SYSTEM_PYTHON=true
 # Install the `uv` package manager.
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 
-# 1. Install distribution packages, with caching.
-# NB: installing gcc is required in order to build a wheel file
-# for psutil, which is a dependency of mlflow.
-# There are no binary wheel packages for psutil supporting recent
-# versions of Python, thus requiring a build from source.
-# psutil has a large amount of cython within its code base,
-# necessitating gcc being present in the image.
-
-# 2. Install package, with caching of dependency packages.
-
-# 3. Uninstall distribution packages again.
-
-# TODO: `python3-dev` will install packages for Python 3.9, typical for Debian bullseye.
-#       Does this match the expectations, because the OCI is meant for Python 3.11?
-
 # Copy example programs and documentation to the image.
 COPY examples /opt/ml/bin
 COPY docs /opt/ml/docs
