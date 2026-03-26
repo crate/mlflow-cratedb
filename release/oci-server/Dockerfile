@@ -53,9 +53,8 @@ RUN \
     --mount=type=cache,id=uv-${TARGETARCH}${TARGETVARIANT},target=/root/.cache/uv \
     true \
     && apt-get update \
-    && apt-get install --no-install-recommends --no-install-suggests --yes gcc git python3-dev \
-    && uv pip install '/src' \
-    && apt-get --yes remove --purge gcc git python3-dev && apt-get --yes autoremove
+    && apt-get install --no-install-recommends --no-install-suggests --yes git \
+    && uv pip install '/src'
 
 # Purge /src and /tmp directories.
 RUN rm -rf /src /tmp/*
