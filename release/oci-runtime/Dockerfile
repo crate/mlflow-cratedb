@@ -47,6 +47,10 @@ COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 # TODO: `python3-dev` will install packages for Python 3.9, typical for Debian bullseye.
 #       Does this match the expectations, because the OCI is meant for Python 3.11?
 
+# Copy example programs and documentation to the image.
+COPY examples /opt/ml/bin
+COPY docs /opt/ml/docs
+
 RUN \
     --mount=type=cache,id=apt-cache-${TARGETARCH}${TARGETVARIANT},sharing=locked,target=/var/cache/apt \
     --mount=type=cache,id=apt-lib-${TARGETARCH}${TARGETVARIANT},sharing=locked,target=/var/lib/apt \
@@ -54,15 +58,11 @@ RUN \
     true \
     && apt-get update \
     && apt-get install --no-install-recommends --no-install-suggests --yes build-essential git python3-dev openjdk-11-jre \
-    && uv pip install '/src[examples]' \
+    && uv pip install '/src' --requirements=/opt/ml/bin/requirements.txt \
     && apt-get --yes remove --purge gcc git python3-dev && apt-get --yes autoremove
 
 # Purge /src and /tmp directories.
 RUN rm -rf /src /tmp/*
-
-# Copy example programs and documentation to the image.
-COPY examples /opt/ml/bin
-COPY docs /opt/ml/docs
 
 # Copy selftest.sh to the image
 COPY release/oci-runtime/selftest.sh /usr/local/bin

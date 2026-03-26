@@ -18,11 +18,11 @@ including experimentation, reproducibility, deployment, and a central model
 registry.
 
 
-## Setup
+## Install
 
 Install the most recent version of the `mlflow-cratedb` package.
 ```shell
-pip install --upgrade 'mlflow-cratedb[examples]'
+uv pip install --upgrade mlflow-cratedb
 ```
 
 To verify if the installation worked, you can inspect the version numbers

@@ -1,5 +1,5 @@
 ---
-name: Tests
+name: "Example: Main"
 
 on:
   pull_request:
@@ -31,7 +31,6 @@ jobs:
         python-version:
           - "3.10"
           - "3.11"
-          - "3.12"
 
     # https://docs.github.com/en/actions/using-containerized-services/about-service-containers
     services:
@@ -59,11 +58,11 @@ jobs:
 
     - name: Install project
       run: |
-        uv pip install --editable='.[develop,test]' --overrides=requirements-overrides.txt
+        uv pip install --editable='.[develop,test]' --requirements=examples/requirements.txt --overrides=requirements-overrides.txt
 
-    - name: Run linter and software tests
+    - name: Run examples
       run: |
-        poe check
+        pytest -m 'examples'
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v5

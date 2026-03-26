@@ -89,11 +89,6 @@ optional-dependencies.develop = [
   "ruff<0.16",
   "validate-pyproject<0.24",
 ]
-optional-dependencies.examples = [
-  "pycaret[analysis,models,parallel,test,tuners]==3.3.2; platform_machine!='aarch64'",
-  "salesforce-merlion<2.1",
-  "werkzeug==2.2.3",
-]
 optional-dependencies.release = [
   "build<2",
   "twine<7",
@@ -220,7 +215,7 @@ lint = [
   { cmd = "mypy" },
 ]
 test = [
-  { cmd = "pytest" },
+  { cmd = "pytest -m 'not examples'" },
 ]
 test-fast = [
   { cmd = "pytest -m 'not slow'" },
