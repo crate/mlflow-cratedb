@@ -1,8 +1,19 @@
 version: 2
 
 updates:
+
   - package-ecosystem: "pip"
     directory: "/"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "docker"
+    directory: "/release/oci-server"
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "docker"
+    directory: "/release/oci-runtime"
     schedule:
       interval: "weekly"
 
