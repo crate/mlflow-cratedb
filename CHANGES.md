@@ -6,6 +6,8 @@
   [MLflow 3.1.4](https://github.com/mlflow/mlflow/blob/master/CHANGELOG.md#314-2025-07-23).
 - Model: Added `step` column to `inputs` table
   `"step" BIGINT DEFAULT '0' NOT NULL`
+- Model: Added SQL DDL for tables `logged_models`, `logged_model_metrics`,
+  `logged_model_param`, and `logged_model_tags`
 
 ## 2026-03-26 v2.22.4
 - Updated to MLflow 2.22.4. See release notes for
