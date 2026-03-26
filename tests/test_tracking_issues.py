@@ -48,10 +48,10 @@ def test_log_model_twice(tracking_store, reset_database):
 
     model_info = log_model(metadata={"status": "update-1", "training": True})
     assert isinstance(model_info, ModelInfo)
-    assert re.match(r".*runs:/[0-9a-z]+/testdrive-artifact.*", model_info.model_uri)
+    assert re.match(r".*models:/m-[0-9a-z]+", model_info.model_uri)
     assert model_info.metadata == {"status": "update-1", "training": True}
 
     model_info = log_model(metadata={"status": "update-2", "knowledge": "excellent"})
     assert isinstance(model_info, ModelInfo)
-    assert re.match(r".*runs:/[0-9a-z]+/testdrive-artifact.*", model_info.model_uri)
+    assert re.match(r".*models:/m-[0-9a-z]+", model_info.model_uri)
     assert model_info.metadata == {"status": "update-2", "knowledge": "excellent"}
