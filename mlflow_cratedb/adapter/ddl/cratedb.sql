@@ -59,6 +59,52 @@ CREATE TABLE IF NOT EXISTS "latest_metrics" (
    PRIMARY KEY ("key", "run_uuid")
 );
 
+CREATE TABLE IF NOT EXISTS "logged_models" (
+	model_id VARCHAR(36) NOT NULL,
+	experiment_id BIGINT NOT NULL,
+	name VARCHAR(500) NOT NULL,
+	artifact_location VARCHAR(1000) NOT NULL,
+	creation_timestamp_ms BIGINT NOT NULL,
+	last_updated_timestamp_ms BIGINT NOT NULL,
+	status INTEGER NOT NULL,
+	lifecycle_stage VARCHAR(32),
+	model_type VARCHAR(500),
+	source_run_id VARCHAR(32),
+	status_message VARCHAR(1000),
+    PRIMARY KEY ("model_id")
+);
+
+CREATE TABLE IF NOT EXISTS "logged_model_metrics" (
+	model_id VARCHAR(36) NOT NULL,
+	metric_name VARCHAR(500) NOT NULL,
+	metric_timestamp_ms BIGINT NOT NULL,
+	metric_step BIGINT NOT NULL,
+	metric_value FLOAT,
+	experiment_id BIGINT NOT NULL,
+	run_id VARCHAR(32) NOT NULL,
+	dataset_uuid VARCHAR(36),
+	dataset_name VARCHAR(500),
+	dataset_digest VARCHAR(36),
+    PRIMARY KEY ("model_id", "metric_name", "metric_timestamp_ms", "metric_step", "run_id")
+);
+
+CREATE TABLE IF NOT EXISTS "logged_model_params" (
+	model_id VARCHAR(36) NOT NULL,
+	experiment_id BIGINT NOT NULL,
+	param_key VARCHAR(255) NOT NULL,
+	param_value TEXT NOT NULL,
+    PRIMARY KEY ("model_id", "param_key")
+);
+
+
+CREATE TABLE IF NOT EXISTS "logged_model_tags" (
+	model_id VARCHAR(36) NOT NULL,
+	experiment_id BIGINT NOT NULL,
+	tag_key VARCHAR(255) NOT NULL,
+	tag_value TEXT NOT NULL,
+    PRIMARY KEY ("model_id", "tag_key")
+);
+
 CREATE TABLE IF NOT EXISTS "metrics" (
    "key" TEXT NOT NULL,
    "value" DOUBLE NOT NULL,
