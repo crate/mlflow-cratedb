@@ -91,7 +91,7 @@ optional-dependencies.release = [
 optional-dependencies.test = [
   "psutil<8",
   "pytest<9",
-  "pytest-cov<7",
+  "pytest-cov<8",
 ]
 urls.changelog = "https://github.com/crate/mlflow-cratedb/blob/main/CHANGES.md"
 urls.documentation = "https://github.com/crate/mlflow-cratedb"
