@@ -2,6 +2,10 @@
 
 
 ## in progress
+- Updated to MLflow 3.1.4. See release notes for
+  [MLflow 3.1.4](https://github.com/mlflow/mlflow/blob/master/CHANGELOG.md#314-2025-07-23).
+- Model: Added `step` column to `inputs` table
+  `"step" BIGINT DEFAULT '0' NOT NULL`
 
 ## 2026-03-26 v2.22.4
 - Updated to MLflow 2.22.4. See release notes for
