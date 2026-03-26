@@ -29,7 +29,7 @@ def patch_create_default_experiment():
         session.execute(sa.text(f"REFRESH TABLE {SqlExperiment.__tablename__}"))
         return outcome
 
-    SqlAlchemyStore._create_default_experiment = _create_default_experiment
+    SqlAlchemyStore._create_default_experiment = _create_default_experiment  # type: ignore[method-assign]
 
 
 def patch_get_orderby_clauses():
@@ -79,7 +79,7 @@ def patch_search_runs():
         runs_with_inputs = fix_sort_order(order_by, runs_with_inputs)
         return runs_with_inputs, next_page_token
 
-    SqlAlchemyStore._search_runs = _search_runs
+    SqlAlchemyStore._search_runs = _search_runs  # type: ignore[method-assign]
 
 
 def fix_sort_order(order_by, runs_with_inputs):

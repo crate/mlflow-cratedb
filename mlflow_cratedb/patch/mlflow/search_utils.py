@@ -24,4 +24,4 @@ def patch_search_utils():
 
             return comparison_func
 
-    SearchUtils.get_sql_comparison_func = get_sql_comparison_func
+    SearchUtils.get_sql_comparison_func = get_sql_comparison_func  # type: ignore[method-assign]
