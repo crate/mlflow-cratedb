@@ -1,3 +1,8 @@
+-- Synchronize with MLflow
+-- `mlflow/store/tracking/dbmodels/models.py`
+-- `tests/resources/db/latest_schema.sql`
+-- `tests/db/schemas/postgresql.sql`
+
 CREATE TABLE IF NOT EXISTS "datasets" (
    "dataset_uuid" TEXT NOT NULL,
    "experiment_id" BIGINT NOT NULL,
