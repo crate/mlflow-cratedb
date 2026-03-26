@@ -731,7 +731,7 @@ class TestSqlAlchemyStore(unittest.TestCase, AbstractStoreTest):
 
         for k, v in config.items():
             # These keys were removed from RunInfo.
-            if k in ["source_name", "source_type", "source_version", "name", "entry_point_name"]:
+            if k in ["source_name", "source_type", "source_version", "name", "entry_point_name", "run_uuid"]:
                 continue
 
             v2 = getattr(run.info, k)
@@ -906,9 +906,9 @@ class TestSqlAlchemyStore(unittest.TestCase, AbstractStoreTest):
         deleted_run_ids = self.store._get_deleted_runs()
         assert deleted_run_ids == []
 
-        self.store.delete_run(run.info.run_uuid)
+        self.store.delete_run(run.info.run_id)
         deleted_run_ids = self.store._get_deleted_runs()
-        assert deleted_run_ids == [run.info.run_uuid]
+        assert deleted_run_ids == [run.info.run_id]
 
     def test_log_metric(self):
         run = self._run_factory()
@@ -1033,8 +1033,7 @@ class TestSqlAlchemyStore(unittest.TestCase, AbstractStoreTest):
     def test_get_metric_history_paginated_request_raises(self):
         with pytest.raises(
             MlflowException,
-            match="The SQLAlchemyStore backend does not support pagination for the "
-            "`get_metric_history` API.",
+            match="Invalid page token, could not base64-decode",
         ):
             self.store.get_metric_history(
                 "fake_run", "fake_metric", max_results=50, page_token="42"  # noqa: S106
@@ -2772,7 +2771,7 @@ class TestSqlAlchemyStore(unittest.TestCase, AbstractStoreTest):
                 tags=[],
                 user_id="Anderson",
                 run_name="name",
-            ).info.run_uuid
+            ).info.run_id
 
             run_ids.append(run_id)
 
@@ -2867,10 +2866,10 @@ class TestSqlAlchemyStore(unittest.TestCase, AbstractStoreTest):
 
         r1 = self.store.create_run(
             experiment_id=experiment_id, start_time=0, tags=[], user_id="Me", run_name="name"
-        ).info.run_uuid
+        ).info.run_id
         r2 = self.store.create_run(
             experiment_id=experiment_id, start_time=0, tags=[], user_id="Me", run_name="name"
-        ).info.run_uuid
+        ).info.run_id
         self.store.set_tag(r1, RunTag(key="t1", value="1"))
         self.store.set_tag(r1, RunTag(key="t2", value="1"))
         self.store.set_tag(r2, RunTag(key="t2", value="1"))

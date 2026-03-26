@@ -1,8 +1,10 @@
 import mlflow
+import pytest
 
 from mlflow_cratedb.adapter.setup_db import _setup_db_create_tables, _setup_db_drop_tables
 
 
+@pytest.mark.skip("Defunct due to upstream bug: https://github.com/mlflow/mlflow/issues/22096")
 def test_all_tables_exist(engine):
     """
     Cover `patch_sqlalchemy_inspector`: SQLAlchemy's Inspector
