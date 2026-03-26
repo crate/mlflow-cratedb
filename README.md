@@ -81,6 +81,7 @@ all other contributors for conceiving and maintaining [MLflow].
 [Andreas Nigg] for contributing the [tracking_merlion.py] and [tracking_pycaret.py]
 ML experiment programs, using [Merlion] and [PyCaret].
 
+
 [Andreas Nigg]: https://github.com/andnig
 [Ben Wilson]: https://github.com/BenWilson2
 [container usage]: https://github.com/crate/mlflow-cratedb/blob/main/docs/container.md
@@ -89,12 +90,12 @@ ML experiment programs, using [Merlion] and [PyCaret].
 [CrateDB Cloud]: https://console.cratedb.cloud/
 [Create an issue]: https://github.com/crate/mlflow-cratedb/issues
 [development sandbox]: https://github.com/crate/mlflow-cratedb/blob/main/docs/development.md
-[examples about MLflow and CrateDB]: https://github.com/crate/cratedb-examples/tree/main/topic/machine-learning/mlops-mlflow
+[examples about MLflow and CrateDB]: https://github.com/crate/cratedb-examples/tree/main/topic/machine-learning/mlflow
 [handbook]: https://github.com/crate/mlflow-cratedb/blob/main/docs/handbook.md
 [Harutaka Kawamura]: https://github.com/harupy
 [install a development sandbox]: https://github.com/crate/mlflow-cratedb/blob/main/docs/development.md
 [LICENSE]: https://github.com/crate/mlflow-cratedb/blob/main/LICENSE
-[Machine Learning with CrateDB]: https://cratedb.com/docs/guide/domain/ml/
+[Machine Learning with CrateDB]: https://cratedb.com/docs/guide/solution/machine-learning/
 [managed on GitHub]: https://github.com/crate/mlflow-cratedb
 [Merlion]: https://github.com/salesforce/Merlion
 [MLflow]: https://mlflow.org/
