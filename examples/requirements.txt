@@ -1,4 +1,6 @@
+crash
 dask[dataframe]>=2024.4.1,<2025
+joblib!=1.4.0
 pycaret[analysis,models,parallel,test,tuners]==3.3.2; platform_machine!='aarch64'
 salesforce-merlion<2.1
 werkzeug==2.2.3

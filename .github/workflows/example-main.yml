@@ -58,7 +58,7 @@ jobs:
 
     - name: Install project
       run: |
-        uv pip install --editable='.[develop,test]' --requirements=examples/requirements.txt --overrides=requirements-overrides.txt
+        uv pip install --editable='.[develop,test]' --requirements=examples/requirements.txt --overrides=examples/requirements-overrides.txt
 
     - name: Run examples
       run: |
