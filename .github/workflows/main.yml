@@ -26,8 +26,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ["ubuntu-latest"]
-        python-version: ["3.10", "3.11"]
+        os:
+          - "ubuntu-latest"
+        python-version:
+          - "3.10"
+          - "3.11"
 
     env:
       OS: ${{ matrix.os }}
@@ -70,8 +73,4 @@ jobs:
       env:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       with:
-        files: ./coverage.xml
-        flags: unittests
-        env_vars: OS,PYTHON
-        name: codecov-umbrella
         fail_ci_if_error: true
