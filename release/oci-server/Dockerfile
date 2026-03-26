@@ -9,9 +9,6 @@ FROM python:3.12-slim-bookworm
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TERM=linux
 
-# Install Git, it is needed for both `versioningit`, and MLflow.
-RUN rm -f /etc/apt/apt.conf.d/docker-clean; echo 'Binary::apt::APT::Keep-Downloaded-Packages "true";' > /etc/apt/apt.conf.d/keep-cache
-
 # Copy sources
 COPY . /src
 
@@ -32,6 +29,8 @@ ENV UV_SYSTEM_PYTHON=true
 # Install the `uv` package manager.
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 
+# Install Git, it is needed for both `versioningit`, and MLflow.
+RUN rm -f /etc/apt/apt.conf.d/docker-clean; echo 'Binary::apt::APT::Keep-Downloaded-Packages "true";' > /etc/apt/apt.conf.d/keep-cache
 RUN \
     --mount=type=cache,id=apt-cache-${TARGETARCH}${TARGETVARIANT},sharing=locked,target=/var/cache/apt \
     --mount=type=cache,id=apt-lib-${TARGETARCH}${TARGETVARIANT},sharing=locked,target=/var/lib/apt \

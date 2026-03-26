@@ -9,9 +9,6 @@ FROM python:3.11-slim-bookworm
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TERM=linux
 
-# Install Git, it is needed for both `versioningit`, and MLflow.
-RUN rm -f /etc/apt/apt.conf.d/docker-clean; echo 'Binary::apt::APT::Keep-Downloaded-Packages "true";' > /etc/apt/apt.conf.d/keep-cache
-
 # Copy sources
 COPY . /src
 
@@ -36,14 +33,16 @@ COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 COPY examples /opt/ml/bin
 COPY docs /opt/ml/docs
 
+# Install Git, it is needed for both `versioningit`, and MLflow.
+RUN rm -f /etc/apt/apt.conf.d/docker-clean; echo 'Binary::apt::APT::Keep-Downloaded-Packages "true";' > /etc/apt/apt.conf.d/keep-cache
 RUN \
     --mount=type=cache,id=apt-cache-${TARGETARCH}${TARGETVARIANT},sharing=locked,target=/var/cache/apt \
     --mount=type=cache,id=apt-lib-${TARGETARCH}${TARGETVARIANT},sharing=locked,target=/var/lib/apt \
     --mount=type=cache,id=uv-${TARGETARCH}${TARGETVARIANT},target=/root/.cache/uv \
     true \
     && apt-get update \
-    && apt-get install --no-install-recommends --no-install-suggests --yes build-essential git python3-dev openjdk-17-jre \
-    && uv pip install '/src' --requirements=/opt/ml/bin/requirements.txt
+    && apt-get install --no-install-recommends --no-install-suggests --yes build-essential git openjdk-17-jre \
+    && uv pip install '/src' --requirements=/src/examples/requirements.txt
 
 # Purge /src and /tmp directories.
 RUN rm -rf /src /tmp/*
