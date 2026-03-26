@@ -42,7 +42,7 @@ RUN \
     true \
     && apt-get update \
     && apt-get install --no-install-recommends --no-install-suggests --yes build-essential git openjdk-17-jre \
-    && uv pip install '/src' --requirements=/src/examples/requirements.txt
+    && uv pip install '/src' --requirements=/src/examples/requirements.txt --overrides=/src/examples/requirements-overrides.txt
 
 # Purge /src and /tmp directories.
 RUN rm -rf /src /tmp/*
