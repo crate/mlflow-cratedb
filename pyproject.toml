@@ -5,7 +5,7 @@
 [build-system]
 build-backend = "setuptools.build_meta"
 requires = [
-  "setuptools>=42,<82", # At least v42 of setuptools required.
+  "setuptools>=42,<83", # At least v42 of setuptools required.
   "versioningit",
 ]
 
