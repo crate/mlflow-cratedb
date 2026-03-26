@@ -71,7 +71,7 @@ dynamic = [
 dependencies = [
   "crash",
   "dask[dataframe]>=2024.4.1,<2025",
-  "joblib!=1.4.0,<1.5",
+  "joblib!=1.4.0,<1.6",
   "mlflow==2.14.1",
   "setuptools<82",
   "sqlalchemy-cratedb>=0.38.0,<1",
