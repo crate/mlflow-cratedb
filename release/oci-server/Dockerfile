@@ -15,6 +15,13 @@ RUN rm -f /etc/apt/apt.conf.d/docker-clean; echo 'Binary::apt::APT::Keep-Downloa
 # Copy sources
 COPY . /src
 
+# Enable concurrent multi-arch builds.
+# https://github.com/docker/buildx/issues/549#issuecomment-1788297892
+ARG TARGETPLATFORM
+ARG TARGETOS
+ARG TARGETARCH
+ARG TARGETVARIANT
+
 # Configure build environment.
 ENV PIP_ROOT_USER_ACTION=ignore
 ENV UV_COMPILE_BYTECODE=true
@@ -41,9 +48,9 @@ COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 #       Does this match the expectations, because the OCI is meant for Python 3.11?
 
 RUN \
-    --mount=type=cache,id=apt,sharing=locked,target=/var/cache/apt \
-    --mount=type=cache,id=apt,sharing=locked,target=/var/lib/apt \
-    --mount=type=cache,id=pip,target=/root/.cache/pip \
+    --mount=type=cache,id=apt-cache-${TARGETARCH}${TARGETVARIANT},sharing=locked,target=/var/cache/apt \
+    --mount=type=cache,id=apt-lib-${TARGETARCH}${TARGETVARIANT},sharing=locked,target=/var/lib/apt \
+    --mount=type=cache,id=uv-${TARGETARCH}${TARGETVARIANT},target=/root/.cache/uv \
     true \
     && apt-get update \
     && apt-get install --no-install-recommends --no-install-suggests --yes gcc git python3-dev \
