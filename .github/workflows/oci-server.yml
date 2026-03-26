@@ -25,6 +25,11 @@ on:
   # Allow job to be triggered manually.
   workflow_dispatch:
 
+# Job permissions.
+permissions:
+  contents: read
+  packages: write
+
 # Cancel in-progress jobs when pushing to the same branch.
 concurrency:
   cancel-in-progress: true
@@ -134,8 +139,8 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           push: ${{ ! (startsWith(github.actor, 'dependabot') || github.event.pull_request.head.repo.fork ) }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: type=gha,scope=oci-server
+          cache-to: type=gha,scope=oci-server,mode=max
           sbom: true
           provenance: mode=max
 
