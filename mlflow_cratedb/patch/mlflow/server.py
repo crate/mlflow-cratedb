@@ -30,5 +30,7 @@ def _get_args_dict(fn, args, kwargs):
 
     https://stackoverflow.com/a/40363565
     """
-    args_names = fn.__code__.co_varnames[: fn.__code__.co_argcount]
-    return {**dict(zip(args_names, args)), **kwargs}
+    import inspect
+
+    bound = inspect.signature(fn).bind_partial(*args, **kwargs)
+    return dict(bound.arguments)
