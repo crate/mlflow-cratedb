@@ -5,7 +5,7 @@
 [build-system]
 build-backend = "setuptools.build_meta"
 requires = [
-  "setuptools>=42,<82", # At least v42 of setuptools required.
+  "setuptools>=42", # At least v42 of setuptools required.
   "versioningit",
 ]
 
@@ -70,7 +70,6 @@ dynamic = [
 ]
 dependencies = [
   "mlflow[auth]==2.22.4",
-  "setuptools<82",
   "sqlalchemy-cratedb>=0.38.0,<1",
   "sqlparse<0.6",
 ]
