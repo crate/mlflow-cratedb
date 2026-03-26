@@ -2,8 +2,12 @@
 
 
 ## in progress
-- CI: Run tests on Python 3.12
-- OCI: Update to Python 3.12
+- Updated to MLflow 2.22.4. See release notes for
+  [MLflow 2.22.4](https://github.com/mlflow/mlflow/releases/tag/v2.22.4).
+- Dropped support for Python 3.8
+- Added support for Python 3.12 and 3.13
+- OCI: Updated server to Python 3.13 (Debian 12 bookworm)
+- OCI: Updated runtime to Debian 12 bookworm
 
 ## 2024-06-25 v2.14.1
 - Started using more SQLAlchemy patches and polyfills from `sqlalchemy-cratedb`
