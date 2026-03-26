@@ -2,6 +2,8 @@
 
 
 ## in progress
+
+## 2026-03-26 v2.22.4
 - Updated to MLflow 2.22.4. See release notes for
   [MLflow 2.22.4](https://github.com/mlflow/mlflow/releases/tag/v2.22.4).
 - Dropped support for Python 3.8
