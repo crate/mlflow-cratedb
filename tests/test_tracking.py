@@ -1558,8 +1558,6 @@ class TestSqlAlchemyStore(unittest.TestCase, AbstractStoreTest):
             "None/1",
         ]
 
-        # NOTE: The only occurrence where CrateDB and patches behave slightly
-        #       different wrt. sort order of None/NaN values. C'est la vie.
         # desc / desc
         assert self.get_ordered_runs(["metrics.x desc", "param.metric desc"], experiment_id) == [
             "inf/3",
@@ -1568,8 +1566,8 @@ class TestSqlAlchemyStore(unittest.TestCase, AbstractStoreTest):
             "0/6",
             "-1000/5",
             "-inf/4",
-            "None/1",
             "nan/2",
+            "None/1",
         ]
 
     def test_order_by_attributes(self):
