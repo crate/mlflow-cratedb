@@ -1,9 +1,7 @@
 # ==================
 # Project definition
 # ==================
-
 # Derived from https://peps.python.org/pep-0621/
-
 [build-system]
 build-backend = "setuptools.build_meta"
 requires = [
@@ -67,11 +65,9 @@ classifiers = [
   "Topic :: Text Processing",
   "Topic :: Utilities",
 ]
-
 dynamic = [
   "version",
 ]
-
 dependencies = [
   "crash",
   "dask[dataframe]>=2024.4.1,<2025",
@@ -81,7 +77,6 @@ dependencies = [
   "sqlalchemy-cratedb>=0.38.0,<1",
   "sqlparse<0.6",
 ]
-
 optional-dependencies.develop = [
   "mypy<1.20",
   "poethepoet<1",
@@ -111,11 +106,9 @@ packages = [ "mlflow_cratedb" ]
 
 [tool.ruff]
 line-length = 120
-
 extend-exclude = [
   "tests/test_tracking.py",
 ]
-
 lint.select = [
   # Builtins
   "A",
@@ -143,45 +136,15 @@ lint.select = [
   # flake8-2020
   "YTT",
 ]
-
-lint.per-file-ignores."tests/*" = [ "S101" ]           # Use of `assert` detected
-lint.per-file-ignores."tests/conftest.py" = [ "E402" ] # Module level import not at top of file
+lint.per-file-ignores."tests/*" = [ "S101" ]  # Use of `assert` detected
+lint.per-file-ignores."tests/conftest.py" = [ "E402" ]  # Module level import not at top of file
 
 [tool.pyproject-fmt]
 keep_full_version = true
 
-[tool.pytest.ini_options]
-minversion = "2.0"
-addopts = """
-  -rfEX -p pytester --strict-markers --verbosity=3
-  --capture=no
-  --cov --cov-report=term-missing --cov-report=xml
-  """
-log_level = "DEBUG"
-log_cli_level = "DEBUG"
-testpaths = [ "tests" ]
-xfail_strict = true
-markers = [
-  "examples",
-  "notrackingurimock",
-  "slow",
-]
-
-[tool.coverage.run]
-branch = false
-source = [ "mlflow_cratedb" ]
-omit = [
-  "tests/*",
-]
-
-[tool.coverage.report]
-fail_under = 0
-show_missing = true
-
 [tool.mypy]
 packages = [ "mlflow_cratedb" ]
-exclude = [
-]
+exclude = []
 check_untyped_defs = true
 ignore_missing_imports = true
 implicit_optional = true
@@ -193,41 +156,64 @@ strict_equality = true
 warn_unused_ignores = true
 warn_redundant_casts = true
 
+[tool.pytest]
+ini_options.minversion = "2.0"
+ini_options.addopts = """
+  -rfEX -p pytester --strict-markers --verbosity=3
+  --capture=no
+  --cov --cov-report=term-missing --cov-report=xml
+  """
+ini_options.log_level = "DEBUG"
+ini_options.log_cli_level = "DEBUG"
+ini_options.testpaths = [ "tests" ]
+ini_options.xfail_strict = true
+ini_options.markers = [
+  "examples",
+  "notrackingurimock",
+  "slow",
+]
+
+[tool.coverage]
+run.branch = false
+run.omit = [
+  "tests/*",
+]
+run.source = [ "mlflow_cratedb" ]
+report.fail_under = 0
+report.show_missing = true
+
 [tool.versioningit]
 vcs.method = "git-archive"
 vcs.default-tag = "v0.0.0"
 vcs.describe-subst = "$Format:%(describe:tags,match=v*)$"
 
+[tool.poe]
 # ===================
 # Tasks configuration
 # ===================
-
-[tool.poe.tasks]
-format = [
+tasks.format = [
   { cmd = "ruff format ." },
   # Configure Ruff not to auto-fix (remove!):
   # Ignore unused imports (F401), unused variables (F841), `print` statements (T201), and commented-out code (ERA001).
   { cmd = "ruff check --fix --ignore=ERA --ignore=F401 --ignore=F841 --ignore=T20 --ignore=ERA001 ." },
   { cmd = "pyproject-fmt pyproject.toml" },
 ]
-
-lint = [
+tasks.lint = [
   { cmd = "ruff format --check ." },
   { cmd = "ruff check ." },
   { cmd = "validate-pyproject pyproject.toml" },
   { cmd = "mypy" },
 ]
-test = [
+tasks.test = [
   { cmd = "pytest -m 'not examples'" },
 ]
-test-fast = [
+tasks.test-fast = [
   { cmd = "pytest -m 'not slow'" },
 ]
-build = { cmd = "python -m build" }
-check = [ "lint", "test" ]
-check-fast = [ "lint", "test-fast" ]
-
-release = [
+tasks.build = { cmd = "python -m build" }
+tasks.check = [ "lint", "test" ]
+tasks.check-fast = [ "lint", "test-fast" ]
+tasks.release = [
   { cmd = "python -m build" },
   { cmd = "twine upload --skip-existing dist/*.tar.gz dist/*.whl" },
 ]
