@@ -1,6 +1,7 @@
 import logging
 
 from mlflow_cratedb.patch.mlflow import patch_mlflow
+from mlflow_cratedb.patch.pycaret import patch_pycaret
 from mlflow_cratedb.patch.sqlalchemy import patch_sqlalchemy
 
 logger = logging.getLogger("mlflow")
@@ -15,3 +16,4 @@ def patch_all():
 
     patch_sqlalchemy()
     patch_mlflow()
+    patch_pycaret()
