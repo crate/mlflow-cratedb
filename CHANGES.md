@@ -4,20 +4,22 @@
 ## in progress
 
 ## 2026-03-27 v3.1.4
-- Updated to MLflow 3.1.4. See release notes for
-  [MLflow 3.1.4](https://github.com/mlflow/mlflow/blob/master/CHANGELOG.md#314-2025-07-23).
+- Updated to [MLflow 3.1.4].
 - Model: Added `step` column to `inputs` table
   `"step" BIGINT DEFAULT '0' NOT NULL`
 - Model: Added SQL DDL for tables `logged_models`, `logged_model_metrics`,
   `logged_model_param`, and `logged_model_tags`
 
+[MLflow 3.1.4]: https://github.com/mlflow/mlflow/blob/master/CHANGELOG.md#314-2025-07-23
+
 ## 2026-03-26 v2.22.4
-- Updated to MLflow 2.22.4. See release notes for
-  [MLflow 2.22.4](https://github.com/mlflow/mlflow/releases/tag/v2.22.4).
+- Updated to [MLflow 2.22.4].
 - Dropped support for Python 3.8
 - Added support for Python 3.12 and 3.13
 - OCI: Updated server to Python 3.13 (Debian 12 bookworm)
 - OCI: Updated runtime to Debian 12 bookworm
+
+[MLflow 2.22.4]: https://github.com/mlflow/mlflow/releases/tag/v2.22.4
 
 ## 2024-06-25 v2.14.1
 - Started using more SQLAlchemy patches and polyfills from `sqlalchemy-cratedb`
