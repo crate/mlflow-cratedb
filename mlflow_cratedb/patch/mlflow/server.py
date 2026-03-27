@@ -17,7 +17,7 @@ def patch_run_server():
         args_dict = _get_args_dict(_run_server_dist, args, kwargs)
         args_effective = list(args)
         if "app_name" in args_dict and args_dict["app_name"] is None:
-            args_effective.pop()
+            args_effective and args_effective.pop()
             kwargs["app_name"] = MLFLOW_APP_NAME
         return _run_server_dist(*args_effective, **kwargs)
 
