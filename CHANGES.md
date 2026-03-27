@@ -2,6 +2,10 @@
 
 
 ## in progress
+- Updated to [MLflow 3.5.1]
+- Dropped support for Python 3.9
+
+[MLflow 3.5.1]: https://github.com/mlflow/mlflow/blob/master/CHANGELOG.md#351-2025-10-21
 
 ## 2026-03-28 v3.3.2
 - Updated to [MLflow 3.3.2].
