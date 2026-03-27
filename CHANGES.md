@@ -3,6 +3,7 @@
 
 ## in progress
 - Updated to [MLflow 3.3.2].
+- Model: Added SQL DDL for tables `webhooks` and `webhook_events`
 
 [MLflow 3.3.2]: https://github.com/mlflow/mlflow/blob/master/CHANGELOG.md#332-2025-08-27
 
