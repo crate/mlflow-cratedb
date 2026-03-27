@@ -227,3 +227,23 @@ CREATE TABLE IF NOT EXISTS "trace_request_metadata" (
    "trace_info" BIGINT,
    PRIMARY KEY ("request_id", "key")
 );
+
+CREATE TABLE IF NOT EXISTS "webhooks" (
+	webhook_id VARCHAR(256) NOT NULL,
+	name VARCHAR(256) NOT NULL,
+	description VARCHAR(1000),
+	url VARCHAR(500) NOT NULL,
+	status VARCHAR(20) DEFAULT 'ACTIVE' NOT NULL,
+	secret VARCHAR(1000),
+	creation_timestamp BIGINT,
+	last_updated_timestamp BIGINT,
+	deleted_timestamp BIGINT,
+    PRIMARY KEY ("webhook_id")
+);
+
+CREATE TABLE IF NOT EXISTS "webhook_events" (
+	webhook_id VARCHAR(256) NOT NULL,
+	entity VARCHAR(50) NOT NULL,
+	action VARCHAR(50) NOT NULL,
+    PRIMARY KEY ("webhook_id", "entity", "action")
+);
