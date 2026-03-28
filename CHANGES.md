@@ -4,6 +4,8 @@
 ## in progress
 - Updated to [MLflow 3.5.1]
 - Dropped support for Python 3.9
+- Model: Added SQL DDL for tables `evaluation_datasets`, `evaluation_dataset_records`,
+  `evaluation_dataset_tags`
 
 [MLflow 3.5.1]: https://github.com/mlflow/mlflow/blob/master/CHANGELOG.md#351-2025-10-21
 

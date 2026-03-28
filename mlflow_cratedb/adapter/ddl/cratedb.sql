@@ -25,6 +25,44 @@ CREATE TABLE IF NOT EXISTS "entity_associations" (
 	PRIMARY KEY (source_type, source_id, destination_type, destination_id)
 );
 
+CREATE TABLE IF NOT EXISTS "evaluation_datasets" (
+	dataset_id VARCHAR(36) NOT NULL,
+	name VARCHAR(255) NOT NULL,
+	schema TEXT,
+	profile TEXT,
+	digest VARCHAR(64),
+	created_time BIGINT,
+	last_update_time BIGINT,
+	created_by VARCHAR(255),
+	last_updated_by VARCHAR(255),
+	PRIMARY KEY (dataset_id)
+);
+
+CREATE TABLE IF NOT EXISTS "evaluation_dataset_records" (
+	dataset_record_id VARCHAR(36) NOT NULL,
+	dataset_id VARCHAR(36) NOT NULL,
+	inputs OBJECT(DYNAMIC) NOT NULL,
+	expectations OBJECT(DYNAMIC),
+	tags OBJECT(DYNAMIC),
+	source OBJECT(DYNAMIC),
+	source_id VARCHAR(36),
+	source_type VARCHAR(255),
+	created_time BIGINT,
+	last_update_time BIGINT,
+	created_by VARCHAR(255),
+	last_updated_by VARCHAR(255),
+	input_hash VARCHAR(64) NOT NULL,
+	outputs OBJECT(DYNAMIC),
+    PRIMARY KEY ("dataset_record_id")
+);
+
+CREATE TABLE IF NOT EXISTS "evaluation_dataset_tags" (
+	dataset_id VARCHAR(36) NOT NULL,
+	key VARCHAR(255) NOT NULL,
+	value VARCHAR(5000),
+    PRIMARY KEY ("dataset_id", "key")
+);
+
 CREATE TABLE IF NOT EXISTS "experiment_tags" (
    "key" TEXT NOT NULL,
    "value" TEXT,
