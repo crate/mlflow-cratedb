@@ -67,7 +67,7 @@ dynamic = [
   "version",
 ]
 dependencies = [
-  "mlflow[auth]==3.5.1",
+  "mlflow[auth]==3.8.1",
   "sqlalchemy-cratedb>=0.38.0,<1",
   "sqlparse<0.6",
 ]
