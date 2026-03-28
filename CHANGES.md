@@ -2,6 +2,8 @@
 
 
 ## in progress
+
+## 2026-03-28 v3.5.1
 - Updated to [MLflow 3.5.1]
 - Dropped support for Python 3.9
 - Model: Added SQL DDL for tables `evaluation_datasets`, `evaluation_dataset_records`,
