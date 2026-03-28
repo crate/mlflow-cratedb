@@ -1,4 +1,5 @@
 import sqlalchemy as sa
+from mlflow.store.tracking.dbmodels.models import SqlEvaluationDatasetRecord
 from sqlalchemy.event import listen
 from sqlalchemy_cratedb.support import check_uniqueness_factory
 
@@ -18,6 +19,11 @@ def polyfill_uniqueness_constraints():
     from mlflow.store.model_registry.dbmodels.models import SqlRegisteredModel
     from mlflow.store.tracking.dbmodels.models import SqlExperiment
 
+    listen(
+        SqlEvaluationDatasetRecord,
+        "before_insert",
+        check_uniqueness_factory(SqlEvaluationDatasetRecord, "dataset_id", "input_hash"),
+    )
     listen(SqlExperiment, "before_insert", check_uniqueness_factory(SqlExperiment, "name"))
     listen(
         SqlExperimentPermission,

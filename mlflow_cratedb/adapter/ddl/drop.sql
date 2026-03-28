@@ -1,4 +1,7 @@
 DROP TABLE IF EXISTS "datasets";
+DROP TABLE IF EXISTS "evaluation_datasets";
+DROP TABLE IF EXISTS "evaluation_dataset_records";
+DROP TABLE IF EXISTS "evaluation_dataset_tags";
 DROP TABLE IF EXISTS "experiment_tags";
 DROP TABLE IF EXISTS "experiments";
 DROP TABLE IF EXISTS "inputs";
