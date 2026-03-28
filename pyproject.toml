@@ -96,8 +96,9 @@ scripts.mlflow-cratedb = "mlflow_cratedb.cli:cli"
 entry-points."mlflow.app".mlflow-cratedb = "mlflow_cratedb.server:app"
 
 [tool.setuptools]
-# https://setuptools.pypa.io/en/latest/userguide/package_discovery.html
-packages = [ "mlflow_cratedb" ]
+packages.find.where = [ "." ]
+packages.find.include = [ "mlflow_cratedb", "mlflow_cratedb.*" ]
+packages.find.exclude = [ "tests", "tests.*" ]
 
 [tool.ruff]
 line-length = 120
