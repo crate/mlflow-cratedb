@@ -41,6 +41,7 @@ from mlflow.store.tracking import SEARCH_MAX_RESULTS_DEFAULT
 from mlflow.store.tracking.dbmodels import models
 from mlflow.store.tracking.dbmodels.models import (
     SqlDataset,
+    SqlEntityAssociation,
     SqlExperiment,
     SqlExperimentTag,
     SqlInput,
@@ -208,6 +209,7 @@ class TestSqlAlchemyStore(unittest.TestCase, AbstractStoreTest):
                     SqlInput,
                     SqlDataset,
                     SqlRun,
+                    SqlEntityAssociation,
                     SqlExperimentTag,
                     SqlExperiment,
             ):

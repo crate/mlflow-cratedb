@@ -15,6 +15,16 @@ CREATE TABLE IF NOT EXISTS "datasets" (
    PRIMARY KEY ("experiment_id", "name", "digest")
 );
 
+CREATE TABLE IF NOT EXISTS "entity_associations" (
+	association_id VARCHAR(36) NOT NULL,
+	source_type VARCHAR(36) NOT NULL,
+	source_id VARCHAR(36) NOT NULL,
+	destination_type VARCHAR(36) NOT NULL,
+	destination_id VARCHAR(36) NOT NULL,
+	created_time BIGINT,
+	PRIMARY KEY (source_type, source_id, destination_type, destination_id)
+);
+
 CREATE TABLE IF NOT EXISTS "experiment_tags" (
    "key" TEXT NOT NULL,
    "value" TEXT,
