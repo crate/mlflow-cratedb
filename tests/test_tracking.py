@@ -202,7 +202,7 @@ class TestSqlAlchemyStore(unittest.TestCase, AbstractStoreTest):
         else:
             # Do not prune tables on test teardown, but on test setup instead.
             pass
-        shutil.rmtree(ARTIFACT_URI)
+        shutil.rmtree(ARTIFACT_URI, ignore_errors=True)
 
     def pruneTables(self):
         """
