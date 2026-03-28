@@ -37,6 +37,7 @@ from mlflow.protos.databricks_pb2 import (
     ErrorCode,
 )
 from mlflow.store.db.db_types import MSSQL, MYSQL, POSTGRES, SQLITE
+from mlflow.store.model_registry.dbmodels.models import SqlWebhook, SqlWebhookEvent
 from mlflow.store.tracking import SEARCH_MAX_RESULTS_DEFAULT
 from mlflow.store.tracking.dbmodels import models
 from mlflow.store.tracking.dbmodels.models import (
@@ -47,10 +48,17 @@ from mlflow.store.tracking.dbmodels.models import (
     SqlInput,
     SqlInputTag,
     SqlLatestMetric,
+    SqlLoggedModel,
+    SqlLoggedModelMetric,
+    SqlLoggedModelParam,
+    SqlLoggedModelTag,
     SqlMetric,
     SqlParam,
     SqlRun,
     SqlTag,
+    SqlTraceTag,
+    SqlTraceMetadata,
+    SqlTraceInfo,
 )
 from mlflow.store.tracking.sqlalchemy_store import SqlAlchemyStore, _get_orderby_clauses
 from mlflow.utils import mlflow_tags
@@ -201,6 +209,10 @@ class TestSqlAlchemyStore(unittest.TestCase, AbstractStoreTest):
         with self.store.ManagedSessionMaker() as session:
             # Delete all rows in all tables
             for model in (
+                    SqlLoggedModel,
+                    SqlLoggedModelMetric,
+                    SqlLoggedModelParam,
+                    SqlLoggedModelTag,
                     SqlParam,
                     SqlMetric,
                     SqlLatestMetric,
@@ -209,9 +221,14 @@ class TestSqlAlchemyStore(unittest.TestCase, AbstractStoreTest):
                     SqlInput,
                     SqlDataset,
                     SqlRun,
+                    SqlTraceTag,
+                    SqlTraceMetadata,
+                    SqlTraceInfo,
                     SqlEntityAssociation,
                     SqlExperimentTag,
                     SqlExperiment,
+                    SqlWebhook,
+                    SqlWebhookEvent,
             ):
                 session.query(model).delete()
 
