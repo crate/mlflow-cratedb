@@ -2,6 +2,8 @@
 
 
 ## in progress
+
+## 2026-03-29 v3.9.0
 - Updated to [MLflow 3.9.0]
 
 [MLflow 3.9.0]: https://github.com/mlflow/mlflow/blob/master/CHANGELOG.md#390-2026-01-28
