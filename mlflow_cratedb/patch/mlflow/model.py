@@ -24,7 +24,7 @@ def polyfill_uniqueness_constraints():
         "before_insert",
         check_uniqueness_factory(SqlEvaluationDatasetRecord, "dataset_id", "input_hash"),
     )
-    listen(SqlExperiment, "before_insert", check_uniqueness_factory(SqlExperiment, "name"))
+    listen(SqlExperiment, "before_insert", check_uniqueness_factory(SqlExperiment, "workspace", "name"))
     listen(
         SqlExperimentPermission,
         "before_insert",
