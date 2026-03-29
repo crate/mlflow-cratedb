@@ -12,6 +12,9 @@
   where attribute does not exist yet
 - SQL: Adjusted percentile aggregation and time bucketing expression
   to render the `percentile` and `floor` clauses literally
+- Updated to [MLflow 3.11.0]
+
+[MLflow 3.11.0]: https://github.com/mlflow/mlflow/blob/master/CHANGELOG.md
 
 ## 2026-03-30 v3.10.2
 - Amalgamation: Started supporting huey jobs that are invoked in subprocesses
