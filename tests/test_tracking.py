@@ -1925,10 +1925,10 @@ class TestSqlAlchemyStore(unittest.TestCase, AbstractStoreTest):
         filter_string = f"attr.artifact_uri = '{ARTIFACT_URI}/{e2}/{r1}/artifacts'"
         assert self._search([e1, e2], filter_string) == []
 
-        filter_string = "attribute.artifact_uri = 'random_artifact_path'"
+        filter_string = "attribute.artifact_uri = 'random_artifact_name'"
         assert self._search([e1, e2], filter_string) == []
 
-        filter_string = "attribute.artifact_uri != 'random_artifact_path'"
+        filter_string = "attribute.artifact_uri != 'random_artifact_name'"
         assert sorted(
             [r1, r2],
         ) == sorted(self._search([e1, e2], filter_string))

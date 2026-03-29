@@ -186,7 +186,7 @@ def run_experiment(data: pd.DataFrame):
         signature = infer_signature(None, y_pred)
         log_model(
             sk_model=best_model,
-            artifact_path="crate-salesforecast",
+            name="crate-salesforecast",
             signature=signature,
             registered_model_name=f"crate-salesforecast-model-{timestamp}",
         )

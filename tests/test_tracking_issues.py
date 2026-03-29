@@ -29,14 +29,14 @@ def test_log_model_twice(tracking_store, reset_database):
     # Every experiment needs a name.
     mlflow.set_experiment("test_log_model")
 
-    artifact_path = "testdrive-artifact"
+    artifact_name = "testdrive-artifact"
     registered_model_name = "testdrive-artifact-model"
     sk_model = None
 
     # Emulate `mlflow.sklearn.log_model`.
     def log_model(metadata=None):
         return Model.log(
-            artifact_path=artifact_path,
+            artifact_name,
             flavor=mlflow.sklearn,
             registered_model_name=registered_model_name,
             await_registration_for=0.01,
