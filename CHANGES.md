@@ -2,6 +2,8 @@
 
 
 ## in progress
+
+## 2026-03-29 v3.10.1
 - Updated to [MLflow 3.10.1]
 - Model: Added table `workspaces` and column `workspace`
 - MLflow API: Renamed `artifact_path` to `name`
