@@ -4,6 +4,7 @@
 ## in progress
 - Updated to [MLflow 3.10.1]
 - Model: Added table `workspaces` and column `workspace`
+- MLflow API: Renamed `artifact_path` to `name`
 
 [MLflow 3.10.1]: https://github.com/mlflow/mlflow/blob/master/CHANGELOG.md#3101-2026-03-05
 

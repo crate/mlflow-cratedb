@@ -17,7 +17,7 @@ class AbstractStoreTest:
     def test_record_logged_model(self):
         store = self.get_store()
         run_id = self.create_test_run().info.run_id
-        m = Model(artifact_path="model/path", run_id=run_id, flavors={"tf": "flavor body"})
+        m = Model(name="model/path", run_id=run_id, flavors={"tf": "flavor body"})
         store.record_logged_model(run_id, m)
         self._verify_logged(
             store,
@@ -26,7 +26,7 @@ class AbstractStoreTest:
             metrics=[],
             tags=[RunTag(MLFLOW_LOGGED_MODELS, json.dumps([m.to_dict()]))],
         )
-        m2 = Model(artifact_path="some/other/path", run_id=run_id, flavors={"R": {"property": "value"}})
+        m2 = Model(name="some/other/path", run_id=run_id, flavors={"R": {"property": "value"}})
         store.record_logged_model(run_id, m2)
         self._verify_logged(
             store,
@@ -35,7 +35,7 @@ class AbstractStoreTest:
             metrics=[],
             tags=[RunTag(MLFLOW_LOGGED_MODELS, json.dumps([m.to_dict(), m2.to_dict()]))],
         )
-        m3 = Model(artifact_path="some/other/path2", run_id=run_id, flavors={"R2": {"property": "value"}})
+        m3 = Model(name="some/other/path2", run_id=run_id, flavors={"R2": {"property": "value"}})
         store.record_logged_model(run_id, m3)
         self._verify_logged(
             store,
