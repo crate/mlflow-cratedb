@@ -13,6 +13,7 @@
 - SQL: Adjusted percentile aggregation and time bucketing expression
   to render the `percentile` and `floor` clauses literally
 - Updated to [MLflow 3.11.0]
+- Model: Added table `budget_policies` and column `issues`
 
 [MLflow 3.11.0]: https://github.com/mlflow/mlflow/blob/master/CHANGELOG.md
 

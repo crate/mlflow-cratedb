@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS "assessments";
+DROP TABLE IF EXISTS "budget_policies";
 DROP TABLE IF EXISTS "datasets";
 DROP TABLE IF EXISTS "endpoints";
 DROP TABLE IF EXISTS "endpoint_bindings";
@@ -11,6 +12,7 @@ DROP TABLE IF EXISTS "experiment_tags";
 DROP TABLE IF EXISTS "experiments";
 DROP TABLE IF EXISTS "inputs";
 DROP TABLE IF EXISTS "input_tags";
+DROP TABLE IF EXISTS "issues";
 DROP TABLE IF EXISTS "jobs";
 DROP TABLE IF EXISTS "latest_metrics";
 DROP TABLE IF EXISTS "logged_models";
