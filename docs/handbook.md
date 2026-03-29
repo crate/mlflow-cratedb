@@ -123,3 +123,9 @@ tables, for example `"mlflow"`. In that spirit, CrateDB's default schema
 
 If you want to run the MLflow adapter for CrateDB on a container infrastructure,
 please refer to the [container usage](./container.md) documentation.
+
+
+## Caveats
+
+Because CrateDB does not support Alembic, MLflow database migrations do not work.
+When a new release introduces changes to the database, it needs to be updated manually.
