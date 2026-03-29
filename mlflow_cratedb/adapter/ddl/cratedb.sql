@@ -35,6 +35,7 @@ CREATE TABLE IF NOT EXISTS "evaluation_datasets" (
 	last_update_time BIGINT,
 	created_by VARCHAR(255),
 	last_updated_by VARCHAR(255),
+    workspace VARCHAR(63) DEFAULT 'default' NOT NULL,
 	PRIMARY KEY (dataset_id)
 );
 
@@ -77,6 +78,7 @@ CREATE TABLE IF NOT EXISTS "experiments" (
    "lifecycle_stage" TEXT,
    "creation_time" BIGINT,  -- default=get_current_time_millis
    "last_update_time" BIGINT,  -- default=get_current_time_millis
+   "workspace" VARCHAR(63) DEFAULT 'default' NOT NULL,
    PRIMARY KEY ("experiment_id")
 );
 
@@ -175,14 +177,18 @@ CREATE TABLE IF NOT EXISTS "model_versions" (
    "run_id" TEXT,
    "run_link" TEXT,
    "status" TEXT,
-   "status_message" TEXT
+   "status_message" TEXT,
+   "workspace" VARCHAR(63) DEFAULT 'default' NOT NULL,
+   PRIMARY KEY ("workspace", "name", "version")
 );
 
 CREATE TABLE IF NOT EXISTS "model_version_tags" (
    "name" TEXT NOT NULL,
    "version" INTEGER NOT NULL,
    "key" TEXT NOT NULL,
-   "value" TEXT
+   "value" TEXT,
+   "workspace" VARCHAR(63) DEFAULT 'default' NOT NULL,
+   PRIMARY KEY ("workspace", "key", "name", "version")
 );
 
 CREATE TABLE IF NOT EXISTS "params" (
@@ -198,13 +204,17 @@ CREATE TABLE IF NOT EXISTS "registered_models" (
    "value" TEXT,
    "creation_time" BIGINT,
    "last_updated_time" BIGINT,
-   "description" TEXT
+   "description" TEXT,
+   "workspace" VARCHAR(63) DEFAULT 'default' NOT NULL,
+   PRIMARY KEY ("workspace", "name")
 );
 
 CREATE TABLE IF NOT EXISTS "registered_model_aliases" (
    "name" TEXT NOT NULL,
    "alias" TEXT NOT NULL,
-   "version" TEXT NOT NULL
+   "version" TEXT NOT NULL,
+   "workspace" VARCHAR(63) DEFAULT 'default' NOT NULL,
+   PRIMARY KEY ("workspace", "name", "alias")
 );
 
 CREATE TABLE IF NOT EXISTS "registered_model_tags" (
@@ -213,7 +223,9 @@ CREATE TABLE IF NOT EXISTS "registered_model_tags" (
    "value" TEXT NOT NULL,
    "creation_time" BIGINT,  -- default=get_current_time_millis
    "last_update_time" BIGINT,  -- default=get_current_time_millis
-   "description" TEXT
+   "description" TEXT,
+   "workspace" VARCHAR(63) DEFAULT 'default' NOT NULL,
+   PRIMARY KEY ("workspace", "key", "name")
 );
 
 CREATE TABLE IF NOT EXISTS "runs" (
@@ -276,6 +288,7 @@ CREATE TABLE IF NOT EXISTS "webhooks" (
 	creation_timestamp BIGINT,
 	last_updated_timestamp BIGINT,
 	deleted_timestamp BIGINT,
+    workspace VARCHAR(63) DEFAULT 'default' NOT NULL,
     PRIMARY KEY ("webhook_id")
 );
 
@@ -284,4 +297,11 @@ CREATE TABLE IF NOT EXISTS "webhook_events" (
 	entity VARCHAR(50) NOT NULL,
 	action VARCHAR(50) NOT NULL,
     PRIMARY KEY ("webhook_id", "entity", "action")
+);
+
+CREATE TABLE IF NOT EXISTS "workspaces" (
+	name VARCHAR(63) NOT NULL,
+	description TEXT,
+	default_artifact_root TEXT,
+	PRIMARY KEY (name)
 );

@@ -64,6 +64,7 @@ from mlflow.store.tracking.dbmodels.models import (
     SqlTraceInfo,
 )
 from mlflow.store.tracking.sqlalchemy_store import SqlAlchemyStore, _get_orderby_clauses
+from mlflow.store.workspace.dbmodels import SqlWorkspace
 from mlflow.utils import mlflow_tags
 from mlflow.utils.mlflow_tags import MLFLOW_DATASET_CONTEXT, MLFLOW_RUN_NAME
 from mlflow.utils.name_utils import _GENERATOR_PREDICATES
@@ -235,6 +236,7 @@ class TestSqlAlchemyStore(unittest.TestCase, AbstractStoreTest):
                     SqlExperiment,
                     SqlWebhook,
                     SqlWebhookEvent,
+                    SqlWorkspace,
             ):
                 session.query(model).delete()
 
