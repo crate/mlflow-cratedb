@@ -75,7 +75,7 @@ def test_tracking_merlion(reset_database, engine: sa.Engine, tracking_store: Sql
         "server",
         "--workers=1",
         f"--backend-store-uri={db_uri}",
-        "--gunicorn-opts='--log-level=debug'",
+        "--uvicorn-opts='--log-level=debug'",
     ]
     cmd_client = [
         sys.executable,
@@ -148,7 +148,7 @@ def test_tracking_pycaret(reset_database, engine: sa.Engine, tracking_store: Sql
         "server",
         "--workers=1",
         f"--backend-store-uri={db_uri}",
-        "--gunicorn-opts='--log-level=debug'",
+        "--uvicorn-opts='--log-level=debug'",
     ]
 
     cmd_client = [
