@@ -2,6 +2,7 @@
 
 
 ## in progress
+- Amalgamation: Started supporting huey jobs that are invoked in subprocesses
 
 ## 2026-03-29 v3.10.1
 - Updated to [MLflow 3.10.1]
