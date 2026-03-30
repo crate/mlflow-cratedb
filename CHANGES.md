@@ -2,6 +2,8 @@
 
 
 ## in progress
+
+## 2026-03-30 v3.10.2
 - Amalgamation: Started supporting huey jobs that are invoked in subprocesses
 - Model: Added tables `jobs`, `online_scoring_configs`, `scorers`, `scorer_versions`
 - Server: Switched from `gunicorn` to `uvicorn` as suggested
