@@ -84,7 +84,7 @@ and the web UI, see http://localhost:5000/.
 docker run --rm -it --name=mlflow --link=cratedb --publish=5000:5000 \
   ghcr.io/crate/mlflow-cratedb mlflow-cratedb server \
   --backend-store-uri="${CRATEDB_SQLALCHEMY_URL}" --host=0.0.0.0 \
-  --gunicorn-opts="--log-level=debug"
+  --uvicorn-opts="--log-level=debug"
 ```
 
 Start an experiment program which needs to access both CrateDB and MLflow,

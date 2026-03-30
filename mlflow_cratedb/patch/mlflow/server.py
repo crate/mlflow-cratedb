@@ -7,7 +7,7 @@ def patch_run_server():
     """
     Intercept `mlflow.server._run_server`, and set `--app-name` to
     a wrapper application. This is needed to run the monkeypatching also
-    within the gunicorn workers.
+    within the gunicorn/uvicorn workers.
     """
     import mlflow.server as server
 
