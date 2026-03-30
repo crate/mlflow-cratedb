@@ -47,6 +47,7 @@ from mlflow.models import infer_signature
 from mlflow.sklearn import log_model
 from pycaret.time_series import blend_models, compare_models, finalize_model, save_model, setup, tune_model
 
+# Initialize CrateDB adapter.
 import mlflow_cratedb  # noqa: F401
 
 

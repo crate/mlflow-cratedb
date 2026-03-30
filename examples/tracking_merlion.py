@@ -39,6 +39,9 @@ from merlion.evaluate.anomaly import TSADMetric
 from merlion.models.defaults import DefaultDetector, DefaultDetectorConfig
 from merlion.utils import TimeSeries
 
+# Initialize CrateDB adapter.
+import mlflow_cratedb  # noqa: F401
+
 
 def connect_database():
     """
