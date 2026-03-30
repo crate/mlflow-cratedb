@@ -99,6 +99,21 @@ CREATE TABLE IF NOT EXISTS "input_tags" (
    PRIMARY KEY ("input_uuid", "name")
 );
 
+CREATE TABLE IF NOT EXISTS "jobs" (
+	id VARCHAR(36) NOT NULL,
+	creation_time BIGINT NOT NULL,
+	job_name VARCHAR(500) NOT NULL,
+	params TEXT NOT NULL,
+	timeout DOUBLE PRECISION,
+	status INTEGER NOT NULL,
+	result TEXT,
+	retry_count INTEGER NOT NULL,
+	last_update_time BIGINT NOT NULL,
+	workspace VARCHAR(63) DEFAULT 'default' NOT NULL,
+	status_details OBJECT(DYNAMIC),
+	PRIMARY KEY (id)
+);
+
 CREATE TABLE IF NOT EXISTS "latest_metrics" (
    "key" TEXT NOT NULL,
    "value" DOUBLE NOT NULL,
@@ -153,6 +168,15 @@ CREATE TABLE IF NOT EXISTS "logged_model_tags" (
 	tag_key VARCHAR(255) NOT NULL,
 	tag_value TEXT NOT NULL,
     PRIMARY KEY ("model_id", "tag_key")
+);
+
+CREATE TABLE IF NOT EXISTS "online_scoring_configs" (
+	online_scoring_config_id VARCHAR(36) NOT NULL,
+	scorer_id VARCHAR(36) NOT NULL,
+	sample_rate DOUBLE PRECISION NOT NULL,
+	experiment_id BIGINT NOT NULL,
+	filter_string TEXT,
+	PRIMARY KEY (online_scoring_config_id)
 );
 
 CREATE TABLE IF NOT EXISTS "metrics" (
@@ -244,6 +268,21 @@ CREATE TABLE IF NOT EXISTS "runs" (
    "artifact_uri" TEXT,
    "experiment_id" BIGINT,
    PRIMARY KEY ("run_uuid")
+);
+
+CREATE TABLE IF NOT EXISTS "scorers" (
+	experiment_id BIGINT NOT NULL,
+	scorer_name VARCHAR(256) NOT NULL,
+	scorer_id VARCHAR(36) NOT NULL,
+	PRIMARY KEY (scorer_id)
+);
+
+CREATE TABLE IF NOT EXISTS "scorer_versions" (
+	scorer_id VARCHAR(36) NOT NULL,
+	scorer_version INTEGER NOT NULL,
+	serialized_scorer TEXT NOT NULL,
+	creation_time BIGINT,
+	PRIMARY KEY (scorer_id, scorer_version)
 );
 
 CREATE TABLE IF NOT EXISTS "tags" (
