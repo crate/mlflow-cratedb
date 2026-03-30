@@ -17,6 +17,11 @@ Tracking]. MLflow is an open source platform to manage the whole ML lifecycle,
 including experimentation, reproducibility, deployment, and a central model
 registry.
 
+## What's inside?
+
+A few monkey patches that amalgamate MLflow with the necessary changes to
+support CrateDB. The patches are curated until the adapter can eventually
+be upstreamed into MLflow mainline as another storage database type.
 
 ## Install
 
