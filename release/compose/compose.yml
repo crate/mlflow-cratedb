@@ -1,0 +1,143 @@
+# MLflow with Docker Compose (CrateDB + S3-Compatible Storage)
+#
+# This directory provides a Docker Compose setup for running
+# MLflow locally with a CrateDB backend store and RustFS
+# for S3-compatible artifact storage.
+#
+# https://github.com/crate/mlflow-cratedb/tree/main/release/compose
+---
+
+services:
+
+  cratedb:
+    image: docker.io/crate/crate:${CRATEDB_VERSION:-latest}
+    command:
+      - "crate"
+      - "-Ccluster.routing.allocation.disk.threshold_enabled=false"
+      - "-Cdiscovery.type=single-node"
+      - "-Cstats.enabled=true"
+    ports:
+      - 4200:4200
+      - 5432:5432
+    volumes:
+      - cratedb-data:/data
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://${CRATEDB_USER}:${CRATEDB_PASSWORD}@localhost:4200"]
+      start_period: 3s
+      interval: 1.5s
+      retries: 30
+      timeout: 30s
+
+  storage:
+    image: docker.io/rustfs/rustfs:${RUSTFS_VERSION:-latest}
+    container_name: storage
+    environment:
+      RUSTFS_ADDRESS: :9000
+      RUSTFS_SERVER_DOMAINS: storage:9000
+      RUSTFS_REGION: ${AWS_DEFAULT_REGION:-us-east-1}
+      RUSTFS_ACCESS_KEY: ${AWS_ACCESS_KEY_ID:-s3admin}
+      RUSTFS_SECRET_KEY: ${AWS_SECRET_ACCESS_KEY:-s3admin}
+      RUSTFS_CONSOLE_ENABLE: ${RUSTFS_CONSOLE_ENABLE:-true}
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - storage-data:/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", 'curl -s http://127.0.0.1:9000/health | grep -q ''"status":"ok"''']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  create-bucket:
+    image: docker.io/amazon/aws-cli:latest
+    container_name: mlflow-create-bucket
+    depends_on:
+      storage:
+        condition: service_healthy
+    entrypoint: >
+      /bin/sh -c "
+        set -e;
+        echo 'Waiting for S3 gateway getting ready...';
+        if aws --endpoint-url=${MLFLOW_S3_ENDPOINT_URL} s3api head-bucket --bucket ${S3_BUCKET} 2>/dev/null; then
+          echo 'Bucket ${S3_BUCKET} already exists. Skipping creation.';
+        else
+          echo 'Creating bucket ${S3_BUCKET}...';
+          aws --endpoint-url=${MLFLOW_S3_ENDPOINT_URL} s3api create-bucket --bucket ${S3_BUCKET} --region ${AWS_DEFAULT_REGION};
+        fi
+      "
+    environment:
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}
+      AWS_S3_ADDRESSING_STYLE: path
+      MLFLOW_S3_ENDPOINT_URL: ${MLFLOW_S3_ENDPOINT_URL}
+      S3_BUCKET: ${S3_BUCKET}
+    restart: "no"
+
+  mlflow:
+    image: ghcr.io/crate/mlflow-cratedb:${MLFLOW_VERSION}
+    container_name: mlflow-server
+    depends_on:
+      cratedb:
+        condition: service_healthy
+      storage:
+        condition: service_healthy
+      create-bucket:
+        condition: service_completed_successfully
+    environment:
+      # Backend store URI built from vars
+      MLFLOW_BACKEND_STORE_URI: ${MLFLOW_BACKEND_STORE_URI}
+
+      # S3/RustFS settings
+      MLFLOW_S3_ENDPOINT_URL: ${MLFLOW_S3_ENDPOINT_URL}
+      MLFLOW_ARTIFACTS_DESTINATION: ${MLFLOW_ARTIFACTS_DESTINATION}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}
+      MLFLOW_S3_IGNORE_TLS: "true"
+
+      # Server host/port
+      MLFLOW_HOST: ${MLFLOW_HOST}
+      MLFLOW_PORT: ${MLFLOW_PORT}
+
+      # Turn off usage tracking.
+      # https://mlflow.org/docs/latest/community/usage-tracking/
+      MLFLOW_DISABLE_TELEMETRY: true
+
+      # Set MLFLOW_LOGGING_LEVEL=DEBUG for traceback.
+      MLFLOW_LOGGING_LEVEL: DEBUG
+    command:
+      - /bin/bash
+      - -c
+      - |
+        uv pip install --no-cache-dir boto3
+        mlflow-cratedb server \
+          --backend-store-uri "${MLFLOW_BACKEND_STORE_URI}" \
+          --artifacts-destination "${MLFLOW_ARTIFACTS_DESTINATION}" \
+          --serve-artifacts \
+          --host "${MLFLOW_HOST}" \
+          --port "${MLFLOW_PORT}"
+    ports:
+      - "${MLFLOW_PORT}:${MLFLOW_PORT}"
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://localhost:${MLFLOW_PORT}/health')",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+
+networks:
+  default:
+    name: mlflow-network
+
+volumes:
+  cratedb-data:
+  storage-data:

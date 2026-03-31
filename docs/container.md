@@ -98,7 +98,29 @@ docker run --rm -it --link=cratedb --link=mlflow \
   ghcr.io/crate/ml-runtime python /opt/ml/bin/tracking_merlion.py
 ```
 
+### Docker Compose
+
+The repository includes a ready-to-run Compose project under `release/compose/`
+that provisions [MLflow], [CrateDB], and [RustFS].
+
+```bash
+git clone https://github.com/crate/mlflow-cratedb.git
+cd release/compose
+cp .env.dev.example .env
+docker compose up --wait --detach
+```
+
+Navigate to http://localhost:5000 in your browser to view the UI.
+
+Read the [Compose instructions] for more details and configuration options
+for compose bundle, to be invoked using Docker or Podman.
 
 ## Kubernetes
 
 Todo.
+
+
+[Compose instructions]: https://github.com/crate/mlflow-cratedb/tree/main/release/compose
+[CrateDB]: https://github.com/crate/crate
+[MLflow]: https://github.com/mlflow/mlflow
+[RustFS]: https://github.com/rustfs/rustfs
