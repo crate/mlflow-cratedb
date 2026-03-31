@@ -1,6 +1,5 @@
 import logging
 import sys
-import time
 from pathlib import Path
 
 import pytest
@@ -9,7 +8,7 @@ from mlflow.store.model_registry.dbmodels.models import SqlRegisteredModel
 from mlflow.store.tracking.dbmodels.models import SqlExperiment, SqlMetric, SqlParam, SqlRun
 from mlflow.store.tracking.sqlalchemy_store import SqlAlchemyStore
 
-from tests.util import process
+from tests.util import process, wait_for_server
 
 # The test cases within this file exercise two different ways of recording
 # ML experiments. They can either be directly submitted to the database,
@@ -85,8 +84,7 @@ def test_tracking_merlion(reset_database, engine: sa.Engine, tracking_store: Sql
     logger.info("Starting server")
     with process(cmd_server, stdout=sys.stdout.buffer, stderr=sys.stderr.buffer, close_fds=True) as server_process:
         logger.info(f"Started server with process id: {server_process.pid}")
-        # TODO: Wait for HTTP response.
-        time.sleep(4)
+        wait_for_server(f"{MLFLOW_TRACKING_URI_SERVER}/health")
 
         # Invoke example program.
         logger.info("Starting client")
@@ -159,8 +157,7 @@ def test_tracking_pycaret(reset_database, engine: sa.Engine, tracking_store: Sql
     logger.info("Starting server")
     with process(cmd_server, stdout=sys.stdout.buffer, stderr=sys.stderr.buffer, close_fds=True) as server_process:
         logger.info(f"Started server with process id: {server_process.pid}")
-        # TODO: Wait for HTTP response.
-        time.sleep(4)
+        wait_for_server(f"{MLFLOW_TRACKING_URI_SERVER}/health")
 
         # Invoke example program.
         logger.info("Starting client")
