@@ -1,11 +1,16 @@
 # Source: mlflow:tests/integration/utils.py and mlflow:tests/store/tracking/test_file_store.py
+import logging
 import subprocess
+import time
+import urllib.request
 from contextlib import contextmanager
 from typing import List
 
 import psutil
 from click.testing import CliRunner
 from mlflow.entities import DatasetInput
+
+logger = logging.getLogger(__name__)
 
 
 def invoke_cli_runner(*args, **kwargs):
@@ -51,3 +56,35 @@ def process(*args, **kwargs) -> subprocess.Popen:
         for child in children:
             child.kill()
         proc.kill()
+
+
+def wait_for_server(
+    url: str,
+    timeout: float = 30.0,
+    interval: float = 0.5,
+) -> None:
+    """Poll *url* until a 2xx HTTP response is received or *timeout* seconds elapse.
+
+    Replaces the brittle ``time.sleep(4)`` that was used previously to wait for
+    the MLflow Tracking Server to become ready.  On slow CI runners 4 seconds is
+    sometimes not enough; on fast machines it wastes unnecessary time.
+
+    Suggested by CodeRabbit.
+    https://github.com/crate/mlflow-cratedb/issues/265#issuecomment-4159523572
+
+    :param url: URL to poll (e.g. ``http://127.0.0.1:5000/health``).
+    :param timeout: Maximum number of seconds to wait before raising.
+    :param interval: Seconds to sleep between attempts.
+    :raises TimeoutError: When the server is not ready within *timeout* seconds.
+    """
+    deadline = time.monotonic() + timeout
+    while time.monotonic() < deadline:
+        try:
+            with urllib.request.urlopen(url, timeout=2) as resp:  # noqa: S310
+                if resp.status < 300:
+                    logger.info("Server is ready at %s (HTTP %s)", url, resp.status)
+                    return
+        except Exception:  # noqa: S110
+            pass
+        time.sleep(interval)
+    raise TimeoutError(f"Server at {url} did not become ready within {timeout} seconds")
