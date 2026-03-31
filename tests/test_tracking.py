@@ -65,6 +65,7 @@ from mlflow.store.tracking.dbmodels.models import (
     SqlTag,
     SqlTraceInfo,
     SqlTraceMetadata,
+    SqlTraceMetrics,
     SqlTraceTag,
 )
 from mlflow.store.tracking.sqlalchemy_store import SqlAlchemyStore, _get_orderby_clauses
@@ -240,8 +241,9 @@ class TestSqlAlchemyStore(unittest.TestCase, AbstractStoreTest):
                     SqlScorerVersion,
                     SqlTag,
                     SqlTraceInfo,
-                    SqlTraceTag,
                     SqlTraceMetadata,
+                    SqlTraceMetrics,
+                    SqlTraceTag,
                     SqlWebhook,
                     SqlWebhookEvent,
                     SqlWorkspace,
