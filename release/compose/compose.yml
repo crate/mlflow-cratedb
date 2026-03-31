@@ -113,7 +113,6 @@ services:
       - /bin/bash
       - -c
       - |
-        uv pip install --no-cache-dir boto3
         mlflow-cratedb server \
           --backend-store-uri "${MLFLOW_BACKEND_STORE_URI}" \
           --artifacts-destination "${MLFLOW_ARTIFACTS_DESTINATION}" \
