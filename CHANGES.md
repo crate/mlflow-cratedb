@@ -8,6 +8,8 @@
 - Model: Added tables `assessments`, `endpoints`, `endpoint_bindings`,
   `endpoint_model_mappings`, `endpoint_tags`, `spans`, `span_metrics`
 - Model: Renamed field names that contain dots
+- SQL: Relaxed `OBJECT(DYNAMIC)` attribute access behaviour
+  where attribute does not exist yet
 
 ## 2026-03-30 v3.10.2
 - Amalgamation: Started supporting huey jobs that are invoked in subprocesses
