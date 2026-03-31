@@ -57,6 +57,15 @@ export CRATEDB_SQLALCHEMY_URL="crate://${CRATEDB_USERNAME}:${CRATEDB_PASSWORD}@e
 
 ## Run Experiment
 
+```shell
+# Turn off usage tracking.
+# https://mlflow.org/docs/latest/community/usage-tracking/
+export MLFLOW_DISABLE_TELEMETRY=true
+
+# Set MLFLOW_LOGGING_LEVEL=DEBUG for traceback.
+export MLFLOW_LOGGING_LEVEL=DEBUG
+```
+
 ### Standalone
 
 In order to instruct MLflow to submit the experiment metadata directly to CrateDB,
