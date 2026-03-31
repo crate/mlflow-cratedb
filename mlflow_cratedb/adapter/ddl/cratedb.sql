@@ -293,28 +293,36 @@ CREATE TABLE IF NOT EXISTS "tags" (
 );
 
 CREATE TABLE IF NOT EXISTS "trace_info" (
-   "request_id" TEXT NOT NULL,
-   "experiment_id" BIGINT,
-   "timestamp_ms" BIGINT NOT NULL,
-   "execution_time_ms" BIGINT NOT NULL,
-   "status" TEXT,
-   PRIMARY KEY ("request_id")
+	request_id VARCHAR(50) NOT NULL,
+	experiment_id BIGINT NOT NULL,
+	timestamp_ms BIGINT NOT NULL,
+	execution_time_ms BIGINT,
+	status VARCHAR(50) NOT NULL,
+	client_request_id VARCHAR(50),
+	request_preview VARCHAR(1000),
+	response_preview VARCHAR(1000),
+	PRIMARY KEY (request_id)
+);
+
+CREATE TABLE IF NOT EXISTS "trace_metrics" (
+	request_id VARCHAR(50) NOT NULL,
+	"key" VARCHAR(250) NOT NULL,
+	"value" DOUBLE PRECISION,
+	PRIMARY KEY (request_id, "key")
 );
 
 CREATE TABLE IF NOT EXISTS "trace_tags" (
    "key" TEXT,
    "value" TEXT NOT NULL,
    "request_id" TEXT NOT NULL,
-   "trace_info" BIGINT,
-   PRIMARY KEY ("request_id", "key")
+   PRIMARY KEY ("key", "request_id")
 );
 
 CREATE TABLE IF NOT EXISTS "trace_request_metadata" (
    "key" TEXT,
    "value" TEXT NOT NULL,
    "request_id" TEXT NOT NULL,
-   "trace_info" BIGINT,
-   PRIMARY KEY ("request_id", "key")
+   PRIMARY KEY ("key", "request_id")
 );
 
 CREATE TABLE IF NOT EXISTS "webhooks" (
