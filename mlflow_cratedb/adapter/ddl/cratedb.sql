@@ -3,6 +3,26 @@
 -- `tests/resources/db/latest_schema.sql`
 -- `tests/db/schemas/postgresql.sql`
 
+CREATE TABLE IF NOT EXISTS "assessments" (
+	assessment_id VARCHAR(50) NOT NULL,
+	trace_id VARCHAR(50) NOT NULL,
+	name VARCHAR(250) NOT NULL,
+	assessment_type VARCHAR(20) NOT NULL,
+	value TEXT NOT NULL,
+	error TEXT,
+	created_timestamp BIGINT NOT NULL,
+	last_updated_timestamp BIGINT NOT NULL,
+	source_type VARCHAR(50) NOT NULL,
+	source_id VARCHAR(250),
+	run_id VARCHAR(32),
+	span_id VARCHAR(50),
+	rationale TEXT,
+	overrides VARCHAR(50),
+	valid BOOLEAN NOT NULL,
+	assessment_metadata TEXT,
+	PRIMARY KEY (assessment_id)
+);
+
 CREATE TABLE IF NOT EXISTS "datasets" (
    "dataset_uuid" TEXT NOT NULL,
    "experiment_id" BIGINT NOT NULL,

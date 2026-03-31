@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS "assessments";
 DROP TABLE IF EXISTS "datasets";
 DROP TABLE IF EXISTS "evaluation_datasets";
 DROP TABLE IF EXISTS "evaluation_dataset_records";
