@@ -39,7 +39,7 @@ docker compose version
 
 ```bash
 git clone https://github.com/crate/mlflow-cratedb.git
-cd release/compose
+cd mlflow-cratedb/release/compose
 ```
 
 ---
@@ -64,8 +64,8 @@ The `.env` file defines:
 
 - **CrateDB**
 
-  - `CRATEDB_USER=mlflow`
-  - `CRATEDB_PASSWORD=mlflow`
+  - `CRATEDB_USER=crate`
+  - `CRATEDB_PASSWORD=crate`
   - `CRATEDB_SCHEMA=mlflow`
 
 - **S3**
@@ -213,7 +213,7 @@ If this passes, MLflow can read and write artifacts to RustFS.
 - Endpoint issues from MLflow → make sure `MLFLOW_S3_ENDPOINT_URL` uses the
   **service name** visible from MLflow (e.g., `http://storage:9000`).
 - If you see port conflict errors, edit `.env` and restart all containers
-  using `docker compose {down},{up}`.
+  using `docker compose down && docker compose up --wait --detach`.
 
 ---
 
@@ -224,7 +224,7 @@ If this passes, MLflow can read and write artifacts to RustFS.
   export MLFLOW_TRACKING_URI=http://localhost:5000
   ```
 - Start logging runs with `mlflow.start_run()` (Python) or the MLflow CLI.
-- Customize the `.env` and `docker-compose.yml` to fit your local workflow
+- Customize the `.env` and `compose.yml` files to fit your local workflow
   (e.g., change image tags, add volumes, etc.).
 
 ---
