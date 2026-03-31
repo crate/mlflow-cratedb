@@ -10,6 +10,8 @@
 - Model: Renamed field names that contain dots
 - SQL: Relaxed `OBJECT(DYNAMIC)` attribute access behaviour
   where attribute does not exist yet
+- SQL: Adjusted percentile aggregation and time bucketing expression
+  to render the `percentile` and `floor` clauses literally
 
 ## 2026-03-30 v3.10.2
 - Amalgamation: Started supporting huey jobs that are invoked in subprocesses
