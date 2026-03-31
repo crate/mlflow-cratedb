@@ -285,6 +285,30 @@ CREATE TABLE IF NOT EXISTS "scorer_versions" (
 	PRIMARY KEY (scorer_id, scorer_version)
 );
 
+CREATE TABLE IF NOT EXISTS "spans" (
+	trace_id VARCHAR(50) NOT NULL,
+	experiment_id BIGINT NOT NULL,
+	span_id VARCHAR(50) NOT NULL,
+	parent_span_id VARCHAR(50),
+	name TEXT,
+	type VARCHAR(500),
+	status VARCHAR(50) NOT NULL,
+	start_time_unix_nano BIGINT NOT NULL,
+	end_time_unix_nano BIGINT,
+	duration_ns BIGINT GENERATED ALWAYS AS ((end_time_unix_nano - start_time_unix_nano)),
+	content TEXT NOT NULL,
+	dimension_attributes OBJECT(DYNAMIC),
+	PRIMARY KEY (trace_id, span_id)
+);
+
+CREATE TABLE IF NOT EXISTS "span_metrics" (
+	trace_id VARCHAR(50) NOT NULL,
+	span_id VARCHAR(50) NOT NULL,
+	key VARCHAR(250) NOT NULL,
+	value DOUBLE PRECISION,
+	PRIMARY KEY (trace_id, span_id, key)
+);
+
 CREATE TABLE IF NOT EXISTS "tags" (
    "key" TEXT NOT NULL,
    "value" TEXT,

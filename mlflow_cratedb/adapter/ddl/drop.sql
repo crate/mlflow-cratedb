@@ -23,6 +23,8 @@ DROP TABLE IF EXISTS "registered_model_tags";
 DROP TABLE IF EXISTS "runs";
 DROP TABLE IF EXISTS "scorers";
 DROP TABLE IF EXISTS "scorer_versions";
+DROP TABLE IF EXISTS "spans";
+DROP TABLE IF EXISTS "span_metrics";
 DROP TABLE IF EXISTS "tags";
 DROP TABLE IF EXISTS "trace_info";
 DROP TABLE IF EXISTS "trace_metrics";
