@@ -43,6 +43,10 @@ from mlflow.store.tracking.dbmodels import models
 from mlflow.store.tracking.dbmodels.models import (
     SqlAssessments,
     SqlDataset,
+    SqlGatewayEndpoint,
+    SqlGatewayEndpointBinding,
+    SqlGatewayEndpointModelMapping,
+    SqlGatewayEndpointTag,
     SqlEntityAssociation,
     SqlEvaluationDataset,
     SqlEvaluationDatasetRecord,
@@ -223,6 +227,10 @@ class TestSqlAlchemyStore(unittest.TestCase, AbstractStoreTest):
             for model in (
                     SqlAssessments,
                     SqlDataset,
+                    SqlGatewayEndpoint,
+                    SqlGatewayEndpointBinding,
+                    SqlGatewayEndpointModelMapping,
+                    SqlGatewayEndpointTag,
                     SqlEntityAssociation,
                     SqlEvaluationDataset,
                     SqlEvaluationDatasetRecord,

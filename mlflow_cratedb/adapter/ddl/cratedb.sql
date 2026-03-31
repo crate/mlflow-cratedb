@@ -35,6 +35,52 @@ CREATE TABLE IF NOT EXISTS "datasets" (
    PRIMARY KEY ("experiment_id", "name", "digest")
 );
 
+CREATE TABLE IF NOT EXISTS "endpoints" (
+	endpoint_id VARCHAR(36) NOT NULL,
+	name VARCHAR(255),
+	created_by VARCHAR(255),
+	created_at BIGINT NOT NULL,
+	last_updated_by VARCHAR(255),
+	last_updated_at BIGINT NOT NULL,
+	routing_strategy VARCHAR(64),
+	fallback_config_json TEXT,
+	experiment_id INTEGER,
+	usage_tracking BOOLEAN DEFAULT false NOT NULL,
+	workspace VARCHAR(63) DEFAULT 'default'::character varying NOT NULL,
+	PRIMARY KEY (endpoint_id)
+);
+
+CREATE TABLE IF NOT EXISTS "endpoint_bindings" (
+	endpoint_id VARCHAR(36) NOT NULL,
+	resource_type VARCHAR(50) NOT NULL,
+	resource_id VARCHAR(255) NOT NULL,
+	created_at BIGINT NOT NULL,
+	created_by VARCHAR(255),
+	last_updated_at BIGINT NOT NULL,
+	last_updated_by VARCHAR(255),
+	display_name VARCHAR(255),
+	PRIMARY KEY (endpoint_id, resource_type, resource_id)
+);
+
+CREATE TABLE IF NOT EXISTS "endpoint_model_mappings" (
+	mapping_id VARCHAR(36) NOT NULL,
+	endpoint_id VARCHAR(36) NOT NULL,
+	model_definition_id VARCHAR(36) NOT NULL,
+	weight DOUBLE PRECISION NOT NULL,
+	created_by VARCHAR(255),
+	created_at BIGINT NOT NULL,
+	linkage_type VARCHAR(64) DEFAULT 'PRIMARY'::character varying NOT NULL,
+	fallback_order INTEGER,
+	PRIMARY KEY (mapping_id)
+);
+
+CREATE TABLE IF NOT EXISTS "endpoint_tags" (
+	key VARCHAR(250) NOT NULL,
+	value VARCHAR(5000),
+	endpoint_id VARCHAR(36) NOT NULL,
+	PRIMARY KEY (key, endpoint_id)
+);
+
 CREATE TABLE IF NOT EXISTS "entity_associations" (
 	association_id VARCHAR(36) NOT NULL,
 	source_type VARCHAR(36) NOT NULL,
