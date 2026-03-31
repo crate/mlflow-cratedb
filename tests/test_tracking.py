@@ -41,6 +41,7 @@ from mlflow.store.model_registry.dbmodels.models import SqlWebhook, SqlWebhookEv
 from mlflow.store.tracking import SEARCH_MAX_RESULTS_DEFAULT
 from mlflow.store.tracking.dbmodels import models
 from mlflow.store.tracking.dbmodels.models import (
+    SqlAssessments,
     SqlDataset,
     SqlEntityAssociation,
     SqlEvaluationDataset,
@@ -220,6 +221,7 @@ class TestSqlAlchemyStore(unittest.TestCase, AbstractStoreTest):
         with self.store.ManagedSessionMaker() as session:
             # Delete all rows in all tables
             for model in (
+                    SqlAssessments,
                     SqlDataset,
                     SqlEntityAssociation,
                     SqlEvaluationDataset,

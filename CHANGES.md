@@ -4,7 +4,7 @@
 ## in progress
 - Documentation: Added setup for Docker Compose or Podman Compose
 - Model: Updated tables `trace_info`, `trace_metrics`, `trace_tags`, `trace_request_metadata`
-- Model: Added tables `spans`, `span_metrics`
+- Model: Added tables `assessments`, `spans`, `span_metrics`
 
 ## 2026-03-30 v3.10.2
 - Amalgamation: Started supporting huey jobs that are invoked in subprocesses
