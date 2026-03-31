@@ -1,5 +1,9 @@
 DROP TABLE IF EXISTS "assessments";
 DROP TABLE IF EXISTS "datasets";
+DROP TABLE IF EXISTS "endpoints";
+DROP TABLE IF EXISTS "endpoint_bindings";
+DROP TABLE IF EXISTS "endpoint_model_mappings";
+DROP TABLE IF EXISTS "endpoint_tags";
 DROP TABLE IF EXISTS "evaluation_datasets";
 DROP TABLE IF EXISTS "evaluation_dataset_records";
 DROP TABLE IF EXISTS "evaluation_dataset_tags";
