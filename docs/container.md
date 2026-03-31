@@ -105,7 +105,7 @@ that provisions [MLflow], [CrateDB], and [RustFS].
 
 ```bash
 git clone https://github.com/crate/mlflow-cratedb.git
-cd release/compose
+cd mlflow-cratedb/release/compose
 cp .env.dev.example .env
 docker compose up --wait --detach
 ```
