@@ -6,15 +6,13 @@ from mlflow.store.tracking.sqlalchemy_store import SqlAlchemyStore
 
 from mlflow_cratedb.adapter.setup_db import _setup_db_create_tables, _setup_db_drop_tables
 
-ARTIFACT_URI = "artifact_folder"
-
 
 @pytest.fixture
-def store(engine: sa.Engine):
+def store(engine: sa.Engine, artifact_uri: str):
     """
     A fixture for providing an instance of `SqlAlchemyStore`.
     """
-    yield SqlAlchemyStore(str(engine.url), ARTIFACT_URI)
+    yield SqlAlchemyStore(str(engine.url), artifact_uri)
 
 
 @pytest.fixture
