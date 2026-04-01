@@ -1,5 +1,4 @@
 import logging
-import sys
 from pathlib import Path
 
 import pytest
@@ -8,15 +7,12 @@ from mlflow.store.model_registry.dbmodels.models import SqlRegisteredModel
 from mlflow.store.tracking.dbmodels.models import SqlExperiment, SqlMetric, SqlParam, SqlRun
 from mlflow.store.tracking.sqlalchemy_store import SqlAlchemyStore
 
-from tests.util import process, wait_for_server
-
-# The test cases within this file exercise two different ways of recording
-# ML experiments. They can either be directly submitted to the database,
-# or alternatively to an MLflow Tracking Server.
-MLFLOW_TRACKING_URI_SERVER = "http://127.0.0.1:5000"
-
+from tests.util import experiment
 
 logger = logging.getLogger(__name__)
+
+
+pytestmark = pytest.mark.slow
 
 
 def get_example_program_path(filename: str):
@@ -27,7 +23,7 @@ def get_example_program_path(filename: str):
 
 
 @pytest.mark.examples
-def test_tracking_dummy(reset_database, engine: sa.Engine, tracking_store: SqlAlchemyStore, db_uri):
+def test_tracking_dummy(reset_database, engine: sa.Engine, tracking_store: SqlAlchemyStore, db_uri: str):
     """
     Run a dummy experiment program, without any data.
     Verify that the database has been populated appropriately.
@@ -40,15 +36,12 @@ def test_tracking_dummy(reset_database, engine: sa.Engine, tracking_store: SqlAl
     """
 
     # Invoke example program.
-    tracking_dummy = get_example_program_path("tracking_dummy.py")
     logger.info("Starting experiment program")
-    with process(
-        [sys.executable, tracking_dummy],
-        env={"MLFLOW_TRACKING_URI": db_uri},
-        stdout=sys.stdout.buffer,
-        stderr=sys.stderr.buffer,
+    with experiment(
+        path=get_example_program_path("tracking_dummy.py"),
+        tracking_uri=db_uri,
+        timeout=10,
     ) as client_process:
-        client_process.wait(timeout=10)
         assert client_process.returncode == 0
 
     # Verify database content.
@@ -59,7 +52,9 @@ def test_tracking_dummy(reset_database, engine: sa.Engine, tracking_store: SqlAl
 
 
 @pytest.mark.examples
-def test_tracking_merlion(reset_database, engine: sa.Engine, tracking_store: SqlAlchemyStore, db_uri):
+def test_tracking_merlion(
+    reset_database, engine: sa.Engine, tracking_store: SqlAlchemyStore, db_uri: str, tracking_uri: str, mlflow_server
+):
     """
     Run a real experiment program, reporting to an MLflow Tracking Server.
     Verify that the database has been populated appropriately.
@@ -68,34 +63,14 @@ def test_tracking_merlion(reset_database, engine: sa.Engine, tracking_store: Sql
     i.e. the program will submit events and metrics to it, wrapping the
     connection to CrateDB.
     """
-    tracking_merlion = get_example_program_path("tracking_merlion.py")
-    cmd_server = [
-        "mlflow-cratedb",
-        "server",
-        "--workers=1",
-        f"--backend-store-uri={db_uri}",
-        "--uvicorn-opts='--log-level=debug'",
-    ]
-    cmd_client = [
-        sys.executable,
-        tracking_merlion,
-    ]
 
-    logger.info("Starting server")
-    with process(cmd_server, stdout=sys.stdout.buffer, stderr=sys.stderr.buffer, close_fds=True) as server_process:
-        logger.info(f"Started server with process id: {server_process.pid}")
-        wait_for_server(f"{MLFLOW_TRACKING_URI_SERVER}/health")
-
-        # Invoke example program.
-        logger.info("Starting client")
-        with process(
-            cmd_client,
-            env={"MLFLOW_TRACKING_URI": MLFLOW_TRACKING_URI_SERVER},
-            stdout=sys.stdout.buffer,
-            stderr=sys.stderr.buffer,
-        ) as client_process:
-            client_process.wait(timeout=120)
-            assert client_process.returncode == 0
+    # Invoke example program.
+    logger.info("Starting client")
+    with experiment(
+        path=get_example_program_path("tracking_merlion.py"),
+        tracking_uri=tracking_uri,
+    ) as client_process:
+        assert client_process.returncode == 0
 
     # Verify database content.
     with tracking_store.ManagedSessionMaker() as session:
@@ -130,8 +105,9 @@ def test_tracking_merlion(reset_database, engine: sa.Engine, tracking_store: Sql
 
 
 @pytest.mark.examples
-@pytest.mark.slow
-def test_tracking_pycaret(reset_database, engine: sa.Engine, tracking_store: SqlAlchemyStore, db_uri):
+def test_tracking_pycaret(
+    reset_database, engine: sa.Engine, tracking_store: SqlAlchemyStore, db_uri: str, tracking_uri: str, mlflow_server
+):
     """
     Run a real experiment program, reporting to an MLflow Tracking Server.
     Verify that the database has been populated appropriately.
@@ -140,35 +116,14 @@ def test_tracking_pycaret(reset_database, engine: sa.Engine, tracking_store: Sql
     i.e. the program will submit events and metrics to it, wrapping the
     connection to CrateDB.
     """
-    tracking_pycaret = get_example_program_path("tracking_pycaret.py")
-    cmd_server = [
-        "mlflow-cratedb",
-        "server",
-        "--workers=1",
-        f"--backend-store-uri={db_uri}",
-        "--uvicorn-opts='--log-level=debug'",
-    ]
-
-    cmd_client = [
-        sys.executable,
-        tracking_pycaret,
-    ]
-
-    logger.info("Starting server")
-    with process(cmd_server, stdout=sys.stdout.buffer, stderr=sys.stderr.buffer, close_fds=True) as server_process:
-        logger.info(f"Started server with process id: {server_process.pid}")
-        wait_for_server(f"{MLFLOW_TRACKING_URI_SERVER}/health")
-
-        # Invoke example program.
-        logger.info("Starting client")
-        with process(
-            cmd_client,
-            env={"MLFLOW_TRACKING_URI": MLFLOW_TRACKING_URI_SERVER},
-            stdout=sys.stdout.buffer,
-            stderr=sys.stderr.buffer,
-        ) as client_process:
-            client_process.wait(timeout=480)
-            assert client_process.returncode == 0
+    # Invoke example program.
+    logger.info("Starting client")
+    with experiment(
+        path=get_example_program_path("tracking_pycaret.py"),
+        tracking_uri=tracking_uri,
+        timeout=480,
+    ) as client_process:
+        assert client_process.returncode == 0
 
     with engine.begin() as conn:
         conn.execute(sa.text("REFRESH TABLE testdrive.experiments"))

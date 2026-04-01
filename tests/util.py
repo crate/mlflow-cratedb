@@ -1,10 +1,11 @@
 # Source: mlflow:tests/integration/utils.py and mlflow:tests/store/tracking/test_file_store.py
 import logging
 import subprocess
+import sys
 import time
 import urllib.request
 from contextlib import contextmanager
-from typing import List
+from typing import Any, Generator, List
 
 import psutil
 from click.testing import CliRunner
@@ -39,7 +40,7 @@ def assert_dataset_inputs_equal(inputs1: List[DatasetInput], inputs2: List[Datas
 
 
 @contextmanager
-def process(*args, **kwargs) -> subprocess.Popen:
+def process(*args, **kwargs) -> Generator[subprocess.Popen, Any, None]:
     """
     Wrapper around `subprocess.Popen` to also terminate child processes after exiting.
 
@@ -56,6 +57,21 @@ def process(*args, **kwargs) -> subprocess.Popen:
         for child in children:
             child.kill()
         proc.kill()
+
+
+@contextmanager
+def experiment(path: str, tracking_uri: str, timeout: int = 120) -> Generator[subprocess.Popen, Any, None]:
+    """
+    Wrapper around `process` to invoke an MLflow experiment payload program.
+    """
+    with process(
+        [sys.executable, path],
+        env={"MLFLOW_TRACKING_URI": tracking_uri},
+        stdout=sys.stdout.buffer,
+        stderr=sys.stderr.buffer,
+    ) as client_process:
+        client_process.wait(timeout=timeout)
+        yield client_process
 
 
 def wait_for_server(
