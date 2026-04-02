@@ -18,6 +18,9 @@ uv pip install --requirements=examples/requirements.txt --overrides=examples/req
 
 
 ## Run Software Tests
+
+Note: Operating the test suite successfully requires CrateDB 6.2.5 or higher.
+
 Run linters and software tests, skipping slow tests:
 ```shell
 poe check-fast
