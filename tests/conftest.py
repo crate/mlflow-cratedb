@@ -5,16 +5,15 @@ import sys
 from typing import Any, Generator
 
 import pytest
-from mlflow import MlflowClient
 
 from mlflow_cratedb import patch_all
 from tests.util import process, wait_for_server
 
 patch_all()
 
-import mlflow
-import mlflow.store.tracking.sqlalchemy_store as mlflow_tracking
 import sqlalchemy as sa
+from mlflow import MlflowClient
+from mlflow.store.tracking.sqlalchemy_store import SqlAlchemyStore as TrackingSqlAlchemyStore
 
 logger = logging.getLogger(__name__)
 
@@ -61,15 +60,17 @@ def engine(db_uri: str):
     """
     Provide an SQLAlchemy engine object using the `testdrive` schema.
     """
-    yield mlflow.store.db.utils.create_sqlalchemy_engine_with_retry(db_uri)
+    from mlflow.store.db.utils import create_sqlalchemy_engine
+
+    yield create_sqlalchemy_engine(db_uri)
 
 
 @pytest.fixture
-def tracking_store(engine: sa.Engine, artifact_uri: str) -> Generator[mlflow_tracking.SqlAlchemyStore, Any, None]:
+def tracking_store(engine: sa.Engine, artifact_uri: str) -> Generator[TrackingSqlAlchemyStore, Any, None]:
     """
     A fixture for providing an instance of `SqlAlchemyStore`.
     """
-    yield mlflow_tracking.SqlAlchemyStore(str(engine.url), artifact_uri)
+    yield TrackingSqlAlchemyStore(str(engine.url), artifact_uri)
 
 
 @pytest.fixture
