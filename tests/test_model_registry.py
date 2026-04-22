@@ -1,3 +1,8 @@
+"""
+https://mlflow.org/docs/latest/ml/model-registry/
+https://mlflow.org/docs/latest/ml/model-registry/tutorial/
+"""
+
 import mlflow
 import mlflow.demo
 from mlflow.tracking._tracking_service.utils import _use_tracking_uri
