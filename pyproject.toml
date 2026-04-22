@@ -103,7 +103,7 @@ packages.find.exclude = [ "tests", "tests.*" ]
 [tool.ruff]
 line-length = 120
 extend-exclude = [
-  "tests/test_tracking.py",
+  "tests/store/tracking/test_tracking.py",
 ]
 lint.select = [
   # Builtins
