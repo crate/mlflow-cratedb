@@ -13,6 +13,7 @@ patch_all()
 
 import sqlalchemy as sa
 from mlflow import MlflowClient
+from mlflow.store.model_registry.sqlalchemy_store import SqlAlchemyStore as ModelRegistrySqlAlchemyStore
 from mlflow.store.tracking.sqlalchemy_store import SqlAlchemyStore as TrackingSqlAlchemyStore
 
 logger = logging.getLogger(__name__)
@@ -66,9 +67,17 @@ def engine(db_uri: str):
 
 
 @pytest.fixture
+def model_registry_store(engine: sa.Engine, artifact_uri: str) -> Generator[ModelRegistrySqlAlchemyStore, Any, None]:
+    """
+    A fixture for providing an instance of `ModelRegistrySqlAlchemyStore`.
+    """
+    yield ModelRegistrySqlAlchemyStore(str(engine.url))
+
+
+@pytest.fixture
 def tracking_store(engine: sa.Engine, artifact_uri: str) -> Generator[TrackingSqlAlchemyStore, Any, None]:
     """
-    A fixture for providing an instance of `SqlAlchemyStore`.
+    A fixture for providing an instance of `TrackingSqlAlchemyStore`.
     """
     yield TrackingSqlAlchemyStore(str(engine.url), artifact_uri)
 
@@ -115,3 +124,12 @@ def mlflow_client(tracking_uri: str) -> MlflowClient:
         # TODO: Does the model registry also work with CrateDB?
         registry_uri=None,
     )
+
+
+@pytest.fixture
+def tracking_canvas(db_uri, reset_database):
+    """Set up MLflow tracking URI and reset database before each test case."""
+    from mlflow.tracking._tracking_service.utils import _use_tracking_uri
+
+    with _use_tracking_uri(db_uri):
+        yield
