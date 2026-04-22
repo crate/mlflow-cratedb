@@ -85,9 +85,8 @@ from mlflow.utils.time import get_current_time_millis
 from mlflow.utils.uri import extract_db_type_from_uri
 
 from mlflow_cratedb.patch.mlflow.db_types import CRATEDB
-
-from .abstract import AbstractStoreTest
-from .util import assert_dataset_inputs_equal
+from tests.store.abstract import AbstractStoreTest
+from tests.util import assert_dataset_inputs_equal
 
 DB_URI = "crate://crate@localhost/?schema=testdrive"
 ARTIFACT_URI = "artifact_folder"
@@ -163,8 +162,13 @@ def test_fail_on_multiple_drivers():
 
 
 class TestSqlAlchemyStore(unittest.TestCase, AbstractStoreTest):
+    @pytest.fixture(scope="function", autouse=True)
+    def init_store(self, tracking_store):
+        self.store = tracking_store
+        self.tracking_store = tracking_store
+
     def _get_store(self, db_uri=""):
-        return SqlAlchemyStore(db_uri, ARTIFACT_URI)
+        return self.tracking_store
 
     def create_test_run(self):
         return self._run_factory()
@@ -186,7 +190,6 @@ class TestSqlAlchemyStore(unittest.TestCase, AbstractStoreTest):
 
     def setUp(self):
         self._setup_db_uri()
-        self.store = self._get_store(self.db_url)
         # Prune tables on test setup instead of teardown, in order to
         # make it possible to inspect the database on failed test runs.
         self.pruneTables()

@@ -77,6 +77,8 @@ def tracking_store(engine: sa.Engine, artifact_uri: str) -> Generator[TrackingSq
 def reset_database(engine: sa.Engine):
     """
     Make sure to reset the database by dropping and re-creating tables.
+
+    TODO: Optimize: Why not just `DELETE FROM <table>` to provide a fresh canvas?
     """
     from mlflow_cratedb.adapter.setup_db import _setup_db_create_tables, _setup_db_drop_tables
 
