@@ -1,13 +1,9 @@
 # Backlog
 
-## Iteration +1
-- Tests: `DROP SCHEMA ... CASCADE`
-- Package: `license` identifier
-
 ## Iteration +2
 
 ### General
-- FIXME: `testdrive` is hardcoded here
+- Tests: `testdrive` is hardcoded in software tests
 - Apply database schema at connection time already, using `set search_path`. 
   In this spirit, tables do not need to be addressed everywhere in full-qualified notation.
 - Other than the "MLflow Tracking" subsystem, is it sensible to unlock the "MLflow Model
@@ -40,7 +36,6 @@
 
 ## Iteration +4
 - UX: CLI shortcut for `ddl/drop.sql`
-
 
 ## Done
 - Use or provide wheel packages for `hashids` and `vasuki`
