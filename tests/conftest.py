@@ -68,7 +68,7 @@ def engine(db_uri: str):
 
 
 @pytest.fixture
-def model_registry_store(engine: sa.Engine, artifact_uri: str) -> Generator[ModelRegistrySqlAlchemyStore, Any, None]:
+def model_registry_store(engine: sa.Engine, reset_database) -> Generator[ModelRegistrySqlAlchemyStore, Any, None]:
     """
     A fixture for providing an instance of `ModelRegistrySqlAlchemyStore`.
     """
@@ -76,7 +76,9 @@ def model_registry_store(engine: sa.Engine, artifact_uri: str) -> Generator[Mode
 
 
 @pytest.fixture
-def tracking_store(engine: sa.Engine, artifact_uri: str) -> Generator[TrackingSqlAlchemyStore, Any, None]:
+def tracking_store(
+    engine: sa.Engine, artifact_uri: str, reset_database
+) -> Generator[TrackingSqlAlchemyStore, Any, None]:
     """
     A fixture for providing an instance of `TrackingSqlAlchemyStore`.
     """
@@ -84,7 +86,7 @@ def tracking_store(engine: sa.Engine, artifact_uri: str) -> Generator[TrackingSq
 
 
 @pytest.fixture
-def workspace_store(engine: sa.Engine, artifact_uri: str) -> Generator[WorkspaceSqlAlchemyStore, Any, None]:
+def workspace_store(engine: sa.Engine, reset_database) -> Generator[WorkspaceSqlAlchemyStore, Any, None]:
     """
     A fixture for providing an instance of `WorkspaceSqlAlchemyStore`.
     """
@@ -101,9 +103,9 @@ def reset_database(engine: sa.Engine):
     from mlflow_cratedb.adapter.setup_db import _setup_db_create_tables, _setup_db_drop_tables
 
     schema = engine.url.query.get("schema")
-    if False and schema and schema != "doc":
+    if schema and schema != "doc":
         with engine.connect() as conn:
-            conn.execute(sa.text(f"DROP SCHEMA IF EXISTS {schema} CASCADE"))
+            conn.execute(sa.text(f'DROP SCHEMA IF EXISTS "{schema}" CASCADE'))
     else:
         _setup_db_drop_tables(engine=engine)
     _setup_db_create_tables(engine=engine)
@@ -116,7 +118,7 @@ def mlflow_server(db_uri: str, tracking_uri: str) -> Generator[subprocess.Popen,
         "server",
         "--workers=1",
         f"--backend-store-uri={db_uri}",
-        "--uvicorn-opts='--log-level=debug'",
+        "--uvicorn-opts=--log-level=debug",
     ]
 
     logger.info("Starting server")

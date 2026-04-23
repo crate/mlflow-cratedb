@@ -1,5 +1,5 @@
 from mlflow.entities import WebhookEvent
-from mlflow.entities.model_registry import RegisteredModel, RegisteredModelTag
+from mlflow.entities.model_registry import ModelVersionTag, RegisteredModel, RegisteredModelTag
 from mlflow.entities.webhook import WebhookAction, WebhookEntity
 
 
@@ -19,7 +19,7 @@ def test_registered_models(model_registry_store, tracking_canvas):
 
     # Version.
     model_version = model_registry_store.create_model_version(
-        name="Hotzenplotz", source="http://localhost:1234/foo", tags=[RegisteredModelTag(key="enabled", value="true")]
+        name="Hotzenplotz", source="http://localhost:1234/foo", tags=[ModelVersionTag(key="enabled", value="true")]
     )
     model_version = model_registry_store.get_model_version(name="Hotzenplotz", version=model_version.version)
     assert model_version.version == 1
