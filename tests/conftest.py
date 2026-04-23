@@ -15,6 +15,7 @@ import sqlalchemy as sa
 from mlflow import MlflowClient
 from mlflow.store.model_registry.sqlalchemy_store import SqlAlchemyStore as ModelRegistrySqlAlchemyStore
 from mlflow.store.tracking.sqlalchemy_store import SqlAlchemyStore as TrackingSqlAlchemyStore
+from mlflow.store.workspace.sqlalchemy_store import SqlAlchemyStore as WorkspaceSqlAlchemyStore
 
 logger = logging.getLogger(__name__)
 
@@ -80,6 +81,14 @@ def tracking_store(engine: sa.Engine, artifact_uri: str) -> Generator[TrackingSq
     A fixture for providing an instance of `TrackingSqlAlchemyStore`.
     """
     yield TrackingSqlAlchemyStore(str(engine.url), artifact_uri)
+
+
+@pytest.fixture
+def workspace_store(engine: sa.Engine, artifact_uri: str) -> Generator[WorkspaceSqlAlchemyStore, Any, None]:
+    """
+    A fixture for providing an instance of `WorkspaceSqlAlchemyStore`.
+    """
+    yield WorkspaceSqlAlchemyStore(str(engine.url))
 
 
 @pytest.fixture
