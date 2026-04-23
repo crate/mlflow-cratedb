@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS "endpoints" (
 	fallback_config_json TEXT,
 	experiment_id INTEGER,
 	usage_tracking BOOLEAN DEFAULT false NOT NULL,
-	workspace VARCHAR(63) DEFAULT 'default'::character varying NOT NULL,
+	workspace VARCHAR(63) DEFAULT 'default' NOT NULL,
 	PRIMARY KEY (endpoint_id)
 );
 
@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS "endpoint_model_mappings" (
 	weight DOUBLE PRECISION NOT NULL,
 	created_by VARCHAR(255),
 	created_at BIGINT NOT NULL,
-	linkage_type VARCHAR(64) DEFAULT 'PRIMARY'::character varying NOT NULL,
+	linkage_type VARCHAR(64) DEFAULT 'PRIMARY' NOT NULL,
 	fallback_order INTEGER,
 	PRIMARY KEY (mapping_id)
 );

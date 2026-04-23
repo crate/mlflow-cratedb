@@ -26,7 +26,7 @@ def _create_trace(
 ) -> TraceInfo:
     """Helper function to create a test trace in the database."""
     if not store.get_experiment(experiment_id):
-        store.create_experiment(store, experiment_id)
+        store.create_experiment(name=f"experiment_{experiment_id}")
 
     trace_info = TraceInfo(
         trace_id=trace_id,
@@ -106,7 +106,7 @@ def create_test_span(
     return create_mlflow_span(otel_span, trace_id, span_type)
 
 
-def test_query_trace_metrics_sum(db_uri, reset_database, tracking_store):
+def test_query_trace_metrics_sum(db_uri, tracking_store):
     """
     Validate tracing and querying.
 
@@ -150,7 +150,9 @@ def test_query_trace_metrics_percentile(db_uri):
     """
     Validate tracing and querying.
 
-    This uses a custom implementation with CrateDB.
+    This uses a custom implementation with CrateDB, and apparently
+    serves its purpose even without any data involved.
+
     https://github.com/crate/crate/issues/19207
     """
     with _use_tracking_uri(db_uri):
