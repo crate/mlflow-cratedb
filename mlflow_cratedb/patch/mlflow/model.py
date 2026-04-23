@@ -1,5 +1,4 @@
 import sqlalchemy as sa
-from mlflow.store.tracking.dbmodels.models import SqlEvaluationDatasetRecord, SqlGatewayEndpoint
 from sqlalchemy.event import listen
 from sqlalchemy_cratedb.support import check_uniqueness_factory
 
@@ -17,9 +16,21 @@ def polyfill_uniqueness_constraints():
     """
     from mlflow.server.auth.db.models import SqlExperimentPermission, SqlRegisteredModelPermission, SqlUser
     from mlflow.store.model_registry.dbmodels.models import SqlRegisteredModel
-    from mlflow.store.tracking.dbmodels.models import SqlExperiment
+    from mlflow.store.tracking.dbmodels.models import (
+        SqlEvaluationDatasetRecord,
+        SqlExperiment,
+        SqlGatewayEndpoint,
+        SqlGatewayModelDefinition,
+        SqlGatewaySecret,
+    )
 
     listen(SqlGatewayEndpoint, "before_insert", check_uniqueness_factory(SqlGatewayEndpoint, "workspace", "name"))
+    listen(
+        SqlGatewayModelDefinition,
+        "before_insert",
+        check_uniqueness_factory(SqlGatewayModelDefinition, "workspace", "name"),
+    )
+    listen(SqlGatewaySecret, "before_insert", check_uniqueness_factory(SqlGatewaySecret, "workspace", "secret_name"))
     listen(
         SqlEvaluationDatasetRecord,
         "before_insert",
