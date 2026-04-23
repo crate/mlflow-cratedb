@@ -254,6 +254,20 @@ CREATE TABLE IF NOT EXISTS "metrics" (
    "run_uuid" TEXT NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS "model_definitions" (
+	model_definition_id VARCHAR(36) NOT NULL,
+	name VARCHAR(255) NOT NULL,
+	secret_id VARCHAR(36),
+	provider VARCHAR(64) NOT NULL,
+	model_name VARCHAR(256) NOT NULL,
+	created_by VARCHAR(255),
+	created_at BIGINT NOT NULL,
+	last_updated_by VARCHAR(255),
+	last_updated_at BIGINT NOT NULL,
+	workspace VARCHAR(63) DEFAULT 'default' NOT NULL,
+	PRIMARY KEY (model_definition_id)
+);
+
 CREATE TABLE IF NOT EXISTS "model_versions" (
    "name" TEXT NOT NULL,
    "version" INTEGER NOT NULL,
@@ -349,6 +363,24 @@ CREATE TABLE IF NOT EXISTS "scorer_versions" (
 	serialized_scorer TEXT NOT NULL,
 	creation_time BIGINT,
 	PRIMARY KEY (scorer_id, scorer_version)
+);
+
+CREATE TABLE IF NOT EXISTS "secrets" (
+	secret_id VARCHAR(36) NOT NULL,
+	secret_name VARCHAR(255) NOT NULL,
+	encrypted_value TEXT NOT NULL,  -- original: BLOB
+	wrapped_dek TEXT NOT NULL,  -- original: BLOB
+	kek_version INTEGER NOT NULL,
+	masked_value VARCHAR(500) NOT NULL,
+	provider VARCHAR(64),
+	auth_config TEXT,
+	description TEXT,
+	created_by VARCHAR(255),
+	created_at BIGINT NOT NULL,
+	last_updated_by VARCHAR(255),
+	last_updated_at BIGINT NOT NULL,
+	workspace VARCHAR(63) DEFAULT 'default' NOT NULL,
+	PRIMARY KEY (secret_id)
 );
 
 CREATE TABLE IF NOT EXISTS "spans" (
