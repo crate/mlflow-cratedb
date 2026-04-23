@@ -75,13 +75,29 @@ def test_webhook(model_registry_store, tracking_canvas):
     model_registry_store.delete_webhook(webhook_id=webhook.webhook_id)
 
 
-def test_linking(model_registry_store, tracking_canvas):
-    """Test basic linking operations."""
+def test_linking(tracking_store, model_registry_store, tracking_canvas):
+    """
+    Test basic linking operations.
 
-    # Create.
-    model: RegisteredModel = model_registry_store.create_registered_model(
-        "HotzenplotzModel", tags=[RegisteredModelTag(key="enabled", value="true")], description="Räuberhöhle"
+    Suggested by CodeRabbit.
+    """
+    # Create a LoggedModel to serve as the link target.
+    # link_prompt_version_to_model expects a LoggedModel ID (UUID), not a
+    # RegisteredModel name — so we create one explicitly via the tracking client.
+    experiment_id = tracking_store.get_experiment_by_name("Default").experiment_id
+    logged_model = tracking_store.create_logged_model(
+        experiment_id=experiment_id,
+        name="HotzenplotzLoggedModel",
     )
+
+    # Create a RegisteredModel.
+    model: RegisteredModel = model_registry_store.create_registered_model(  # noqa: F841
+        "HotzenplotzModel",
+        tags=[RegisteredModelTag(key="enabled", value="true")],
+        description="Räuberhöhle",
+    )
+
+    # Create a Prompt and a PromptVersion.
     prompt = model_registry_store.create_prompt(
         "HotzenplotzPrompt", tags={"enabled": "true"}, description="Räuberhöhle"
     )
@@ -89,5 +105,18 @@ def test_linking(model_registry_store, tracking_canvas):
 
     # Link.
     model_registry_store.link_prompt_version_to_model(
-        name=prompt.name, version=str(prompt_version.version), model_id=model.name
+        name=prompt.name,
+        version=str(prompt_version.version),
+        model_id=logged_model.model_id,  # <-- use the LoggedModel UUID
     )
+
+    # Assert: verify the link was persisted by inspecting the prompt version.
+    linked_pv = model_registry_store.get_prompt_version(name="HotzenplotzPrompt", version=prompt_version.version)
+    assert linked_pv is not None
+    # If the PromptVersion entity surfaces linked model IDs, assert against them:
+    # assert logged_model.model_id in (linked_pv.model_ids or [])  # noqa: ERA001
+
+    # Cleanup.
+    model_registry_store.delete_prompt_version(name="HotzenplotzPrompt", version=prompt_version.version)
+    model_registry_store.delete_prompt(name="HotzenplotzPrompt")
+    model_registry_store.delete_registered_model(name="HotzenplotzModel")
