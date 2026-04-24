@@ -57,6 +57,8 @@ jobs:
         python-version: ${{ matrix.python-version }}
 
     - name: Install project
+      env:
+        UV_PRERELEASE: allow
       run: |
         uv pip install --editable='.[develop,test]'
 
