@@ -64,27 +64,21 @@ MLflow with the necessary changes to support CrateDB. The patches are
 curated until the adapter can eventually be upstreamed into MLflow
 mainline as another storage database type.
 
-## Documentation
-
-The MLflow adapter for CrateDB can be used in different ways. Please refer
-to the [handbook], and the documentation about [container usage].
-
-For more general information, see [Machine Learning with CrateDB]
-and [examples about MLflow and CrateDB].
-
-## Status
-
-The software is currently in beta status. We welcome any problem reports
-to improve quality and fix bugs.
-
 ## Usage
 
+General information about what you can do with MLflow, and how, can
+be found on the [Machine Learning with CrateDB] and [examples about
+MLflow and CrateDB].
+
+## Install
+
 For installation per [PyPI package][PyPI], [OCI image],
-and usage information, please visit the [handbook] document.
+and usage information, please refer to the [handbook] document,
+and the documentation about [container usage].
 
 The repository also includes a ready-to-run Compose project
-[MLflow and CrateDB with Docker Compose] that provisions
-[MLflow], [CrateDB], and [RustFS].
+that provisions [MLflow], [CrateDB], and [RustFS],
+see [MLflow and CrateDB with Docker Compose].
 
 To set up a development environment on your workstation, please
 refer to the [development sandbox] documentation. When you see the software
