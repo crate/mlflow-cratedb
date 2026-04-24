@@ -14,6 +14,7 @@
   to render the `percentile` and `floor` clauses literally
 - Updated to [MLflow 3.11.0]
 - Model: Added table `budget_policies` and column `issues`
+- OCI: Updated MLflow server to use Python 3.14 and Debian 13 (trixie)
 
 [MLflow 3.11.0]: https://github.com/mlflow/mlflow/blob/master/CHANGELOG.md
 
