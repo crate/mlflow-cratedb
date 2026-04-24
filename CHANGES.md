@@ -1,21 +1,20 @@
 # Changelog
 
-
 ## in progress
-- Documentation: Added setup for Docker Compose or Podman Compose
+- Updated to [MLflow 3.11.1]
 - Model: Updated tables `trace_info`, `trace_metrics`, `trace_tags`,
   `trace_request_metadata`
-- Model: Added tables `assessments`, `endpoints`, `endpoint_bindings`,
-  `endpoint_model_mappings`, `endpoint_tags`, `spans`, `span_metrics`
+- Model: Added tables `assessments`, `budget_policies`, `endpoints`,
+  `endpoint_bindings`, `endpoint_model_mappings`, `endpoint_tags`,
+  `issues`, `spans`, `span_metrics`
 - Model: Renamed field names that contain dots
 - SQL: Relaxed `OBJECT(DYNAMIC)` attribute access behaviour
   where attribute does not exist yet
 - SQL: Adjusted percentile aggregation and time bucketing expression
   to render the `percentile` and `floor` clauses literally
-- Updated to [MLflow 3.11.0]
-- Model: Added table `budget_policies` and column `issues`
+- Documentation: Added setup for Docker Compose or Podman Compose
 
-[MLflow 3.11.0]: https://github.com/mlflow/mlflow/blob/master/CHANGELOG.md
+[MLflow 3.11.1]: https://github.com/mlflow/mlflow/blob/master/CHANGELOG.md#3111-2026-04-07
 
 ## 2026-03-30 v3.10.2
 - Amalgamation: Started supporting huey jobs that are invoked in subprocesses
