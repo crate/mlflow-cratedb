@@ -1,6 +1,8 @@
 # Changelog
 
 ## in progress
+
+## 2026-04-24 v3.11.1
 - Updated to [MLflow 3.11.1]
 - Model: Updated tables `trace_info`, `trace_metrics`, `trace_tags`,
   `trace_request_metadata`
