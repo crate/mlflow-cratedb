@@ -62,9 +62,25 @@ def engine(db_uri: str):
     """
     Provide an SQLAlchemy engine object using the `testdrive` schema.
     """
+    import sqlalchemy as sa
     from mlflow.store.db.utils import create_sqlalchemy_engine
+    from sqlalchemy_cratedb.support import quote_relation_name
 
-    yield create_sqlalchemy_engine(db_uri)
+    url = sa.make_url(db_uri)
+    schema = url.query.get("schema")
+
+    engine = create_sqlalchemy_engine(db_uri)
+
+    if schema is not None:
+
+        def receive_engine_connect(conn):
+            """Configure search path, so all database connections always use the right schema."""
+            conn.execute(sa.text(f"SET search_path={quote_relation_name(schema)};"))
+            conn.commit()
+
+        sa.event.listen(engine, "engine_connect", receive_engine_connect)
+
+    yield engine
 
 
 @pytest.fixture
@@ -98,16 +114,25 @@ def reset_database(engine: sa.Engine):
     """
     Make sure to reset the database by dropping and re-creating tables.
 
-    TODO: Optimize: Why not just `DELETE FROM <table>` to provide a fresh canvas?
+    With dropping and re-creating all the tables each time,
+    `poe test-fast` takes whopping 781.84s. Let's just apply
+    a `DELETE FROM <table>` procedure going forward, which is
+    much cheaper (138.97s for `poe test-fast`).
     """
-    from mlflow_cratedb.adapter.setup_db import _setup_db_create_tables, _setup_db_drop_tables
+    from mlflow_cratedb.adapter.setup_db import (
+        _setup_db_create_tables,
+        _setup_db_truncate_tables,
+    )
 
-    schema = engine.url.query.get("schema")
-    if schema and schema != "doc":
-        with engine.connect() as conn:
-            conn.execute(sa.text(f'DROP SCHEMA IF EXISTS "{schema}" CASCADE'))
-    else:
-        _setup_db_drop_tables(engine=engine)
+    # Variant 1: Drop and re-create tables.
+    """
+    _setup_db_drop_schema(engine=engine)
+    _setup_db_drop_tables(engine=engine)
+    """
+    # Variant 2: Truncate tables.
+    _setup_db_truncate_tables(engine=engine)
+
+    # Ensure tables exist.
     _setup_db_create_tables(engine=engine)
 
 
