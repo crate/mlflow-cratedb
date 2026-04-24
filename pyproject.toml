@@ -88,10 +88,10 @@ optional-dependencies.test = [
   "pytest<10",
   "pytest-cov<8",
 ]
-urls.changelog = "https://github.com/crate/mlflow-cratedb/blob/main/CHANGES.md"
-urls.documentation = "https://github.com/crate/mlflow-cratedb"
-urls.homepage = "https://github.com/crate/mlflow-cratedb"
-urls.repository = "https://github.com/crate/mlflow-cratedb"
+urls.Changelog = "https://github.com/crate/mlflow-cratedb/blob/main/CHANGES.md"
+urls.Documentation = "https://github.com/crate/mlflow-cratedb/blob/main/docs/handbook.md"
+urls.Issues = "https://github.com/crate/mlflow-cratedb/issues"
+urls.Repository = "https://github.com/crate/mlflow-cratedb"
 scripts.mlflow-cratedb = "mlflow_cratedb.cli:cli"
 entry-points."mlflow.app".mlflow-cratedb = "mlflow_cratedb.server:app"
 

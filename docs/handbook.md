@@ -3,6 +3,19 @@
 This documentation section explains how to use this software successfully,
 please read it carefully.
 
+## Install
+
+Install the most recent version of the `mlflow-cratedb` package.
+```shell
+uv pip install --upgrade mlflow-cratedb
+```
+
+To verify if the installation worked, you can inspect the version numbers
+of the software components you just installed.
+```shell
+mlflow-cratedb --version
+mlflow-cratedb cratedb --version
+```
 
 ## Introduction
 
