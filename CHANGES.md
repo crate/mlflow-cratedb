@@ -5,6 +5,7 @@
 ## 2026-05-14 v3.12.0
 - Updated to [MLflow 3.12.0]
 - Model: Added tables `guardrails` and `guardrail_configs`
+- OCI: Updated MLflow server to use Python 3.14 and Debian 13 (trixie)
 
 [MLflow 3.12.0]: https://github.com/mlflow/mlflow/blob/master/CHANGELOG.md#3120-2026-05-04
 
