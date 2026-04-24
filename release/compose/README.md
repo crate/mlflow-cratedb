@@ -89,9 +89,9 @@ The `.env` file defines:
 
 ---
 
-## 3. Launch the Stack
+## 3. Launch the stack
 
-Inside directory **mlflow/docker-compose**:
+Inside directory `release/compose`:
 
 ```bash
 docker compose up --wait --detach
@@ -125,24 +125,19 @@ docker compose logs -f storage
 
 ## 4. Access MLflow
 
-Once running:
-
-- Open `http://localhost:5000` (or the port defined in `.env`)
-
+Once running, navigate to `http://localhost:5000` (or the port defined in `.env`).
 You can now log runs, metrics, artifacts, and models to your local MLflow instance.
 
 ---
 
 ## 5. Shutdown
 
-To stop and remove containers:
-
+Stop and remove containers.
 ```bash
 docker compose down
 ```
 
-To reset everything, including volumes:
-
+Reset the whole stack, including volumes.
 ```bash
 docker compose down --remove-orphans --volumes
 ```

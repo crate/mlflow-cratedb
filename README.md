@@ -82,8 +82,8 @@ to improve quality and fix bugs.
 For installation per [PyPI package][PyPI], [OCI image],
 and usage information, please visit the [handbook] document.
 
-In order to set up a development environment on your workstation, please head
-over to the [development sandbox] documentation. When you see the software
+In order to set up a development environment on your workstation, please
+refer to the [development sandbox] documentation. When you see the software
 tests succeed, you should be ready to start hacking.
 
 ## Project Information
@@ -93,11 +93,6 @@ tests succeed, you should be ready to start hacking.
 - [Source code](https://github.com/crate/mlflow-cratedb)
 - [Documentation](https://github.com/crate/mlflow-cratedb/tree/main/docs)
 - [Python Package Index (PyPI)](https://pypi.org/project/mlflow-cratedb/)
-
-### Acknowledgements
-
-Kudos to the authors of all the many software components this library is
-inheriting from and building upon.
 
 ### Contributing
 
@@ -111,6 +106,8 @@ to report or fix a bug.
 
 ### Acknowledgements
 
+Kudos to the authors of all the many software components this library is
+inheriting from and building upon, with special thanks to
 [Siddharth Murching], [Corey Zumar], [Harutaka Kawamura], [Ben Wilson], and
 all other contributors for conceiving and maintaining [MLflow].
 
