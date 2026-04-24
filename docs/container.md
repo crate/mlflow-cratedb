@@ -100,8 +100,8 @@ docker run --rm -it --link=cratedb --link=mlflow \
 
 ### Docker Compose
 
-The repository includes a ready-to-run Compose project under `release/compose/`
-that provisions [MLflow], [CrateDB], and [RustFS].
+The repository includes a ready-to-run Compose project [MLflow and CrateDB
+with Docker Compose] that provisions [MLflow], [CrateDB], and [RustFS].
 
 ```bash
 git clone https://github.com/crate/mlflow-cratedb.git
@@ -123,4 +123,5 @@ Todo.
 [Compose instructions]: https://github.com/crate/mlflow-cratedb/tree/main/release/compose
 [CrateDB]: https://github.com/crate/crate
 [MLflow]: https://github.com/mlflow/mlflow
+[MLflow and CrateDB with Docker Compose]: https://github.com/crate/mlflow-cratedb/tree/main/release/compose
 [RustFS]: https://github.com/rustfs/rustfs

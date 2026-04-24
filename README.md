@@ -82,7 +82,11 @@ to improve quality and fix bugs.
 For installation per [PyPI package][PyPI], [OCI image],
 and usage information, please visit the [handbook] document.
 
-In order to set up a development environment on your workstation, please
+The repository also includes a ready-to-run Compose project
+[MLflow and CrateDB with Docker Compose] that provisions
+[MLflow], [CrateDB], and [RustFS].
+
+To set up a development environment on your workstation, please
 refer to the [development sandbox] documentation. When you see the software
 tests succeed, you should be ready to start hacking.
 
@@ -163,11 +167,13 @@ and [CrateDB], see [LICENSE].
 [Merlion]: https://github.com/salesforce/Merlion
 [MLflow]: https://mlflow.org/
 [MLflow adapter for CrateDB]: https://github.com/crate/mlflow-cratedb
+[MLflow and CrateDB with Docker Compose]: https://github.com/crate/mlflow-cratedb/tree/main/release/compose
 [MLflow Dataset Tracking]: https://mlflow.org/docs/latest/ml/dataset/
 [MLflow Experiment Tracking]: https://mlflow.org/docs/latest/ml/tracking/
 [MLflow Model Registry]: https://mlflow.org/docs/latest/ml/model-registry/
 [OCI image]: https://github.com/crate/mlflow-cratedb/pkgs/container/mlflow-cratedb
 [PyCaret]: https://pycaret.org/
+[RustFS]: https://rustfs.com/
 [Siddharth Murching]: https://github.com/smurching
 [tracking_merlion.py]: https://github.com/crate/mlflow-cratedb/blob/main/examples/tracking_merlion.py
 [tracking_pycaret.py]: https://github.com/crate/mlflow-cratedb/blob/main/examples/tracking_pycaret.py
