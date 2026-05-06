@@ -1,6 +1,10 @@
 # Changelog
 
 ## in progress
+- Updated to [MLflow 3.12.0]
+- Model: Added tables `guardrails` and `guardrail_configs`
+
+[MLflow 3.12.0]: https://github.com/mlflow/mlflow/blob/master/CHANGELOG.md#3120-2026-05-04
 
 ## 2026-04-24 v3.11.1
 - Updated to [MLflow 3.11.1]
