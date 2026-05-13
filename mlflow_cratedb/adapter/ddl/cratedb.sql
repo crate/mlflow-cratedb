@@ -164,6 +164,32 @@ CREATE TABLE IF NOT EXISTS "experiments" (
    PRIMARY KEY ("experiment_id")
 );
 
+CREATE TABLE IF NOT EXISTS "guardrail_configs" (
+	endpoint_id VARCHAR(36) NOT NULL,
+	guardrail_id VARCHAR(36) NOT NULL,
+	execution_order INTEGER,
+	created_by VARCHAR(255),
+	created_at BIGINT NOT NULL,
+	workspace VARCHAR(63) DEFAULT 'default' NOT NULL,
+	PRIMARY KEY (endpoint_id, guardrail_id)
+);
+
+CREATE TABLE IF NOT EXISTS "guardrails" (
+	guardrail_id VARCHAR(36) NOT NULL,
+	name VARCHAR(255) NOT NULL,
+	scorer_id VARCHAR(36) NOT NULL,
+	scorer_version INTEGER NOT NULL,
+	stage VARCHAR(32) NOT NULL,
+	action VARCHAR(32) NOT NULL,
+	action_endpoint_id VARCHAR(36),
+	created_by VARCHAR(255),
+	created_at BIGINT NOT NULL,
+	last_updated_by VARCHAR(255),
+	last_updated_at BIGINT NOT NULL,
+	workspace VARCHAR(63) DEFAULT 'default' NOT NULL,
+	PRIMARY KEY (guardrail_id)
+);
+
 CREATE TABLE IF NOT EXISTS "inputs" (
    "input_uuid" TEXT NOT NULL,
    "source_type" TEXT NOT NULL,

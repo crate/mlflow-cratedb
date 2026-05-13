@@ -10,6 +10,8 @@ DROP TABLE IF EXISTS "evaluation_dataset_records";
 DROP TABLE IF EXISTS "evaluation_dataset_tags";
 DROP TABLE IF EXISTS "experiment_tags";
 DROP TABLE IF EXISTS "experiments";
+DROP TABLE IF EXISTS "guardrail_configs";
+DROP TABLE IF EXISTS "guardrails";
 DROP TABLE IF EXISTS "inputs";
 DROP TABLE IF EXISTS "input_tags";
 DROP TABLE IF EXISTS "issues";
