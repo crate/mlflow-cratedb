@@ -47,7 +47,7 @@ jobs:
 
     steps:
       - name: Acquire sources
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Define image name and tags
         id: meta
